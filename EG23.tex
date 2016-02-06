@@ -8,6 +8,8 @@
 
 
 \usepackage{url}
+\usepackage{array}
+\usepackage{multirow}
 
 % array/table
 \usepackage{array}
@@ -76,153 +78,116 @@ Fig. 1. Deployment schedule and corresponding electricity produced by the differ
 
 
 \section{Prototype configuration: what \& why}
-This calculation is based on previous calculation operated by R. Carlsen, which can be found there. From this study, the configuration and deployment schedule of the separation facilities for PWR used fuel has been taken. The rest of the study has been adapted from it, to match B. Feng DYMOND calculation \cite{}.
+This calculation is based on previous calculation operated by R. Carlsen, which can be found there. From this study, the configuration and deployment schedule of the separation facilities for PWR used fuel has been taken. The rest of the study has been adapted from it, to match B. Feng DYMOND calculation \cite{B.Feng_calculation}.
 
 As Cyclus does not yet include direct support for on-demand processing, the separation and the fabrication have been modeled as follows to approximate on-demand separation, thus minimizing inventories of separated plutonium.
 To achieve this, two differents calculations have been made. The first one correspond the modelisation of a growing MOX fuel fabrication capacity following the MOX fuel requirement. The second one models both MOX fuel fabrication and fuel separation with limited capacities, which discreetly grow as the demand grows.
 
 In both the reactor characteristic (core properties, fuel recipes, deployment schedule) are the same. 
 \subsection{Reactors}
-After the PWR/FBR transition, new FBR reactor are deployed with a lower breeding ratio, in order to minimize the plutonium inventory. The properties of the differents reactor core used for the simulation have been summarized in Tab. 1.
-
-Core Properties
-PWR 1 \& 2
-FBR 1
-FBR 2
-Rated Power, [MWe]
-1000
-400
-400
-Thermal Efficiency
-N.A.
-0.4
-0.4
-Capacity Factor
-0.90
-0.90
-0.90
-Number of batches
-6
-5
-3
-Cycle length, [month]
-9
-13
-18
-Core Inventory, [tHM]
-14.784*6
-7.524*5
-11.466*3
-Tab. 1. Reactor core properties.
-
-Note that, because of the 1 month timestep of CYCLUS, some liberty has been taken with the coupled Batch-Quantity/Cycle-length in order to match as closely as possible with the specified quantities [REF-F.Bo]. The batches have been sized accordingly. All PWR reactors use enriched uranium fuel. The FBR used MOX fuel with different plutonium enrichments. The input/output fuel recipe are summarized in the Tab.2 [REF-F.Bo].
+After the PWR/FBR transition, new FBR reactor are deployed with a lower breeding ratio, in order to minimize the plutonium inventory. The properties of the differents reactor core used for the simulation have been summarized in Tab.\ref{tab:reactor}.\\
 
 
-Reactor
-PWR [%w]
-FBR fuel 1  [%w]
-FBR fuel 2  [%w]
-In recipe
-235U
-95.8
-0
-0
-238U
-4.2
-92.36
-91.466
-Pu
-0
-7.64
-8.534
-Out recipe
-235U
-0.8
-0
-0
-238U/U
-92.68
-85.99
-86.025
-Pu
-1.2
-9.02
-9.596
-MA
-0.11
-0.13
-0.107
-FP
-5.21
-4.86
-4.272
-Tab. 2. Input/Output Fuel composition recipe for the different reactors. Note that for the FBR reactor fuel no isotopic distinctions have been made and U in FBR should be considered depleted uranium in the input recipes, the uranium isotopic change in the output recipes have not been investigated in this work.  
+\begin{table}[h!]
+\centering
+\begin{tabular}{llll}
+\hline
+Core Properties		&	PWR 	&	FBR 1	&	FBR 2 	\\ 
+\hline 
+Rated Power, [MWe]	&	1000		&	400		&	400		\\ 
+Thermal Efficiency	&	N.A.		&	0.4		&	0.4		\\ 
+Capacity Factor		&	0.90		&	0.90		&	0.90		\\ 
+Number of batches	&	6		&	5		&	3		\\ 
+Cycle length, [month]&	9		&	13		&	18		\\ 
+Core Inventory, [tHM]&	14.784*6	&	7.524*5	&	11.466*3	\\ 
+\hline
+\end{tabular}
+\caption{Reactor core properties.}
+\label{tab:reactor}
+\end{table}
+Note that, because of the 1 month timestep of CYCLUS, some liberty has been taken with the coupled Batch-Quantity/Cycle-length in order to match as closely as possible with the specified quantities [REF-F.Bo]. The batches have been sized accordingly. All PWR reactors use enriched uranium fuel. The FBR used MOX fuel with different plutonium enrichments. The input/output fuel recipe are summarized in the Tab.\ref{tab:reactor_fuel} \cite{B.Feng_calculation}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllll}
+\hline
+\multicolumn{2}{c}{Reactor}			&	PWR [$\%w$]	&	FBR fuel 1  [$\%w$]	&	FBR fuel 2  [$\%w$] 	\\
+\hline
+\multirow{3}{*} {In recipe}	&	235U	&	95.8			&	0				&	0				\\
+					&	238U	&	4.2			&	92.36			&	91.466			\\
+					&	Pu		&	0			&	7.64				&	8.534			\\
+\hline
+\multirow{5}{*} {Out recipe}&	235U	&	0.8			&	0				&	0				\\
+					&	238U/U	&	92.68		&	85.99			&	86.025			\\
+					&	Pu		&	1.2			&	9.02				&	9.596			\\
+					&	MA		&	0.11			&	0.13				&	0.107			\\
+					&	FP		&	5.21			&	4.86				&	4.272			\\
+\hline
+\end{tabular}
+\caption{Input/Output Fuel composition recipe for the different reactors. Note that for the FBR reactor fuel no isotopic distinctions have been made and U in FBR should be considered depleted uranium in the input recipes, the uranium isotopic change in the output recipes have not been investigated in this work.  }
+\label{tab:reactor_fuel}
+\end{table}
 
 \subsection{Cooling/Storage}
 After Irradiation, all fuel is sent to dedicated cooling storage, then they are transferred to a longer term storage after 84 month.
 \subsection{Separation}
 
-The LWR fuel separation is handled by three identical separation facilities, two deployed in 2030 and one in 2040.The FBR separation facilities have a very large separation capacity, in the first case, we have tried to limit the separation flux using the fuel fabrication facilities: since the fabrication if full as well as the separation, it will not request any more plutonium, so the separation will stop the separation?
+The LWR fuel separation is handled by three identical separation facilities, two deployed in 2030 and one in 2040. The FBR separation facilities have a very large separation capacity, in the first case, we have tried to limit the separation flux using the fuel fabrication facilities: since the fabrication if full as well as the separation, it will not request any more plutonium, so the separation will stop the separation...
 
-
-Separation Properties
-PWR 
-FBR 1/2
-Throughput [tML]
-83.3333333
-5000
-feed buffer [tML]
-107.537
-5000
-Pu output  [tML]
-Unlimited
-5000
-Pu separation efficiency
-0.99
-0.99
-Recycled Uranium [tML]
-Unlimited
-Unlimited
-U separation efficiency
-0.99
-0.99
-Waste [tML]
-Unlimited
-Unlimited
-Tab. 3. Separation facilities core properties.
-
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllll}
+\hline
+Separation Properties	&	PWR		&	FBR 1/2	\\
+\hline
+Throughput [tML]		&	83.3333	&	5000		\\
+feed buffer [tML]		&	107.537	&	5000		\\
+Pu output  [tML]		&	Unlimited	&	5000		\\
+Pu separation efficiency	&	0.99		&	0.99		\\
+Recycled Uranium [tML]	&	Unlimited	&	Unlimited	\\
+U separation efficiency	&	0.99		&	0.99		\\
+Waste [tML]			&	Unlimited	&	Unlimited	\\
+\hline
+\end{tabular}
+\caption{Separation facilities core properties. }
+\label{tab:separation_1}
+\end{table}
 
 \subsection{Fuel Fabrication}
-The UOX fuel fabrication is handled by one enrichment facility, the properties of this enrichment facilities are summed up in Tab. 4. 
+The UOX fuel fabrication is handled by one enrichment facility, the properties of this enrichment facilities are summed up in Tab.\ref{tab:enrich_1}. 
 
-Enrichment Properties
-UOX
-Throughput [tML]
-Unlimited
-swu capacity [tML]
-1e97
-tails assay  
-0.0025
-Initial feed [tML]
-Unlimited
-Tab. 4. Enrichment facilities properties.
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllll}
+\hline
+Enrichment Properties	&	UOX		\\
+\hline
+Throughput [tML]		&	Unlimited	\\
+swu capacity [tML]		&	1e97		\\
+tails assay  			&	0.0025	\\
+Initial feed [tML]		&	Unlimited	\\
+\hline
+\end{tabular}
+\caption{Enrichment facilities properties. }
+\label{tab:enrich_1}
+\end{table}
 
-The FBR fuel fabrication are suppose to handle and been deployed as a rate of 1 for 10 FBR reactors. Since the fuel composition and annual flux slightly change between FBR 1 and 2,, the specifications between fabrication are, as well, slightly differents... The detail of all fuel fabrication facilities characteristics can be found in Tab. 5.
+The FBR fuel fabrication are suppose to handle and been deployed as a rate of 1 for 10 FBR reactors. Since the fuel composition and annual flux slightly change between FBR 1 and 2,, the specifications between fabrication are, as well, slightly differents... The detail of all fuel fabrication facilities characteristics can be found in Tab.\ref{tab:fuelfab_1}.
 
-
-Fuel Fab Properties
-FBR 1
-FBR 2
-Throughput [tML]
-75.240
-76.440
-depleted buffer [tML]
-69.492
-69.912
-Pu buffer  [tML]
-5.748
-5.856
-Tab. 5. Fuel fabrication facilities properties.
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllll}
+\hline
+Fuel Fab Properties	&	FBR 1	&	FBR 2	\\
+\hline
+Throughput [tML]	&	75.240	&	76.440	\\
+depleted buffer [tML]	&	69.492	&	69.912	\\
+Pu buffer  [tML]		&	5.748	&	5.856	\\
+\hline
+\end{tabular}
+\caption{Fuel fabrication facilities properties.}
+\label{tab:fuelfab_1}
+\end{table}
 
 
 \subsection{Results}
@@ -250,7 +215,7 @@ Fig. 4. Annual Reprocessing Rate
 
 
 
-Fig. 5a. Used FUel in Cooling			Fig. 5b Fuel waiting for reprocessing
+Fig. 5a. Used Fuel in Cooling			Fig. 5b Fuel waiting for reprocessing
 
 
 
@@ -267,34 +232,29 @@ As shown in the figure 7a \& 7b, the quantity of plutonium in the storage follow
 Fig. 7a. Storage Fuel composition (zoom)		Fig. 7b Fuel waiting for reprocessing (zoom)		 
 
 \section{On demand Mimic Calculation}
-In parallel of the previous calculation, I have tried to perform a calculation, where the separation facilities have limited capacities and are deployed accordingly to the plutonium requirement for MOX fuel fabrication. This deployment schedule is not perfect, but it provides a good idea to how should evolve such kind of calculation? 
+In parallel of the previous calculation, I have tried to perform a calculation, where the separation facilities have limited capacities and are deployed accordingly to the plutonium requirement for MOX fuel fabrication. This deployment schedule is not perfect, but it provides a good idea to how should evolve such kind of calculation... 
 The only difference with the previous calculation is the way to define the reprocessing.
 
 For this calculation, all fuel are reprocessed by only one kind of reprocessing facility. The fuel input preferences has been set to 3 to all irradiated UOX fuel, 2 for MOX fuel irradiated in high breeder, and 3 for the low breeded fuel (higher the number is higher the preferences is). The characteristic of those reprocessing facilities are summed up in tab. 6.
 
-
-
-
-
-
-
-Separation Properties
-All Fuel 
-Throughput [tML]
-60
-feed buffer [tML]
-66
-Pu output  [tML]
-6
-Pu separation efficiency
-0.99
-Recycled Uranium [tML]
-Unlimited
-U separation efficiency
-0.99
-Waste [tML]
-Unlimited
-Tab. 6. Separation facilities core properties.
+\begin{table}[h!]
+\centering
+\begin{tabular}{ll}
+\hline
+Separation Properties	&	All Fuel	\\
+\hline 
+Throughput [tML]		&	60		\\
+feed buffer [tML]		&	66		\\
+Pu output  [tML]		&	6		\\
+Pu separation efficiency	&	0.99		\\
+Recycled Uranium [tML]	&	Unlimited	\\
+U separation efficiency	&	0.99		\\
+Waste [tML]			&	Unlimited	\\
+\hline
+\end{tabular}
+\caption{Separation facilities core properties.}
+\label{tab:fuelfab_1}
+\end{table}
 
 
 As in the calculation definition the only differences in the results can be observed in the behaviour of the reprocessed fuel, the UNF fuel waiting for reprocessing and the composition of the storage, as the reprocessing process directly impact them.
