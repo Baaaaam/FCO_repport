@@ -10,6 +10,11 @@
 \usepackage{url}
 \usepackage{array}
 \usepackage{multirow}
+\usepackage[hang]{subfigure}
+\usepackage[small,bf]{caption}
+\captionmargin=1.0cm
+\usepackage{epsfig}
+
 
 % array/table
 \usepackage{array}
@@ -66,22 +71,26 @@
 \section{Intro/specification}
 The goal of this study is to model the transition from once-through PWRs (EG01) to full recycle FBRs (EG23). It appears that the immediate transition between the existing PWR fleet (EG01) and a full FBR fleet (EG23) was not directly possible. In order to have enough plutonium inventories to do the transition, a few LWRs must be deployed before starting to replace LWRs with FBRs. The deployment of the new LWRs and the FBRs was calculated to:
 \begin{itemize}
-\item minimize the amount of plutonium in the cycle
+\item minimize the amount of plutonium in the cycle,
 \item follow the energy production requested (Fig 1b.).
 \end{itemize}
 The deployment schedule (Fig 1a.) has not been calculated using CYCLUS, it has been taken from B. Feng calculation and implemented in CYCLUS (with some approximation which will be detailed further in the document).
 
- 	Fig. 1a. Deployment schedule				Fig. 1b.Electricity produced
-Fig. 1. Deployment schedule and corresponding electricity produced by the different reactors where
- R1(blue): existing PWR, R2(green): new builded PWR, R3(red): high FBR, R4(purple): low FBR 
+\begin{figure}[h!]
+\centering
+\subfigure[Deployment schedule]	{\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
+\subfigure[Electricity produced ]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
+\caption{Deployment schedule and corresponding electricity produced by the different reactors where
+ R1(blue): existing PWR, R2(green): new builded PWR, R3(red): high FBR, R4(purple): low FBR.\label{fig:deployment} }
+\end{figure}
 
 
-
+\pagebreak
 \section{Prototype configuration: what \& why}
 This calculation is based on previous calculation operated by R. Carlsen, which can be found there. From this study, the configuration and deployment schedule of the separation facilities for PWR used fuel has been taken. The rest of the study has been adapted from it, to match B. Feng DYMOND calculation \cite{B.Feng_calculation}.
 
 As Cyclus does not yet include direct support for on-demand processing, the separation and the fabrication have been modeled as follows to approximate on-demand separation, thus minimizing inventories of separated plutonium.
-To achieve this, two differents calculations have been made. The first one correspond the modelisation of a growing MOX fuel fabrication capacity following the MOX fuel requirement. The second one models both MOX fuel fabrication and fuel separation with limited capacities, which discreetly grow as the demand grows.
+To achieve this, two differents calculations have been made. The first one correspond the modelization of a growing MOX fuel fabrication capacity following the MOX fuel requirement. The second one models both MOX fuel fabrication and fuel separation with limited capacities, which discreetly grow as the demand grows.
 
 In both the reactor characteristic (core properties, fuel recipes, deployment schedule) are the same. 
 \subsection{Reactors}
@@ -191,51 +200,75 @@ Pu buffer  [tML]		&	5.748	&	5.856	\\
 
 
 \subsection{Results}
-All fuel loading metrics (Fig. 2) are the same or very close to the VISION simulations. Nevertheless one can observe some fluctuation on the annual fuel loading and the SWU requirement which are consistent with the batching of the initially deployed reactors which are synchronized.  
+All fuel loading metrics (Fig.\ref{fig:RessourceUsed}) are the same or very close to the VISION simulations. Nevertheless one can observe some fluctuation on the annual fuel loading and the SWU requirement which are consistent with the batching of the initially deployed reactors which are synchronized.  
 
+\begin{figure}[h!]
+\centering
+\subfigure[Ressources Mined]			{\epsfig{figure=img/RessourceMined,width=0.48\textwidth}}
+\subfigure[SWU Requirement]			{\epsfig{figure=img/SWURequierment,width=0.48\textwidth}}
+\subfigure[Annual Fuel Loading Rate]	{\epsfig{figure=img/AnnualFuelLoading,width=0.48\textwidth}}
+\caption{TBD.\label{fig:RessourceUsed} }
+\end{figure}
 
-Fig. 2a. Ressources Mined				Fig. 2b SWU Requirement		 
+The generated power and the deployment schedule (Fig. 3)  match perfectly the one of the VISION simulations. The sudden drop in 2210 is due to a lack of data after 2210: no new reactor have been started after this date.\\
 
-Fig. 2c. Annual Fuel Loading Rate
+\begin{figure}[h!]
+\centering
+\subfigure[Deployment schedule]	{\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
+\subfigure[Electricity produced ]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
+\caption{Deployment schedule and corresponding electricity produced by the different reactors where
+ R1(blue): existing PWR, R2(green): new builded PWR, R3(red): high FBR, R4(purple): low FBR.\label{fig:deployment_bis} }
+\end{figure}
 
-
-The generated power and the deployment schedule (Fig. 3)  match perfectly the one of the VISION simulations. The sudden drop in 2210 is due to a lack of data after 2210: no new reactor have been started after this date.
-
-Fig. 3a. Electricity Generated				Fig. 3b Capacity Started		
 
 The other curves are as expected. Indeed, the annual reprocessing rate correspond to the deployment :  for the UOX fuel start the reprocessing in 2010 with 2/3 of the capacity, and then an increase of 1/3 in 2030, and then a constant reprocessing rate (UOX1 + UOX2) until the end of the production of used UOX (all PWR decommissioning).
 
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.62\textwidth]	{img/AnnualReprocessingRate_1} 
+\caption{Annual Reprocessing Rate.}
+ \label{fig:reprocessing_1}
+\end{figure}
  
-Fig. 4. Annual Reprocessing Rate
-
 
  For the MOX fuel produced by the 2 different FBR types, it follows the loading of fresh fuel, with some shift : the reprocessing facility are greedy : they reprocess all the used fuel available. In consequence there is no FBR used fuel in storage they are directly reprocess after the cooling.
 
 
-
-
-Fig. 5a. Used Fuel in Cooling			Fig. 5b Fuel waiting for reprocessing
-
+\begin{figure}[h!]
+\centering
+\subfigure[Used Fuel in Cooling]		{\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
+\subfigure[Fuel waiting for reprocessing]	{\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
+\caption{TBD.\label{fig:cool_reprocc} }
+\end{figure}
 
 
 Concerning the fuel in storage, as almost all FBR used fuel are directly reprocess after cooling, all quantity barely stop increasing after all the UOX fuel have been reprocess. 
 
-Fig. 6. Storage Fuel composition
-
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.62\textwidth]{img/FuelInStorage_1} 
+\caption{Storage Fuel composition.}
+ \label{fig:storagecompo_1}
+\end{figure}
+ 
 It appears that the capacity of the FBR fuel reprocessing are not enough to reprocess the full income of MOX fuel until 2195: this explain the some appearance of MOX fuel in storage waiting for reprocessing. With the deployment of the low breeder FBR, the high breeder reactor are decommissioned decreasing the incoming irradiated MOX fuel,  the reprocessing capacity is again higher than the sued MOX (type 1) production...
 
 
-As shown in the figure 7a \& 7b, the quantity of plutonium in the storage follow the variation of the amount of MOX1 fuel in the storage.
+As shown in the figure \ref{fig:FC_Z} \& \ref{fig:WR_Z}, the quantity of plutonium in the storage follow the variation of the amount of MOX1 fuel in the storage.
 	
-
-Fig. 7a. Storage Fuel composition (zoom)		Fig. 7b Fuel waiting for reprocessing (zoom)		 
+\begin{figure}[h!]
+\centering
+\subfigure[Storage Fuel composition (zoomed)\label{fig:FC_Z}]		{\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
+\subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]	{\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
+\caption{TBD.\label{fig:FC_WR_zoom} }
+\end{figure}
 
 \section{On demand Mimic Calculation}
 In parallel of the previous calculation, I have tried to perform a calculation, where the separation facilities have limited capacities and are deployed accordingly to the plutonium requirement for MOX fuel fabrication. This deployment schedule is not perfect, but it provides a good idea to how should evolve such kind of calculation... 
 The only difference with the previous calculation is the way to define the reprocessing.
 
-For this calculation, all fuel are reprocessed by only one kind of reprocessing facility. The fuel input preferences has been set to 3 to all irradiated UOX fuel, 2 for MOX fuel irradiated in high breeder, and 3 for the low breeded fuel (higher the number is higher the preferences is). The characteristic of those reprocessing facilities are summed up in tab. 6.
+For this calculation, all fuel are reprocessed by only one kind of reprocessing facility. The fuel input preferences has been set to 3 to all irradiated UOX fuel, 2 for MOX fuel irradiated in high breeder, and 3 for the low breeder fuel (higher the number is higher the preferences is). The characteristic of those reprocessing facilities are summed up in Tab.\ref{tab:fuelfab_2}.
 
 \begin{table}[h!]
 \centering
@@ -253,21 +286,26 @@ Waste [tML]			&	Unlimited	\\
 \hline
 \end{tabular}
 \caption{Separation facilities core properties.}
-\label{tab:fuelfab_1}
+\label{tab:fuelfab_2}
 \end{table}
 
 
-As in the calculation definition the only differences in the results can be observed in the behaviour of the reprocessed fuel, the UNF fuel waiting for reprocessing and the composition of the storage, as the reprocessing process directly impact them.
-Fig. 8a. Annual Reprocessing Rate				Fig. 8b Fuel waiting for reprocessing
+As in the calculation definition the only differences in the results can be observed in the behavior of the reprocessed fuel, the UNF fuel waiting for reprocessing and the composition of the storage, as the reprocessing process directly impact them.
 
-Fig. 8c. Storage Fuel composition
+\begin{figure}[h!]
+\centering
+\subfigure[Annual Reprocessing Rate]			{\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
+\subfigure[Fuel waiting for reprocessing]			{\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
+\subfigure[Storage Fuel composition]	{\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
+\caption{TBD.\label{fig:ARR_FWR_SFC_2} }
+\end{figure}
 
-Indeed, as observed on Fig. 8a., the reprocessing follow the plutonium need of the FBR fuel fabrication. The UOX irradiated fuel only contain about only 1 % of plutonium, when FBR irradiated contain about 10%, explaining the sudden decrease of the  amount of fuel reprocessed when switching from UOX fuel reprocessed to FBR fuel.
-Because of both the reprocessing priority and ?on demand? reprocess deployment, we can observed more fuel waiting for reprocessing, with a sudden consumption around 2125. We can also observe some of FBR fuel waiting for reprocessing, which decrease slowly, showing a well designed FBR deployment schedule...
+Indeed, as observed on Fig. 8a., the reprocessing follow the plutonium need of the FBR fuel fabrication. The UOX irradiated fuel only contain about only 1\% of plutonium, when FBR irradiated contain about 10\%, explaining the sudden decrease of the  amount of fuel reprocessed when switching from UOX fuel reprocessed to FBR fuel.
+Because of both the reprocessing priority and "on demand" reprocess deployment, we can observed more fuel waiting for reprocessing, with a sudden consumption around 2125. We can also observe some of FBR fuel waiting for reprocessing, which decrease slowly, showing a well designed FBR deployment schedule...
 \section{Summary}
-This study have shown the capacity of CYCLUS to properly simulate a transition such as EG01 to EG23 transition.
-The main observable differences are in the reprocessing and the storage of the used fuel, where it was not clear how it was managed in VISION. So even if I have been able to reproduce the overall calculation perform with B. Feng, some uncertainty remain on the exact signification of some data, like difference between UNF waiting for reprocessing and storage.
-Despite CYCLUS is not able now to handle exact on demand behaviour, it is possible to deploy the different facilities with limited capacities following the material demand to mimic a on demand behaviour, as shown in the second calculation.
+This study have shown the capacity of CYCLUS to properly simulate a transition such as EG01 to EG23 transition.\\
+The main observable differences are in the reprocessing and the storage of the used fuel, where it was not clear how it was managed in VISION. So even if I have been able to reproduce the overall calculation perform with B. Feng, some uncertainty remain on the exact signification of some data, like difference between UNF waiting for reprocessing and storage.\\
+Despite CYCLUS is not able now to handle exact on demand behavior, it is possible to deploy the different facilities with limited capacities following the material demand to mimic a on demand behavior, as shown in the second calculation.
 
 We can also observe some small difference in the pattern of fuel loading ( and almost all the reactor fuel metric), this comes from the way to model the batch in CYCLUS where in VISION all entities are managed with incoming and outgoing continuous flux.
 
