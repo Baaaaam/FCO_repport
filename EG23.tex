@@ -81,8 +81,11 @@ in the document).
 \centering
 \subfigure[Deployment schedule]	{\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
 \subfigure[Electricity produced]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
-\caption{Deployment schedule and corresponding electricity produced by the different reactors where
-R1(blue): existing PWR, R2(green): new builded PWR, R3(red): high FBR, R4(purple): low FBR.\label{fig:deployment} }
+\caption{Deployment schedule and corresponding
+electricity produced by the different reactors
+where R1(blue): existing PWR, R2(green): new
+builded PWR, R3(red): high FBR, R4(purple): low
+FBR.\label{fig:deployment} }
 \end{figure}
 
 
@@ -106,15 +109,19 @@ request and process as much material as they can.
 Limitations can be set by fixing the amount of
 feeding buffer, of the throughput and output
 buffer.
+This work aims to show the capabilities to
+reproduce EG01-EG23 calculation using Cyclus, and
+presents two illustrations of what can be done
+using CYCLUS.
 
-
-To achieve this, two different calculations have
-been made. The first one correspond the modeling
+The first one correspond the modeling
 of a growing MOX fuel fabrication capacity
 following the MOX fuel requirement.
-The second one models both MOX fuel fabrication
-and fuel separation with limited capacities,
-which discreetly grow as the demand grows.
+
+
+The second one improve the first calculation and
+models also a grows of fuel separation capacities
+following the demand grows.
 
 In both the reactor characteristic (core
 properties, fuel recipes, deployment schedule) are
@@ -132,14 +139,14 @@ Tab.\ref{tab:reactor}.\\
 \centering
 \begin{tabular}{llll}
 \hline
-Core Properties		&	PWR 	&	FBR 1	&	FBR 2 	\\
+Core Properties       &	PWR     &	FBR 1   &	FBR 2     \\
 \hline
-Rated Power, [MWe]	&	1000		&	400		&	400		\\
-Thermal Efficiency	&	N.A.		&	0.4		&	0.4		\\
-Capacity Factor		&	0.90		&	0.90		&	0.90		\\
-Number of batches	&	6		&	5		&	3		\\
-Cycle length, [month]&	9		&	13		&	18		\\
-Core Inventory, [tHM]&	14.784*6	&	7.524*5	&	11.466*3	\\
+Rated Power, [MWe]    &	1000		&	400     &	400       \\
+Thermal Efficiency    &	N.A.		&	0.4     &	0.4       \\
+Capacity Factor       &	0.90		&	0.90		&	0.90      \\
+Number of batches     &	6       &	5       &	3         \\
+Cycle length, [month] &	9       &	13      &	18        \\
+Core Inventory, [tHM] &	14.784*6&	7.524*5	&	11.466*3  \\
 \hline
 \end{tabular}
 \caption{Reactor core properties.}
@@ -149,12 +156,42 @@ Note that, because of the 1 month timestep of
 CYCLUS, some liberty has been taken with the
 coupled Batch-Quantity/Cycle-length in order to
 match as closely as possible with the specified
-quantities [REF-F.Bo]. The batches have been sized
-accordingly. All PWR reactors use enriched uranium
-fuel. The FBR used MOX fuel with different
-plutonium enrichments. The input/output fuel
-recipe are summarized in the
-Tab.\ref{tab:reactor_fuel} \cite{B.Feng_calculation}.
+quantities [REF-F.Bo].\\
+For the FBR 1, the cycle lenght is supposed to be
+5.44 y (for discharge burnup of 37.62 GWd/t), 5.41
+ y has been used (5 * 13 months). For FBR 2, 4.5y
+  has been used (3 * 18 months) where 4.44 was
+  expected.\\
+\textit{
+Since Cyclus have a 1 month time step, the
+burnup precision can be easly computed as :
+\begin{equation}
+  \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
+\end{equation}
+where $P_{th}$ is the thermal power of the reactor
+, $M_{r}$ its mass in heavy metal, $\Delta BU$ the
+burnup achievable precision and $\Delta t$ the
+time step size.\\
+}
+In this simulation the $\Delta BU$ are for the FBR
+1 \& 2 respectively: $0.73$ and $0.79~GWd/t$.
+This does not affect the composition of the
+discharge fuel as Cyclus does not perform burnup
+evolution calculation, this just affects the
+masses amount of discharged fuel wich a relativ
+error of:
+\begin{equation}
+  \frac{\Delta M}{M} = \frac{\Delta BU}{BU}.
+\end{equation}
+
+
+
+The batches have been sized accordingly. All PWR
+reactors use enriched uranium fuel. The FBR used
+ MOX fuel with different plutonium enrichments.
+The input/output fuel recipe are summarized in the
+Tab.\ref{tab:reactor_fuel}
+\cite{B.Feng_calculation}.
 
 \begin{table}[h!]
 \centering
@@ -173,14 +210,36 @@ Tab.\ref{tab:reactor_fuel} \cite{B.Feng_calculation}.
 &	FP		&	5.21			&	4.86				&	4.272			\\
 \hline
 \end{tabular}
-\caption{Input/Output Fuel composition recipe for the different reactors. Note that for the FBR reactor fuel no isotopic distinctions have been made and U in FBR should be considered depleted uranium in the input recipes, the uranium isotopic change in the output recipes have not been investigated in this work.  }
+\caption{Input/Output Fuel composition recipe for
+the different reactors. Note that for the FBR
+reactor fuel no isotopic distinctions have been
+made and U in FBR should be considered depleted
+uranium in the input recipes, the uranium isotopic
+change in the output recipes have not been
+investigated in this work.  }
 \label{tab:reactor_fuel}
 \end{table}
 
 \subsection{Cooling/Storage}
-After Irradiation, all fuel is sent to dedicated
-cooling storage, then they are transferred to a
-longer term storage after 84 month.
+After Irradiation, all fuel are supposed to be
+cooled for 84 months and then be available for
+reprocessing.\\
+The Cycacore Storage allows to define a minimum
+residence time for each incoming material.
+Nevertheless, in order to simplify the
+differenciation between material in cooling and
+material available for rerocessing, 2 storage have
+been defined for each types of fuels. On dedicated
+to the cooling, with a residence time of 84 months
+, and one dedicated to the lonf term storage with
+no residence time.
+When the first one as obviously be used to fill
+the Fuel in cooling data, the second one have been
+use to fill the "UNF waiting for reprocessing"
+data as well as the "Ressource in storage" (of the
+output spreadsheet). This might not be the correct
+ data attempted in "Ressource in storage"...
+
 \subsection{Separation}
 
 The LWR fuel separation is handled by three
@@ -287,8 +346,11 @@ have been started after this date.\\
 \centering
 \subfigure[Deployment schedule]	{\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
 \subfigure[Electricity produced ]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
-\caption{Deployment schedule and corresponding electricity produced by the different reactors where
-R1(blue): existing PWR, R2(green): new builded PWR, R3(red): high FBR, R4(purple): low FBR.\label{fig:deployment_bis} }
+\caption{Deployment schedule and corresponding
+electricity produced by the different reactors
+where R1(blue): existing PWR, R2(green): new
+builded PWR, R3(red): high FBR, R4(purple): low
+FBR.\label{fig:deployment_bis} }
 \end{figure}
 
 
