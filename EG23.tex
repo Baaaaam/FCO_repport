@@ -18,14 +18,14 @@
 \usepackage{epsfig}
 \usepackage[hang]{subfigure}
 \usepackage[small,bf]{caption}
-\captionmargin=1.0cm
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{ctable}
 
 
 \usepackage{authblk}
 \renewcommand\Authands{ and }
-
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 
 %clickable ref
 \usepackage[backref,pagebackref,naturalnames=true,colorlinks]{hyperref}
@@ -69,9 +69,9 @@ starting to replace LWRs with FBRs. The deployment
 of the new LWRs and the FBRs was calculated to:
 \begin{itemize}
 \item minimize the amount of plutonium in the cycle,
-\item follow the energy production requested (Fig 1b.).
+\item follow the energy production requested (Fig\ref{fig:nrg}).
 \end{itemize}
-The deployment schedule (Fig 1a.) has not been
+The deployment schedule (Fig.\ref{fig:deploy}) has not been
 calculated using CYCLUS, it has been taken from B.
 Feng calculation and implemented in CYCLUS (with
 some approximation which will be detailed further
@@ -79,8 +79,8 @@ in the document).
 
 \begin{figure}[h!]
 \centering
-\subfigure[Deployment schedule]	{\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
-\subfigure[Electricity produced]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
+\subfigure[Deployment schedule\label{fig:deploy}]     {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
+\subfigure[Electricity produced\label{fig:nrg}]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
 \caption{Deployment schedule and corresponding
 electricity produced by the different reactors
 where R1(blue): existing PWR, R2(green): new
@@ -126,53 +126,53 @@ following the demand grows.
 In both the reactor characteristic (core
 properties, fuel recipes, deployment schedule) are
 the same.
-\subsection{Reactors}
+
+\subsection{First Case}
+\subsubsection{Reactors}
 After the PWR/FBR transition, new FBR reactor are
 deployed with a lower breeding ratio, in order to
 minimize the plutonium inventory. The properties
 of the different reactor core used for the
 simulation have been summarized in
 Tab.\ref{tab:reactor}.\\
-
-
 \begin{table}[h!]
 \centering
-\begin{tabular}{llll}
+\begin{tabularx}{350pt}{lXXX}
 \hline
 Core Properties       &	PWR     &	FBR 1   &	FBR 2     \\
 \hline
 Rated Power, [MWe]    &	1000		&	400     &	400       \\
-Thermal Efficiency    &	N.A.		&	0.4     &	0.4       \\
+Thermal Efficiency    &	N.A.$^1$	&	0.4     &	0.4       \\
 Capacity Factor       &	0.90		&	0.90		&	0.90      \\
 Number of batches     &	6       &	5       &	3         \\
 Cycle length, [month] &	9       &	13      &	18        \\
 Core Inventory, [tHM] &	14.784*6&	7.524*5	&	11.466*3  \\
 \hline
-\end{tabular}
+\end{tabularx}
 \caption{Reactor core properties.}
 \label{tab:reactor}
+\footnotesize{$^1$ I don't have this number, but as a recipe reactor are used, it is not required}
 \end{table}
-Note that, because of the 1 month timestep of
+
+Because of the 1 month timestep of
 CYCLUS, some liberty has been taken with the
-coupled Batch-Quantity/Cycle-length in order to
+couple Batch-Quantity/Cycle-length in order to
 match as closely as possible with the specified
 quantities [REF-F.Bo].\\
 For the FBR 1, the cycle lenght is supposed to be
 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41
  y has been used (5 * 13 months). For FBR 2, 4.5y
-  has been used (3 * 18 months) where 4.44 was
-  expected.\\
-\textit{
-Since Cyclus have a 1 month time step, the
-burnup precision can be easly computed as :
+ has been used (3 * 18 months) where 4.44 was
+ expected.\\
+\textit{Since Cyclus have a 1 month time step, the
+burnup precision can be easly determined as :
 \begin{equation}
   \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
 \end{equation}
 where $P_{th}$ is the thermal power of the reactor
 , $M_{r}$ its mass in heavy metal, $\Delta BU$ the
 burnup achievable precision and $\Delta t$ the
-time step size.\\
-}
+time step size.}\\
 In this simulation the $\Delta BU$ are for the FBR
 1 \& 2 respectively: $0.73$ and $0.79~GWd/t$.
 This does not affect the composition of the
@@ -184,14 +184,11 @@ error of:
   \frac{\Delta M}{M} = \frac{\Delta BU}{BU}.
 \end{equation}
 
-
-
-The batches have been sized accordingly. All PWR
-reactors use enriched uranium fuel. The FBR used
- MOX fuel with different plutonium enrichments.
-The input/output fuel recipe are summarized in the
-Tab.\ref{tab:reactor_fuel}
-\cite{B.Feng_calculation}.
+All PWR reactors use enriched uranium fuel. The
+FBR used MOX fuel with different plutonium
+enrichments. The input/output fuel recipe are
+summarized in the Tab.\ref{tab:reactor_fuel}
+(from \cite{B.Feng_calculation}).
 
 \begin{table}[h!]
 \centering
@@ -220,7 +217,7 @@ investigated in this work.  }
 \label{tab:reactor_fuel}
 \end{table}
 
-\subsection{Cooling/Storage}
+\subsubsection{Cooling/Storage}
 After Irradiation, all fuel are supposed to be
 cooled for 84 months and then be available for
 reprocessing.\\
@@ -240,7 +237,7 @@ data as well as the "Ressource in storage" (of the
 output spreadsheet). This might not be the correct
  data attempted in "Ressource in storage"...
 
-\subsection{Separation}
+\subsubsection{Separation}
 
 The LWR fuel separation is handled by three
 identical separation facilities, two deployed in
@@ -272,7 +269,7 @@ Waste [tML]			&	Unlimited	&	Unlimited	\\
 \label{tab:separation_1}
 \end{table}
 
-\subsection{Fuel Fabrication}
+\subsubsection{Fuel Fabrication}
 The UOX fuel fabrication is handled by one
 enrichment facility, the properties of this
 enrichment facilities are summed up in
@@ -319,10 +316,10 @@ Pu buffer  [tML]		&	5.748	&	5.856	\\
 \end{table}
 
 
-\subsection{Results}
+\subsubsection{Results}
 All fuel loading metrics
 (Fig.\ref{fig:RessourceUsed}) are the same or very
-close to the VISION simulations. Nevertheless one
+close to the DYMOND simulations. Nevertheless one
 can observe some fluctuation on the annual fuel
 loading and the SWU requirement which are
 consistent with the batching of the initially
@@ -338,7 +335,7 @@ deployed reactors which are synchronized.
 
 The generated power and the deployment schedule
 (Fig. \ref{})  match perfectly the one of the
-VISION simulations. The sudden drop in 2210 is
+DYMOND simulations. The sudden drop in 2210 is
 due to a lack of data after 2210: no new reactor
 have been started after this date.\\
 
@@ -423,7 +420,7 @@ fuel in the storage.
 \caption{TBD.\label{fig:FC_WR_zoom} }
 \end{figure}
 
-\section{On demand Mimic Calculation}
+\subsection{Second Case}
 In parallel of the previous calculation, I have
 tried to perform a calculation, where the
 separation facilities have limited capacities and
@@ -502,7 +499,7 @@ EG23 transition.\\
 The main observable differences are in the
 reprocessing and the storage of the used fuel,
 where it was not clear how it was managed in
-VISION. So even if I have been able to reproduce
+DYMOND. So even if I have been able to reproduce
 the overall calculation perform with B. Feng, some
 uncertainty remain on the exact signification of
 some data, like difference between UNF waiting for
@@ -516,7 +513,7 @@ behavior, as shown in the second calculation.
 We can also observe some small difference in the
 pattern of fuel loading ( and almost all the
 reactor fuel metric), this comes from the way to
-model the batch in CYCLUS where in VISION all
+model the batch in CYCLUS where in DYMOND all
 entities are managed with incoming and outgoing
 continuous flux.
 
