@@ -112,17 +112,15 @@ buffer.
 This work aims to show the capabilities to
 reproduce EG01-EG23 calculation using Cyclus, and
 presents two illustrations of what can be done
-using CYCLUS.
-
-The first one correspond the modeling
+using CYCLUS:
+\begin{itemize}
+\item the first one correspond the modeling
 of a growing MOX fuel fabrication capacity
-following the MOX fuel requirement.
-
-
-The second one improve the first calculation and
+following the MOX fuel requirement,
+\item the second one improve the first calculation and
 models also a grows of fuel separation capacities
 following the demand grows.
-
+\end{itemize}
 In both the reactor characteristic (core
 properties, fuel recipes, deployment schedule) are
 the same.
@@ -154,18 +152,19 @@ Core Inventory, [tHM] &	14.784*6&	7.524*5	&	11.466*3  \\
 \footnotesize{$^1$ I don't have this number, but as a recipe reactor are used, it is not required}
 \end{table}
 
-Because of the 1 month timestep of
-CYCLUS, some liberty has been taken with the
-couple Batch-Quantity/Cycle-length in order to
-match as closely as possible with the specified
-quantities [REF-F.Bo].\\
+Because of the 1 month timestep of CYCLUS, some
+liberty has been taken with the couple
+Batch-Quantity/Cycle-length in order to match as
+closely as possible with the specified quantities
+\cite{REF-F.Bo}.\\
 For the FBR 1, the cycle lenght is supposed to be
 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41
  y has been used (5 * 13 months). For FBR 2, 4.5y
  has been used (3 * 18 months) where 4.44 was
  expected.\\
+\\
 \textit{Since Cyclus have a 1 month time step, the
-burnup precision can be easly determined as :
+burnup precision can be easly determined as:
 \begin{equation}
   \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
 \end{equation}
@@ -183,7 +182,7 @@ error of:
 \begin{equation}
   \frac{\Delta M}{M} = \frac{\Delta BU}{BU}.
 \end{equation}
-
+\\
 All PWR reactors use enriched uranium fuel. The
 FBR used MOX fuel with different plutonium
 enrichments. The input/output fuel recipe are
@@ -353,7 +352,7 @@ FBR.\label{fig:deployment_bis} }
 
 The other curves are as expected. Indeed, the
 annual reprocessing rate correspond to the
-deployment :  for the UOX fuel start the
+deployment:  for the UOX fuel start the
 reprocessing in 2010 with 2/3 of the capacity, and
 then an increase of 1/3 in 2030, and then a
 constant reprocessing rate (UOX1 + UOX2) until the
@@ -371,7 +370,7 @@ decommissioning).
 
 For the MOX fuel produced by the 2 different FBR
 types, it follows the loading of fresh fuel, with
-some shift : the reprocessing facility are greedy:
+some shift: the reprocessing facility are greedy:
 they reprocess all the used fuel available. In
 consequence there is no FBR used fuel in storage
 they are directly reprocess after the cooling.
