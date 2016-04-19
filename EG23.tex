@@ -61,11 +61,20 @@
 \maketitle
 
 \section{Intro/specification}
-
+The U.S. Department of Energy (DOE) Fuel Cycle Option (FCO) started a study 
+campaign to assess the future of the U.S. nuclear fleet. After considering 
+equilibrium scenario, called Evaluation Group (EG), the Doe has been interested in 
+assessing the transition  from the current fuel cycle to some of those 
+equilibrium scenarios, pre-emptively studied.\\
 The goal of this study is to model the transition from a once-through light
 water reactor (LWR) fuel cycle (i.e. EG01) to a sodium fast reactor (SFR) full
-recycle case (i.e. EG23).   The LWR and SFR deployments were selected to
-accomplish three primary goals:
+recycle case (i.e. EG23).\\
+This calculation has been done after the one performed by the three established 
+fuel cycle simulator DYMON (ANL) \cite{dymond}, VISION (INL) \cite{vision}, 
+and ORION (ORNL \cite{orion}. The goal was to illustrated the capabilities of the 
+Cyclus simulator, an agent based fuel cycle simulator developed at University of 
+Wisconsin-Madison. \\
+ The LWR and SFR deployments were selected to accomplish three primary goals:
 
 \begin{itemize}
     \item Follow the 1\% annual electricity production curve (Figure \ref{fig:nrg}).
@@ -345,7 +354,7 @@ not pursued in this analysis.
     \subfigure[Ressources Mined]			{\epsfig{figure=img/RessourceMined,width=0.48\textwidth}}
     \subfigure[SWU Requirement]			{\epsfig{figure=img/SWURequierment,width=0.48\textwidth}}
     \subfigure[Annual Fuel Loading Rate]	{\epsfig{figure=img/AnnualFuelLoading,width=0.48\textwidth}}
-    \caption{TBD.\label{fig:RessourceUsed} }
+    \caption{Ressources production and fuel loading.\label{fig:RessourceUsed} }
 \end{figure}
 
 The generated power and the deployment schedule (Figure \ref{})  match
@@ -387,7 +396,7 @@ because it is directly reprocessed after cooling.
     \centering
     \subfigure[Used Fuel in Cooling]		{\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
     \subfigure[Fuel waiting for reprocessing]	{\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
-    \caption{TBD.\label{fig:cool_reprocc} }
+    \caption{Used fuel in cooling and reprocessing.\label{fig:cool_reprocc} }
 \end{figure}
 
 As almost all SFR spent fuel are directly reprocessed after cooling, spent
@@ -415,7 +424,7 @@ storage.
     \centering
     \subfigure[Storage Fuel composition (zoomed)\label{fig:FC_Z}]		{\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
     \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]	{\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
-    \caption{TBD.\label{fig:FC_WR_zoom} }
+    \caption{Plutonium in storage.\label{fig:FC_WR_zoom} }
 \end{figure}
 
 \subsection{Case 2: On-demand Separations}
@@ -429,7 +438,7 @@ reprocessing and in the composition of material in storage.
     \subfigure[Annual Reprocessing Rate]			{\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
     \subfigure[Fuel waiting for reprocessing]			{\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
     \subfigure[Storage Fuel composition]	{\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
-    \caption{TBD.\label{fig:ARR_FWR_SFC_2} }
+    \caption{Ressources production and fuel loading.\label{fig:ARR_FWR_SFC_2} }
 \end{figure}
 
 Indeed, as seen in Figure 8a., the reprocessing follows the plutonium need of
@@ -443,7 +452,7 @@ material from their spent fuel input inventories.
 Because of both the reprocessing priority and "on-demand" separations
 deployment, we observe more fuel waiting for reprocessing with a quick drop
 starting around year 2090 as stored up plutonium is used in the first wave of
-SFR deployments replacing ageing LWRs.  We can also observe some of SFR fuel
+SFR deployments replacing aging LWRs.  We can also observe some of SFR fuel
 waiting for reprocessing, which decrease slowly, showing a well designed SFR
 deployment schedule that reaches an comfortable equilibrium generating
 plutonium at the same rate it is being recycled.
@@ -459,7 +468,7 @@ from other simulators exactly can likely be attributed to this factor.
 
 Despite Cyclus is not able now to handle exact on-demand behavior, it is
 possible to deploy the different facilities with limited capacities to
-"follow" material demand to mimicing an on-demand type of behavior, as shown
+"follow" material demand to mimicking an on-demand type of behavior, as shown
 in Case 2.  We can also observe some small differences in the pattern of fuel
 loading (and almost all the reactor fuel metrics), this comes from the way
 batches are modeled discretely in Cyclus where in DYMOND all entities are
