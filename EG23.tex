@@ -70,9 +70,9 @@ The goal of this study is to model the transition from a once-through light
 water reactor (LWR) fuel cycle (i.e. EG01) to a sodium fast reactor (SFR) full
 recycle case (i.e. EG23).\\
 This calculation has been done after the one performed by the three established 
-fuel cycle simulator DYMON (ANL) \cite{dymond}, VISION (INL) \cite{vision}, 
-and ORION (ORNL \cite{orion}. The goal was to illustrated the capabilities of the 
-Cyclus simulator, an agent based fuel cycle simulator developed at University of 
+fuel cycle simulator DYMON (ANL) \cite{dymon}, VISION (INL) \cite{vision}, 
+and ORION (ORNL) \cite{orion}. The goal was to illustrated the capabilities of the 
+Cyclus simulator \cite{cyclus}, an agent based fuel cycle simulator developed at University of 
 Wisconsin-Madison. \\
  The LWR and SFR deployments were selected to accomplish three primary goals:
 
@@ -162,7 +162,7 @@ simulation have been summarized in Table \ref{tab:reactor}.
 Because of the 1-month timestep of Cyclus, a few liberties have been taken
 with the batch quantity and cycle length parameters in order to match as
 closely as possible important invariants such as fuel residence time, burnup,
-and discharge rates \cite{REF-F.Bo}.  For the SFR 1 facility type, the cycle
+and discharge rates \cite{B.Feng_calculation}.  For the SFR 1 facility type, the cycle
 length is supposed to be 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41 y
 has been used (5 * 13 months). For SFR 2, 4.5y has been used (3 * 18 months)
 where 4.44 was expected.  With Cyclus' 1-month time step, the burnup invariant
@@ -480,7 +480,7 @@ material flows are managed in a more incremental, continuous way.
 
 \bibliographystyle{unsrt}
 
-\bibliography{}
+\bibliography{EG23}
 
 %----------------------------------------------------------------------------------------
 

@@ -159,3 +159,6 @@ pythontex-files-*/
 
 # Latexian
 TSWLatexianTemp*
+*.mp
+*.tmp
+*.tui
