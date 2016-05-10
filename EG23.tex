@@ -165,16 +165,16 @@ simulation have been summarized in Table \ref{tab:reactor}.
     \end{tabularx}
     \caption{Reactor core properties.}
     \label{tab:reactor}
-    \footnotesize{$^1$ I don't have this number, but as a recipe reactor is used, it is not required.}
+    \footnotesize{$^1$ Not specified, but as a recipe reactor is used, it is not required.}
 \end{table}
 
-Because of the 1-month timestep of Cyclus, a few liberties have been taken
-with the batch quantity and cycle length parameters in order to match as
+Because of the 1-month timestep of Cyclus, 
+the batch quantity and cycle length parameters have been manipulated to match as
 closely as possible important invariants such as fuel residence time, burnup,
 and discharge rates \cite{B.Feng_calculation}.  For the SFR 1 facility type, the cycle
-length is supposed to be 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41 y
-has been used (5 * 13 months). For SFR 2, 4.5y has been used (3 * 18 months)
-where 4.44 was expected.  With Cyclus' 1-month time step, the burnup invariant
+length is specified to be 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41 y
+has been used (5 $\times$ 13 months). For SFR 2, 4.5y has been used (3 $\times$ 18 months)
+where 4.44 was expected.  With Cyclus' 1-month time step, the burnup resolution
 can be easly calculated as:
 
 \begin{equation}
