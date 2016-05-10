@@ -106,8 +106,8 @@ document).
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Deployment schedule\label{fig:deploy}]     {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
-    \subfigure[Electricity produced\label{fig:nrg}]       {\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
+    \subfigure[Deployment schedule\label{fig:deploy}]  {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
+    \subfigure[Electricity produced\label{fig:nrg}]    {\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
     \caption{
         Deployment schedule and corresponding electricity produced by the
         different reactors where R1(blue): existing LWR, R2(green): new
@@ -147,7 +147,9 @@ types (i.e. Cyclus prototypes) used in this analysis.
 After the LWR to SFR transition is completed, new SFR reactors are deployed
 with a lower breeding ratio in order to prevent unbounded buildup of
 plutonium. The properties of the different reactors cores used for the
-simulation have been summarized in Table \ref{tab:reactor}.
+simulation have been summarized in Table \ref{tab:reactor}. As some liberty have
+been taken with the number of batch, cycle lengh and the core inventory both the
+specifications and the values inplemented in the Cyclus input appears. 
 
 %% NOTE: Are these the specified properties from Bo, or the as-used properties
 %% in Cyclus, or some combination?
@@ -157,16 +159,29 @@ simulation have been summarized in Table \ref{tab:reactor}.
 \begin{table}[h!]
     \centering
     \begin{tabularx}{350pt}{lXXX}
-    \hline
-    Core Properties       &  LWR             &  SFR 1           &  SFR 2            \\
-    \hline
-    Rated Power, [MWe]    &  1000            &  400             &  400              \\
-    Thermal Efficiency    &  N.A.$^1$        &  0.4             &  0.4              \\
-    Capacity Factor       &  0.90            &  0.90            &  0.90             \\
-    Number of batches     &  6               &  5               &  3                \\
-    Cycle length, [month] &  9               &  13              &  18               \\
-    Core Inventory, [tHM] &  6$\times$14.784 &  5$\times$7.524  &  3$\times$11.466  \\
-    \hline
+      \hline
+      Core Properties       &  LWR             &  SFR 1           &  SFR 2            \\
+      \hline
+      Rated Power, [MWe]    &  1000            &  400             &  400              \\
+      Thermal Efficiency    &  N.A.$^1$        &  0.4             &  0.4              \\
+      Capacity Factor       &  0.90            &  0.90            &  0.90             \\
+                                                                                      \\
+      \multicolumn{4}{X}{Specifications}                                              \\ 
+      \hline
+      \hline
+      Number of batches     &  3               &  5.44            &  4.44             \\
+      Cycle length, [month] &  18              &  1               &  1                \\
+      Core Inventory, [tHM] &  3$\times$29.565 &  37.62           &  34.40            \\
+                                                                                      \\
+      \multicolumn{4}{l}{Cyclus inplementation}                                       \\ 
+      \hline
+      \hline
+      Number of batches     &  6               &  5               &  3                \\
+      Cycle length, [month] &  9               &  13              &  18               \\
+      Core Inventory, [tHM] &  6$\times$14.784 &  5$\times$7.524  &  3$\times$11.466  \\
+%% I have increase the size of the batch by 1 to avoid a bid bug I
+%% experience... which we have corrected after... But I did not revert the natch modification 
+      \hline
     \end{tabularx}
     \caption{Reactor core properties.}
     \label{tab:reactor}
@@ -180,30 +195,35 @@ simulation have been summarized in Table \ref{tab:reactor}.
 %% Apropos my comment above - this is a great example of showing others how to
 %% translate specifications into Cyclus inputs.
 
-Because of the 1-month timestep of Cyclus, 
-the batch quantity and cycle length parameters have been manipulated to match as
-closely as possible important invariants such as fuel residence time, burnup,
-and discharge rates \cite{B.Feng_calculation}.  For the SFR 1 facility type, the cycle
-length is specified to be 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41 y
-has been used (5 $\times$ 13 months). For SFR 2, 4.5y has been used (3 $\times$ 18 months)
-where 4.44 was expected.  With Cyclus' 1-month time step, the burnup resolution
-can be easly calculated as:
+Because of the 1-month timestep of Cyclus, the batch quantity and cycle length
+parameters have been manipulated to match as closely as possible important
+invariants such as fuel residence time, burnup, and discharge rates
+\cite{B.Feng_calculation}.
 
-\begin{equation}
-  \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
-\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: I am note sure it birng any interresing information, so I remove it and I
+%% add the actual error made on the mass for each reactor.
 
-\noindent where $P_{th}$ is the thermal power of the reactor, $M_{r}$ its mass
-in heavy metal, $\Delta BU$ the burnup achievable precision and $\Delta t$ the
-time step size.  In this simulation the $\Delta BU$ are for the SFR 1 \& 2
-respectively: $0.73$ and $0.79~GWd/t$.  This does not affect the composition
+% For the SFR 1 facility type, the cycle
+%length is specified to be 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41 y
+%has been used (5 $\times$ 13 months). For SFR 2, 4.5y has been used (3 $\times$ 18 months)
+%where 4.44 was expected.  With Cyclus' 1-month time step, the burnup resolution
+%can be easly calculated as:
+%\begin{equation}
+%  \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
+%\end{equation}
+
+%\noindent where $P_{th}$ is the thermal power of the reactor, $M_{r}$ its mass
+%in heavy metal, $\Delta BU$ the burnup achievable precision and $\Delta t$ the
+%time step size. In this simulation the $\Delta BU$ are for the SFR 1 \& 2
+%respectively: $0.73$ and $0.79~GWd/t$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This does not affect the composition
 of the discharge fuel as the reactor model used for this analysis does not
-perform a burnup evolution calculation.  Only the mass of discharged fuel is
-affected with a relative error of :
-
-\begin{equation}
-  \frac{\Delta M}{M} = \frac{\Delta BU}{BU}.
-\end{equation}
+perform a burnup evolution calculation. Only the mass of discharged fuel is
+affected with a respective relative error : $0.01 \%$, $0.0 \%$ and $0.006 \%$. 
 
 %% NOTE: This ends abruptly... 
 %%    do we calculate this for the different reactors?
@@ -217,17 +237,17 @@ in Table \ref{tab:reactor_fuel} taken from \cite{B.Feng_calculation}.
     \centering
     \begin{tabular}{lllll}
     \hline
-    \multicolumn{2}{c}{Reactor}                  &        LWR [$\%w$] &  SFR fuel 1  [$\%w$] &  SFR fuel 2  [$\%w$]  \\
+    \multicolumn{2}{c}{Reactor}            &  LWR [$\%w$]  &  SFR fuel 1  [$\%w$] &  SFR fuel 2  [$\%w$]  \\
     \hline
-    \multirow{3}{*} {In recipe}  &        235U   &  95.8              &  0                   &  0                    \\
-                                 &        238U   &  4.2               &  92.36               &  91.466               \\
-                                 &        Pu     &  0                 &  7.64                &  8.534                \\
+    \multirow{3}{*} {In recipe}  &  235U   &  95.8         &  0                   &  0                    \\
+                                 &  238U   &  4.2          &  92.36               &  91.466               \\
+                                 &  Pu     &  0            &  7.64                &  8.534                \\
     \hline
-    \multirow{5}{*} {Out recipe} &        235U   &  0.8               &  0                   &  0                    \\
-                                 &        238U/U &  92.68             &  85.99               &  86.025               \\
-                                 &        Pu     &  1.2               &  9.02                &  9.596                \\
-                                 &        MA     &  0.11              &  0.13                &  0.107                \\
-                                 &        FP     &  5.21              &  4.86                &  4.272                \\
+    \multirow{5}{*} {Out recipe} &  235U   &  0.8          &  0                   &  0                    \\
+                                 &  238U/U &  92.68        &  85.99               &  86.025               \\
+                                 &  Pu     &  1.2          &  9.02                &  9.596                \\
+                                 &  MA     &  0.11         &  0.13                &  0.107                \\
+                                 &  FP     &  5.21         &  4.86                &  4.272                \\
     \hline
     \end{tabular}
 
@@ -251,12 +271,12 @@ differentiate between material in cooling and material available for
 reprocessing as specified in the reporting requirements, 
 2 storage facilities are used in series providing this explicit
 distinction. One dedicated to cooling, with a residence time of 84 months,
-corresponds to the output quantity ``Resource in storage'', and
+corresponds to the output quantity ``Used Fuel in Cooling Storage'', and
 one dedicated to storage until reprocessing with no minimum residence time
-corresponds to the output quantity ``UNF waiting for reprocessing''.
-Notable are subtle differences in
-what these two storage facilities' data represent and their exact semantic
-meaning in the analysis spreadsheet.
+corresponds to the output quantity ``UNF waiting for reprocessing'' and
+``Ressource in Storage''.
+Notable are subtle differences in what these two storage facilities data
+represent and their exact semantic meaning in the analysis spreadsheet.
 
 \subsection{Separation}
 
@@ -268,6 +288,8 @@ very large separation capacity, in the first case, we have tried to throttle
 the separation rate indirectly using the gradual fuel fabrication capacity
 growth. Full fabrication facilities stop requesting separated plutonium
 leading to eventual halting of spent fuel separations.
+As the separation output buffers are not limited, those separation facilities will
+reprocess all the used available fuel with a constant reprocessing rate.
 
 %% NOTE: if LWR separations output buffers are unlimited, it will never stop
 %% separating, right?
@@ -276,15 +298,15 @@ leading to eventual halting of spent fuel separations.
     \centering
     \begin{tabular}{lllll}
     \hline
-    Separation Properties         &        LWR              &        SFR 1/2        \\
+    Separation Properties     &  LWR        &  SFR 1/2    \\
     \hline
-    Throughput [tHM/month]        &        83.3333          &        5000           \\
-    feed buffer [tHM]             &        107.537          &        5000           \\
-    Pu output buffer [tHM]        &        Unlimited        &        5000           \\
-    Pu separation efficiency      &        0.99             &        0.99           \\
-    Recycled U buffer [tHM]       &        Unlimited        &        Unlimited      \\
-    U separation efficiency       &        0.99             &        0.99           \\
-    Waste buffer [tHM]            &        Unlimited        &        Unlimited      \\
+    Throughput [tHM/month]    &  83.3333    &  5000       \\
+    feed buffer [tHM]         &  107.537    &  5000       \\
+    Pu output buffer [tHM]    &  Unlimited  &  5000       \\
+    Pu separation efficiency  &  0.99       &  0.99       \\
+    Recycled U buffer [tHM]   &  Unlimited  &  Unlimited  \\
+    U separation efficiency   &  0.99       &  0.99       \\
+    Waste buffer [tHM]        &  Unlimited  &  Unlimited  \\
     \hline
     \end{tabular}
     \caption{Separation facilities core properties. }
@@ -333,7 +355,10 @@ reprocessing facilities used in Case 2 are summarized in Table
 \subsection{Fuel Fabrication}
 
 The UOX fuel fabrication is handled by one enrichment facility, the properties
-of this enrichment facilities are summarized in Table \ref{tab:enrich_1}.
+of this enrichment facilities are summarized in Table \ref{tab:enrich_1}. As
+explain the specifcication of the enrichment facility have been taken from the
+R. Carlsen calculation and might differe from the exact EG01-23 transition
+specifications. 
 
 \begin{table}[h!]
     \centering
@@ -355,6 +380,11 @@ of this enrichment facilities are summarized in Table \ref{tab:enrich_1}.
 %% this?
 
 %% NOTE: We need 2-3 sentences on how our Fuel Fab works in Cycamore.
+The Fuel fabrication of the additionnal Cycamore\cite{cycamore} module mix the two
+input stream accordingly to the plutonium-Equivalent theory\cite{Pueq}. A
+reactivity weight is calculated for the require output composition and both of
+the input stream. An interpolation is used to compute a mixing ratio of the input
+streams that matches the target weight.
 
 The SFR fuel fabrication facilities are supposed to be deployed as a rate of 1
 for every 10 SFRs.  As the fuel composition and annual flux slightly change
@@ -392,9 +422,9 @@ other material flows later in time.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Ressources Mined]                {\epsfig{figure=img/RessourceMined,width=0.48\textwidth}}
-    \subfigure[SWU Requirement]                 {\epsfig{figure=img/SWURequierment,width=0.48\textwidth}}
-    \subfigure[Annual Fuel Loading Rate]        {\epsfig{figure=img/AnnualFuelLoading,width=0.48\textwidth}}
+    \subfigure[Ressources Mined]          {\epsfig{figure=img/RessourceMined,width=0.48\textwidth}}
+    \subfigure[SWU Requirement]           {\epsfig{figure=img/SWURequierment,width=0.48\textwidth}}
+    \subfigure[Annual Fuel Loading Rate]  {\epsfig{figure=img/AnnualFuelLoading,width=0.48\textwidth}}
     \caption{Ressources production and fuel loading.\label{fig:RessourceUsed} }
 \end{figure}
 
@@ -408,8 +438,8 @@ source for deployments.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Deployment Schedule\label{fig:deploy_sub}]       {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
-    \subfigure[Electricity Produced\label{fig:power_sub}]       {\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
+    \subfigure[Deployment Schedule\label{fig:deploy_sub}]  {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
+    \subfigure[Electricity Produced\label{fig:power_sub}]  {\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
     \caption{Deployment schedule and corresponding
     electricity produced by the different reactors
     where R1(blue): existing LWR, R2(green): new
@@ -425,7 +455,7 @@ when all LWRs are decommissioned).
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.62\textwidth]        {img/AnnualReprocessingRate_1}
+    \includegraphics[width=0.62\textwidth]  {img/AnnualReprocessingRate_1}
     \caption{Annual Reprocessing Rate.}
     \label{fig:reprocessing_1}
 \end{figure}
@@ -438,8 +468,8 @@ because it is directly reprocessed after cooling.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Used Fuel in Cooling Storage]         {\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for Reprocessing]        {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
+    \subfigure[Used Fuel in Cooling Storage]   {\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for Reprocessing]  {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
     \caption{Used fuel in cooling and reprocessing.\label{fig:cool_reprocc} }
 \end{figure}
 
@@ -472,8 +502,8 @@ storage.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Storage Fuel composition (zoomed)\label{fig:FC_Z}]             {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]        {\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
+    \subfigure[Storage Fuel composition (zoomed)\label{fig:FC_Z}]       {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]  {\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
     \caption{Plutonium in storage.\label{fig:FC_WR_zoom} }
 \end{figure}
 
@@ -485,9 +515,9 @@ reprocessing and in the composition of material in storage.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Annual Reprocessing Rate]        {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing]   {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
-    \subfigure[Storage Fuel composition]        {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
+    \subfigure[Annual Reprocessing Rate]       {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for reprocessing]  {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
+    \subfigure[Storage Fuel composition]       {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
     \caption{Ressources production and fuel loading.\label{fig:ARR_FWR_SFC_2} }
 \end{figure}
 
@@ -535,3 +565,9 @@ material flows are managed in a more incremental, continuous way.
 %----------------------------------------------------------------------------------------
 
 \end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
