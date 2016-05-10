@@ -245,14 +245,16 @@ in Table \ref{tab:reactor_fuel} taken from \cite{B.Feng_calculation}.
 \subsection{Cooling/Storage}
 
 After irradiation, all fuel is cooled for 84 months before becoming available
-for reprocessing.  The Cycacore Storage facility allows defining a minimum
-residence time for each incoming material.  In order to simplify
-differentiating between material in cooling and material available for
-reprocessing, 2 storage facilities are used in series providing this explicit
-separation. One dedicated to cooling, with a residence time of 84 months, and
+for reprocessing.  The Cycamore Storage facility allows defining a minimum
+residence time for each incoming material.  In order to 
+differentiate between material in cooling and material available for
+reprocessing as specified in the reporting requirements, 
+2 storage facilities are used in series providing this explicit
+distinction. One dedicated to cooling, with a residence time of 84 months,
+corresponds to the output quantity ``Resource in storage'', and
 one dedicated to storage until reprocessing with no minimum residence time
-providing data for the "UNF waiting for reprocessing" and the "Resource in
-storage" output data columns respectively.  Notable are subtle differences in
+corresponds to the output quantity ``UNF waiting for reprocessing''.
+Notable are subtle differences in
 what these two storage facilities' data represent and their exact semantic
 meaning in the analysis spreadsheet.
 
