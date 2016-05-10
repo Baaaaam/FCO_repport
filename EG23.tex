@@ -40,7 +40,7 @@
 
 
 %----------------------------------------------------------------------------------------
-%	DOCUMENT INFORMATION
+%        DOCUMENT INFORMATION
 %----------------------------------------------------------------------------------------
 
 \title{EG01-EG23 Transition: Cyclus Results}
@@ -107,7 +107,7 @@ document).
 \begin{figure}[h!]
     \centering
     \subfigure[Deployment schedule\label{fig:deploy}]     {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
-    \subfigure[Electricity produced\label{fig:nrg}]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
+    \subfigure[Electricity produced\label{fig:nrg}]       {\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
     \caption{
         Deployment schedule and corresponding electricity produced by the
         different reactors where R1(blue): existing LWR, R2(green): new
@@ -158,14 +158,14 @@ simulation have been summarized in Table \ref{tab:reactor}.
     \centering
     \begin{tabularx}{350pt}{lXXX}
     \hline
-    Core Properties       &	LWR     &	SFR 1   &	SFR 2     \\
+    Core Properties       &  LWR             &  SFR 1           &  SFR 2            \\
     \hline
-    Rated Power, [MWe]    &	1000		&	400     &	400       \\
-    Thermal Efficiency    &	N.A.$^1$	&	0.4     &	0.4       \\
-    Capacity Factor       &	0.90		&	0.90		&	0.90      \\
-    Number of batches     &	6       &	5       &	3         \\
-    Cycle length, [month] &	9       &	13      &	18        \\
-    Core Inventory, [tHM] &	6$\times$14.784 & 5$\times$7.524 & 3$\times$11.466  \\
+    Rated Power, [MWe]    &  1000            &  400             &  400              \\
+    Thermal Efficiency    &  N.A.$^1$        &  0.4             &  0.4              \\
+    Capacity Factor       &  0.90            &  0.90            &  0.90             \\
+    Number of batches     &  6               &  5               &  3                \\
+    Cycle length, [month] &  9               &  13              &  18               \\
+    Core Inventory, [tHM] &  6$\times$14.784 &  5$\times$7.524  &  3$\times$11.466  \\
     \hline
     \end{tabularx}
     \caption{Reactor core properties.}
@@ -217,17 +217,17 @@ in Table \ref{tab:reactor_fuel} taken from \cite{B.Feng_calculation}.
     \centering
     \begin{tabular}{lllll}
     \hline
-    \multicolumn{2}{c}{Reactor}			&	LWR [$\%w$]	&	SFR fuel 1  [$\%w$]	&	SFR fuel 2  [$\%w$] 	\\
+    \multicolumn{2}{c}{Reactor}                  &        LWR [$\%w$] &  SFR fuel 1  [$\%w$] &  SFR fuel 2  [$\%w$]  \\
     \hline
-    \multirow{3}{*} {In recipe}	&	235U	&	95.8			&	0				&	0				\\
-    &	238U	&	4.2			&	92.36			&	91.466			\\
-    &	Pu		&	0			&	7.64				&	8.534			\\
+    \multirow{3}{*} {In recipe}  &        235U   &  95.8              &  0                   &  0                    \\
+                                 &        238U   &  4.2               &  92.36               &  91.466               \\
+                                 &        Pu     &  0                 &  7.64                &  8.534                \\
     \hline
-    \multirow{5}{*} {Out recipe}&	235U	&	0.8			&	0				&	0				\\
-    &	238U/U	&	92.68		&	85.99			&	86.025			\\
-    &	Pu		&	1.2			&	9.02				&	9.596			\\
-    &	MA		&	0.11			&	0.13				&	0.107			\\
-    &	FP		&	5.21			&	4.86				&	4.272			\\
+    \multirow{5}{*} {Out recipe} &        235U   &  0.8               &  0                   &  0                    \\
+                                 &        238U/U &  92.68             &  85.99               &  86.025               \\
+                                 &        Pu     &  1.2               &  9.02                &  9.596                \\
+                                 &        MA     &  0.11              &  0.13                &  0.107                \\
+                                 &        FP     &  5.21              &  4.86                &  4.272                \\
     \hline
     \end{tabular}
 
@@ -276,15 +276,15 @@ leading to eventual halting of spent fuel separations.
     \centering
     \begin{tabular}{lllll}
     \hline
-    Separation Properties	&	LWR			&	SFR 1/2	\\
+    Separation Properties         &        LWR              &        SFR 1/2        \\
     \hline
-    Throughput [tHM/month]	&	83.3333		&	5000		\\
-    feed buffer [tHM]		&	107.537		&	5000		\\
-    Pu output buffer [tHM]	&	Unlimited	&	5000		\\
-    Pu separation efficiency&	0.99		&	0.99		\\
-    Recycled U buffer [tHM]	&	Unlimited	&	Unlimited	\\
-    U separation efficiency	&	0.99		&	0.99		\\
-    Waste buffer [tHM]		&	Unlimited	&	Unlimited	\\
+    Throughput [tHM/month]        &        83.3333          &        5000           \\
+    feed buffer [tHM]             &        107.537          &        5000           \\
+    Pu output buffer [tHM]        &        Unlimited        &        5000           \\
+    Pu separation efficiency      &        0.99             &        0.99           \\
+    Recycled U buffer [tHM]       &        Unlimited        &        Unlimited      \\
+    U separation efficiency       &        0.99             &        0.99           \\
+    Waste buffer [tHM]            &        Unlimited        &        Unlimited      \\
     \hline
     \end{tabular}
     \caption{Separation facilities core properties. }
@@ -315,15 +315,15 @@ reprocessing facilities used in Case 2 are summarized in Table
     \centering
     \begin{tabular}{ll}
     \hline
-    Separation Properties	&	All Fuel	\\
+    Separation Properties     &  All Fuel   \\
     \hline
-    Throughput [tHM/month]	&	60		\\
-    Feed buffer [tHM]		&	66		\\
-    Pu output buffer  [tHM]	&	6		\\
-    Pu separation efficiency	&	0.99		\\
-    Recycled U buffer [tHM]	&	Unlimited	\\
-    U separation efficiency	&	0.99		\\
-    Waste buffer [tHM]		&	Unlimited	\\
+    Throughput [tHM/month]    &  60         \\
+    Feed buffer [tHM]         &  66         \\
+    Pu output buffer  [tHM]   &  6          \\
+    Pu separation efficiency  &  0.99       \\
+    Recycled U buffer [tHM]   &  Unlimited  \\
+    U separation efficiency   &  0.99       \\
+    Waste buffer [tHM]        &  Unlimited  \\
     \hline
     \end{tabular}
     \caption{Separation facilities core properties.}
@@ -339,12 +339,12 @@ of this enrichment facilities are summarized in Table \ref{tab:enrich_1}.
     \centering
     \begin{tabular}{lllll}
     \hline
-    Enrichment Properties	&	UOX		\\
+    Enrichment Properties      &  UOX        \\
     \hline
-    Throughput [tHM/month]	&	Unlimited	\\
-    SWU capacity [tSWU/month]&	1e97		\\
-    Tails assay  			&	0.0025	\\
-    Feed buffer [tHM]	&	Unlimited	\\
+    Throughput [tHM/month]     &  Unlimited  \\
+    SWU capacity [tSWU/month]  &  1e97       \\
+    Tails assay                &  0.0025     \\
+    Feed buffer [tHM]          &  Unlimited  \\
     \hline
     \end{tabular}
     \caption{Enrichment facilities properties. }
@@ -366,11 +366,11 @@ summarized in Table \ref{tab:fuelfab_1}.
     \centering
     \begin{tabular}{lllll}
     \hline
-    Fuel Fab Properties	&	SFR 1	&	SFR 2	\\
+    Fuel Fab Properties      &  SFR 1   &  SFR 2   \\
     \hline
-    Throughput [tHM/month]	&	75.240	&	76.440	\\
-    Depleted U buffer [tHM]	&	69.492	&	69.912	\\
-    Pu buffer  [tHM]		&	5.748	&	5.856	\\
+    Throughput [tHM/month]   &  75.240  &  76.440  \\
+    Depleted U buffer [tHM]  &  69.492  &  69.912  \\
+    Pu buffer  [tHM]         &  5.748   &  5.856   \\
     \hline
     \end{tabular}
     \caption{Fuel fabrication facilities properties.}
@@ -425,7 +425,7 @@ when all LWRs are decommissioned).
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.62\textwidth]	{img/AnnualReprocessingRate_1}
+    \includegraphics[width=0.62\textwidth]        {img/AnnualReprocessingRate_1}
     \caption{Annual Reprocessing Rate.}
     \label{fig:reprocessing_1}
 \end{figure}
@@ -438,8 +438,8 @@ because it is directly reprocessed after cooling.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Used Fuel in Cooling Storage]		{\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for Reprocessing]	{\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
+    \subfigure[Used Fuel in Cooling Storage]         {\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for Reprocessing]        {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
     \caption{Used fuel in cooling and reprocessing.\label{fig:cool_reprocc} }
 \end{figure}
 
@@ -472,8 +472,8 @@ storage.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Storage Fuel composition (zoomed)\label{fig:FC_Z}]		{\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]	{\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
+    \subfigure[Storage Fuel composition (zoomed)\label{fig:FC_Z}]             {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]        {\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
     \caption{Plutonium in storage.\label{fig:FC_WR_zoom} }
 \end{figure}
 
@@ -485,9 +485,9 @@ reprocessing and in the composition of material in storage.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Annual Reprocessing Rate]			{\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing]			{\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
-    \subfigure[Storage Fuel composition]	{\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
+    \subfigure[Annual Reprocessing Rate]        {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for reprocessing]   {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
+    \subfigure[Storage Fuel composition]        {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
     \caption{Ressources production and fuel loading.\label{fig:ARR_FWR_SFC_2} }
 \end{figure}
 
@@ -525,7 +525,7 @@ batches are modeled discretely in Cyclus where in DYMOND all entities are
 material flows are managed in a more incremental, continuous way.
 
 %----------------------------------------------------------------------------------------
-%	BIBLIOGRAPHY
+%        BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
 \bibliographystyle{unsrt}
