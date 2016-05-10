@@ -387,7 +387,8 @@ close to DYMOND simulation results. There are some observable fluctuations on
 the annual fuel loading and the SWU requirements which are consistent with the
 synchronized refueling cycles of the initially deployed reactors.  There are
 various simple ways to stagger refueling cycles for smoother data that were
-not pursued in this analysis.
+not pursued in this analysis.  Similar fluctuations apper as ``echoes'' in 
+other material flows later in time.
 
 \begin{figure}[h!]
     \centering
@@ -402,6 +403,8 @@ The generated power and the deployment schedule shown in Figures
 the DYMOND simulations. The sudden drop in 2210 is due to a lack of deployment
 data after 2210 due to limitations of the DYMOND code which was used as the
 source for deployments.
+
+%% NOTE: are we supposed to plot beyond 2210? or 2200?
 
 \begin{figure}[h!]
     \centering
@@ -430,13 +433,13 @@ when all LWRs are decommissioned).
 
 MOX spent fuel production by the 2 different SFR types roughly follows the
 loading of fresh fuel.  Because the reprocessing facilities are greedy,
-reprocessing all used fuel available, there is no SFR spent fuel in storage
+reprocessing all used fuel available, there is no SFR spent fuel waiting for reprocessing
 because it is directly reprocessed after cooling.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Used Fuel in Cooling]		{\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing]	{\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
+    \subfigure[Used Fuel in Cooling Storage]		{\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for Reprocessing]	{\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
     \caption{Used fuel in cooling and reprocessing.\label{fig:cool_reprocc} }
 \end{figure}
 
