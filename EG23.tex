@@ -63,13 +63,13 @@
 \section{Intro/specification}
 
 The U.S. Department of Energy (DOE) Fuel Cycle Option (FCO) started a campaign
-to assess the future of the U.S. nuclear fleet. After analyzing several
-alternative fuel cycles in an equilibrium state, organized into Evaluation
-Groups (EG), the DOE has been interested in assessing a transition from the
+to assess the future of the U.S. nuclear fleet. During the Evaluation and Screening study, 
+several alternative fuel cycles were analyzed in an equilibrium state and organized into Evaluation
+Groups (EG).  In the current phase the DOE has been interested in assessing a transition from the
 current once-through fuel cycle to some of the best alternatives from their
 equilibrium analysis.
 
-The analysis in this report was conducted done after ones performed by the
+The analysis in this report was conducted done after similar analyses performed by the
 three fuel cycle simulator codes DYMOND, \cite{dymon}, VISION \cite{vision},
 and ORION \cite{orion}. The purpose of this report is to demonstrate the
 capabilities of the Cyclus simulator \cite{cyclus} as sufficiently mature to
@@ -78,8 +78,9 @@ contribute to ongoing fuel cycle analysis work.
 \section{Scenario Description}
 
 The scenario used in this study models the transition from a once-through
-light water reactor (LWR) fuel cycle (i.e. EG01) to a sodium fast reactor
-(SFR) full recycle case (i.e. EG23).  The LWR and SFR deployments were
+light water reactor (LWR) fuel cycle (i.e. EG01) to a 
+full recycle case (i.e. EG23) with only sodium fast reactors
+(SFR).  The LWR and SFR deployments were
 selected to accomplish three primary goals:
 
 \begin{itemize}
@@ -87,6 +88,33 @@ selected to accomplish three primary goals:
     \item Minimize the amount of sitting separated plutonium.
     \item Transition as quickly as possible given the other goals.
 \end{itemize}
+
+Scenario details are based on previous work done by R. Carlsen
+(https://github.com/rwcarlsen/eg23-sim).  From this study, the configuration
+and deployment schedule of the separation facilities for LWR used fuel have
+been taken. The rest of the study has been adapted from it, to match B. Feng
+DYMOND analysis \cite{B.Feng_calculation}.
+
+%% QUESTION: Above you say that the deployment schedule is taken from RWC
+%% study, but below you say it is defined by Bo.  It is part of the problem
+%% specification, is it not?
+
+The deployment schedule (Figure \ref{fig:deploy}) has not been calculated
+using Cyclus, it has been taken from B. Feng calculation and implemented in
+Cyclus (with some approximation which will be detailed further in the
+document).
+
+\begin{figure}[h!]
+    \centering
+    \subfigure[Deployment schedule\label{fig:deploy}]     {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
+    \subfigure[Electricity produced\label{fig:nrg}]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
+    \caption{
+        Deployment schedule and corresponding electricity produced by the
+        different reactors where R1(blue): existing LWR, R2(green): new
+        builded LWR, R3(red): high SFR, R4(purple): low
+        SFR.\label{fig:deployment}
+    }
+\end{figure}
 
 By default, Cyclus facilities exhibit greedy behavior, they request and
 process as much material as they can given their inventory capacities and
@@ -110,29 +138,6 @@ simulations were run:
 
 Scenario details for cases 1 and 2 are identical except for those noted in
 Section \ref{sec:case2}.
-
-Scenario details are based on previous work done by R. Carlsen
-(https://github.com/rwcarlsen/eg23-sim).  From this study, the configuration
-and deployment schedule of the separation facilities for LWR used fuel have
-been taken. The rest of the study has been adapted from it, to match B. Feng
-DYMOND analysis \cite{B.Feng_calculation}.
-
-The deployment schedule (Figure \ref{fig:deploy}) has not been calculated
-using Cyclus, it has been taken from B. Feng calculation and implemented in
-Cyclus (with some approximation which will be detailed further in the
-document).
-
-\begin{figure}[h!]
-    \centering
-    \subfigure[Deployment schedule\label{fig:deploy}]     {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
-    \subfigure[Electricity produced\label{fig:nrg}]		{\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
-    \caption{
-        Deployment schedule and corresponding electricity produced by the
-        different reactors where R1(blue): existing LWR, R2(green): new
-        builded LWR, R3(red): high SFR, R4(purple): low
-        SFR.\label{fig:deployment}
-    }
-\end{figure}
 
 The following subsections describe the configuration of the primary facility
 types (i.e. Cyclus prototypes) used in this analysis.
