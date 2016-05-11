@@ -275,10 +275,7 @@ reprocessing as specified in the reporting requirements,
 distinction. One dedicated to cooling, with a residence time of 84 months,
 corresponds to the output quantity ``Used Fuel in Cooling Storage'', and
 one dedicated to storage until reprocessing with no minimum residence time
-corresponds to the output quantity ``UNF waiting for reprocessing'' and
-``Ressource in Storage''.
-Notable are subtle differences in what these two storage facilities data
-represent and their exact semantic meaning in the analysis spreadsheet.
+corresponds to the output quantity ``UNF waiting for reprocessing''.
 
 \subsection{Separation}
 
@@ -293,6 +290,13 @@ leading to eventual halting of spent fuel separations.
 As the separation output buffers are not limited, those separation facilities will
 reprocess all the used available fuel with a constant reprocessing rate.
 
+As the fuel fabrication facilities have a tuned deployement and capacities (for 10
+batchs of fuel), the output buffer of the speration facilities have been used as
+input for the ``Plutonium'' data fo the ``Fuel Ressource in storage''. The reprocessed
+uranium is sent after the sepration to a dedicateed storage used as input for the
+``Reprocessed Uranium'' data of ``Fuel Ressource in storage''. 
+Notable are subtle differences in what these two storage facilities data represent
+and their exact semantic meaning in the analysis spreadsheet.
 %% NOTE: if LWR separations output buffers are unlimited, it will never stop
 %% separating, right?
 
@@ -450,11 +454,11 @@ data after 2210.
     SFR.\label{fig:deployment_bis} }
 \end{figure}
 
-The other curves also appear as expected. The annual reprocessing rate
-corresponds directly to the deployments. Spent UOX reprocessing starts in 2010
-with 2000 MTHM/yr with another 1000 MTHM/yr added in 2030.  This reprocessing
-rate (UOX1 + UOX2) continues until the end of the production of used UOX (i.e.
-when all LWRs are decommissioned).
+The other curves also appear as expected. The annual reprocessing rate (Figure
+\ref{fig:reprocessing_1}) corresponds directly to the deployments. Spent UOX
+reprocessing starts in 2010 with 2000 MTHM/yr with another 1000 MTHM/yr added in
+2030. This reprocessing rate (UOX1 + UOX2) continues until the end of the
+production of used UOX (i.e. when all LWRs are decommissioned).
 
 \begin{figure}[h!]
     \centering
@@ -471,24 +475,22 @@ because it is directly reprocessed after cooling.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Used Fuel in Cooling Storage]   {\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for Reprocessing]  {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
+    \subfigure[Used Fuel in Cooling Storage\label{fig:UFCS_1}]  {\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for Reprocessing\label{fig:FWR_1}]  {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
     \caption{Used fuel in cooling and reprocessing.\label{fig:cool_reprocc} }
 \end{figure}
-
-As almost all SFR spent fuel are directly reprocessed after cooling, spent
-fuel in storage stops increasing when all the UOX fuel has been reprocessed.
-
-%% NOTE: I think this is referring to Fig 6.... if so, it needs more
-%% explanation and more careful wording.  It is important to carefully use the
-%% appropriate names for these results since the names are so similar.  This
-%% is about ``fuel resource'' in storage and not ``spent fuel'' in storage.
-%% Need to change figure captions as well for Fig 6 & 7.
+The amounts of the different fuels in ``Used Fuel in Cooling Storage'' (Figure
+\ref{fig:UFCS_1} follow, as expected, the discharge of the different reactors.
+As almost all SFR spent fuel are directly reprocessed after cooling (see Figure
+\ref{fig:FWR_1}), spent fuel in storage stops increasing when all the UOX fuel has
+been reprocessed. The accumulation of LWR used fuel in ``UNF Waiting for
+Reprocessing'' is induced by the limited constant reprocessing capacity for those
+fuel. 
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.62\textwidth]{img/FuelInStorage_1}
-    \caption{Storage Fuel composition.}
+    \caption{Fuel Ressource in Storage.}
     \label{fig:storagecompo_1}
 \end{figure}
 
@@ -498,45 +500,51 @@ appearance of MOX fuel in storage waiting for reprocessing. With the
 replacement of higher breeding ratio SFRs with lower breeding ratio reactors
 the MOX spent fuel generation rate decreases sufficiently for reprocessing to
 "catch-up".
+As shown in the Figure \ref{fig:storagecompo_1}, the reprocessing capacities of
+the LWR fuel is highier than the demand on plutonium to fabricate the MOX fuel,
+creating an accumulation of plutonium prior to 2100. After 2100, with the
+decommision of the LWR, less LWR used fuel is produces, allowing the reduction of
+the inventory of plutonium. In the other side, the reprocessing capacities of the
+FBR used fuel are well adapted to the demand: the plutonium storage experience a
+small accumulation just before the SFR switch of breeding ratio.
+ 
+%As shown in the Figures \ref{fig:FC_Z} and \ref{fig:WR_Z}, the quantity of
+%plutonium in storage follows the variation in the amount of MOX1 fuel in
+%storage.
 
-As shown in the Figures \ref{fig:FC_Z} and \ref{fig:WR_Z}, the quantity of
-plutonium in storage follows the variation in the amount of MOX1 fuel in
-storage.
-
-\begin{figure}[h!]
-    \centering
-    \subfigure[Storage Fuel composition (zoomed)\label{fig:FC_Z}]       {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]  {\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
-    \caption{Plutonium in storage.\label{fig:FC_WR_zoom} }
-\end{figure}
+%\begin{figure}[h!]
+%    \centering
+%    \subfigure[Fuel Ressource in Storage (zoomed)\label{fig:FC_Z}]       {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
+%    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]  {\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
+%    \caption{Plutonium in storage.\label{fig:FC_WR_zoom} }
+%\end{figure}
 
 \subsection{Case 2: On-demand Separations}
 
 The only differences in the results between the two cases can be seen in the
-behavior of the reprocessed fuel --- namely in the UNF fuel waiting for
-reprocessing and in the composition of material in storage.
+behavior of the reprocessed fuel --- namely in the ``UNF fuel waiting for
+reprocessing'' and in the ``Fuel Ressource in Storage''.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Annual Reprocessing Rate]       {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing]  {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
-    \subfigure[Storage Fuel composition]       {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
+    \subfigure[Annual Reprocessing Rate\label{fig:ARR_2}]   {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
+    \subfigure[Fuel waiting for reprocessing]               {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
+    \subfigure[Fuel Ressource in Storage\label{fig:SFC_2}]  {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
     \caption{Ressources production and fuel loading.\label{fig:ARR_FWR_SFC_2} }
 \end{figure}
 
-Indeed, as seen in Figure 8a., the reprocessing follows the plutonium need of
-the SFR fuel fabrication. The UOX spent fuel only contains about only 1\% of
-plutonium while SFR spent fuel contains about 10\%, which explains the sudden
-decrease in the amount of fuel reprocessed around year 2110.  When switching
-to the higher plutonium content spent fuel, the separations facilities are
-able to produce an equivalent amount of fissile Pu while processing much less
-material from their spent fuel input inventories.
+Indeed, as seen in Figure \ref{fig:ARR_2}, the reprocessing follows more closely
+than in th case 1 the plutonium need of the SFR fuel fabrication. Indeed the
+accumulation of plutonium is limited at $\sim400~t$ (Figure \ref{fig:SFC_2}) versus $\sim1500~t$ in the
+first case. Nevertheless, one can still observe a large plutonium accumulation
+spike 2100 and 2145 which one should be able to avoid with a better reprocessing
+capacity deployement.
 
 Because of both the reprocessing priority and "on-demand" separations
 deployment, we observe more fuel waiting for reprocessing with a quick drop
 starting around year 2090 as stored up plutonium is used in the first wave of
-SFR deployments replacing aging LWRs.  We can also observe some of SFR fuel
-waiting for reprocessing, which decrease slowly, showing a well designed SFR
+SFR deployments replacing aging LWRs. We can also observe some of SFR fuel
+waiting for reprocessing, which decrease, showing a well designed SFR
 deployment schedule that reaches an comfortable equilibrium generating
 plutonium at the same rate it is being recycled.
 
