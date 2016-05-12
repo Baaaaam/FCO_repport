@@ -291,10 +291,10 @@ As the separation output buffers are not limited, those separation facilities wi
 reprocess all the used available fuel with a constant reprocessing rate.
 
 As the fuel fabrication facilities have a tuned deployement and capacities (for 10
-batchs of fuel), the output buffer of the speration facilities have been used as
-input for the ``Plutonium'' data fo the ``Fuel Ressource in storage''. The reprocessed
-uranium is sent after the sepration to a dedicateed storage used as input for the
-``Reprocessed Uranium'' data of ``Fuel Ressource in storage''. 
+batchs of fuel), we are reporting for ``Fuel Resource in Storage'' is based on the
+inventories of the separation facilities plutonium output buffer.
+The reprocessed uranium is sent after the sepration to a dedicateed storage.
+
 Notable are subtle differences in what these two storage facilities data represent
 and their exact semantic meaning in the analysis spreadsheet.
 %% NOTE: if LWR separations output buffers are unlimited, it will never stop
@@ -418,7 +418,7 @@ summarized in Table \ref{tab:fuelfab_1}.
 
 \subsection{Case 1: Greedy Separations}
 
-All fuel loading metrics (Figure \ref{fig:RessourceUsed}) are the same or very
+All fuel loading metrics (Figure \ref{fig:ResourceUsed}) are the same or very
 close to DYMOND simulation results. There are some observable fluctuations on
 the annual fuel loading and the SWU requirements which are consistent with the
 synchronized refueling cycles of the initially deployed reactors.  There are
@@ -428,10 +428,10 @@ other material flows later in time.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Ressources Mined]          {\epsfig{figure=img/RessourceMined,width=0.48\textwidth}}
+    \subfigure[Resources Mined]          {\epsfig{figure=img/ResourceMined,width=0.48\textwidth}}
     \subfigure[SWU Requirement]           {\epsfig{figure=img/SWURequierment,width=0.48\textwidth}}
     \subfigure[Annual Fuel Loading Rate]  {\epsfig{figure=img/AnnualFuelLoading,width=0.48\textwidth}}
-    \caption{Ressources production and fuel loading.\label{fig:RessourceUsed} }
+    \caption{Resources production and fuel loading.\label{fig:ResourceUsed} }
 \end{figure}
 
 The generated power and the deployment schedule shown in Figures
@@ -490,7 +490,7 @@ fuel.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.62\textwidth]{img/FuelInStorage_1}
-    \caption{Fuel Ressource in Storage.}
+    \caption{Fuel Resource in Storage.}
     \label{fig:storagecompo_1}
 \end{figure}
 
@@ -514,7 +514,7 @@ small accumulation just before the SFR switch of breeding ratio.
 
 %\begin{figure}[h!]
 %    \centering
-%    \subfigure[Fuel Ressource in Storage (zoomed)\label{fig:FC_Z}]       {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
+%    \subfigure[Fuel Resource in Storage (zoomed)\label{fig:FC_Z}]       {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
 %    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]  {\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
 %    \caption{Plutonium in storage.\label{fig:FC_WR_zoom} }
 %\end{figure}
@@ -523,14 +523,14 @@ small accumulation just before the SFR switch of breeding ratio.
 
 The only differences in the results between the two cases can be seen in the
 behavior of the reprocessed fuel --- namely in the ``UNF fuel waiting for
-reprocessing'' and in the ``Fuel Ressource in Storage''.
+reprocessing'' and in the ``Fuel Resource in Storage''.
 
 \begin{figure}[h!]
     \centering
     \subfigure[Annual Reprocessing Rate\label{fig:ARR_2}]   {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
     \subfigure[Fuel waiting for reprocessing]               {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
-    \subfigure[Fuel Ressource in Storage\label{fig:SFC_2}]  {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
-    \caption{Ressources production and fuel loading.\label{fig:ARR_FWR_SFC_2} }
+    \subfigure[Fuel Resource in Storage\label{fig:SFC_2}]  {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
+    \caption{Resources production and fuel loading.\label{fig:ARR_FWR_SFC_2} }
 \end{figure}
 
 Indeed, as seen in Figure \ref{fig:ARR_2}, the reprocessing follows more closely
