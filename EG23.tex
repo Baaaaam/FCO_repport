@@ -144,8 +144,10 @@ types (i.e. Cyclus prototypes) used in this analysis.
 After the LWR to SFR transition is completed, new SFR reactors are deployed
 with a lower breeding ratio in order to prevent unbounded buildup of
 plutonium. The properties of the different reactors cores used for the
-simulation have been summarized in Table \ref{tab:reactor}. Because of the 1
-month time step of Cyclus, the number of batches, batch size, cycle length have been
+simulation have been summarized in Table \ref{tab:reactor}. Two different SFR 
+configurations exist to facilitate management of Pu in later years by reducing
+the breeding ratio.  Because of the 1
+month time step of Cyclus, the number of batch, batch size, cycle lengh have been
 chosen in order to maintain a correct core inventory and complete cycle
 period. Those choices imply small discrepencies between specifications and
 Cyclus input, so both values have been detailled.
@@ -178,13 +180,6 @@ Cyclus input, so both values have been detailled.
     \label{tab:reactor}
 %    \footnotesize{$^1$ Not specified, but as a recipe reactor is used, it is not required.}
 \end{table}
-
-%% NOTE: Should we include the breeding ratio for the different SFRs? That's
-%% what makes them different, right?
-
-
-%% Apropos my comment above - this is a great example of showing others how to
-%% translate specifications into Cyclus inputs.
 
 Because of the 1-month timestep of Cyclus, the batch quantity and cycle length
 parameters have been manipulated to match as closely as possible important
@@ -234,10 +229,6 @@ This DRE system allows Cyclus to deal with competition in the supply of material
 %used for this analysis does not perform a burnup evolution calculation. Only the
 %mass of discharged fuel is affected with a respective relative error : $0.01 \%$,
 %$0.0 \%$ and $0.006 \%$.
-
-%% NOTE: This ends abruptly... 
-%%    do we calculate this for the different reactors?
-%%    do we know what it is for the LWR since we don't know the efficiency?
 
 All LWR reactors use enriched uranium fuel. The SFR used MOX fuel with
 different plutonium enrichments. The input/output fuel recipes are summarized
