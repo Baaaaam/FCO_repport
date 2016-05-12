@@ -115,7 +115,7 @@ been taken.
 
 By default, Cyclus facilities exhibit greedy behavior, they request and
 process as much material as they can given their inventory capacities and
-process limits. As Cyclus does not yet include direct support for on-demand
+process throughput limits. As Cyclus does not yet include direct support for on-demand
 processing, some special accommodations were made to maintain the desired low
 inventory of separated Pu. In order to address this in parts, a series of two
 simulations were run:
@@ -133,7 +133,7 @@ simulations were run:
 
 \end{itemize}
 
-Scenario details for cases 1 and 2 are identical except for those noted in
+Scenario details for cases 1 and 2 are identical except for the changes noted in
 Section \ref{sec:case2}.
 
 The following subsections describe the configuration of the primary facility
@@ -141,19 +141,14 @@ types (i.e. Cyclus prototypes) used in this analysis.
 
 \subsection{Reactors}
 
-After the LWR to SFR transition is completed, new SFR reactors are deployed with a
-lower breeding ratio in order to prevent unbounded buildup of plutonium. The
-properties of the different reactors cores used for the simulation have been
-summarized in Table \ref{tab:reactor}. Because of the 1 month time step of Cyclus,
-the number of batch, batch size, cycle lengh have been chosen in order to maintain
-a correct core inventory and complete cycle periode. Those choice implies small
-discrepencies between specifications and Cyclus input, both values have been
-detailled.
-
-%% NOTE: Are these the specified properties from Bo, or the as-used properties
-%% in Cyclus, or some combination?
-%% Remember, a key outcome of this report will be showing potential users how to
-%% translate a problem specification into Cyclus inputs.
+After the LWR to SFR transition is completed, new SFR reactors are deployed
+with a lower breeding ratio in order to prevent unbounded buildup of
+plutonium. The properties of the different reactors cores used for the
+simulation have been summarized in Table \ref{tab:reactor}. Because of the 1
+month time step of Cyclus, the number of batches, batch size, cycle length have been
+chosen in order to maintain a correct core inventory and complete cycle
+period. Those choices imply small discrepencies between specifications and
+Cyclus input, so both values have been detailled.
 
 \begin{table}[h!]
     \centering
