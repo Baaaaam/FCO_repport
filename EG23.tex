@@ -172,7 +172,7 @@ Cyclus input, both values have been detailled.
       \hline
       \hline
       Number of batches     &  3               &  5.44            &  4.44             \\
-      Cycle length, [month] &  18              &  1               &  1                \\
+      Cycle length, [month] &  18              &  12              &  12               \\
       Core Inventory, [tHM] &  3$\times$29.565 &  37.62           &  34.40            \\
                                                                                       \\
       \multicolumn{4}{l}{Cyclus inplementation}                                       \\ 
@@ -202,30 +202,21 @@ parameters have been manipulated to match as closely as possible important
 invariants such as fuel residence time, burnup, and discharge rates
 \cite{B.Feng_calculation}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NOTE: I am note sure it birng any interresing information, so I remove it and I
-%% add the actual error made on the mass for each reactor.
+For the SFR 1 facility type, the cycle length is specified to be $5.44~$y (for
+discharge burnup of 37.62 GWd/t), $5.41~$y has been used (5 $\times$ 13 months). For
+SFR 2, $4.5~$y has been used (3 $\times$ 18 months) where 4.44 was expected. With
+Cyclus' 1-month time step, the burnup resolution can be easly calculated as:
+\begin{equation} \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
+\end{equation}
+\noindent where $P_{th}$ is the thermal power of the reactor, $M_{r}$ its mass in
+heavy metal, $\Delta BU$ the burnup achievable precision and $\Delta t$ the time
+step size. In this simulation the $\Delta BU$ are for the SFR 1 \& 2 respectively:
+$0.73$ and $0.79~$GWd/t.
 
-% For the SFR 1 facility type, the cycle
-%length is specified to be 5.44 y (for discharge burnup of 37.62 GWd/t), 5.41 y
-%has been used (5 $\times$ 13 months). For SFR 2, 4.5y has been used (3 $\times$ 18 months)
-%where 4.44 was expected.  With Cyclus' 1-month time step, the burnup resolution
-%can be easly calculated as:
-%\begin{equation}
-%  \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
-%\end{equation}
-
-%\noindent where $P_{th}$ is the thermal power of the reactor, $M_{r}$ its mass
-%in heavy metal, $\Delta BU$ the burnup achievable precision and $\Delta t$ the
-%time step size. In this simulation the $\Delta BU$ are for the SFR 1 \& 2
-%respectively: $0.73$ and $0.79~GWd/t$. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-This does not affect the composition
-of the discharge fuel as the reactor model used for this analysis does not
-perform a burnup evolution calculation. Only the mass of discharged fuel is
-affected with a respective relative error : $0.01 \%$, $0.0 \%$ and $0.006 \%$. 
+This does not affect the composition of the discharge fuel as the reactor model
+used for this analysis does not perform a burnup evolution calculation. Only the
+mass of discharged fuel is affected with a respective relative error : $0.01 \%$,
+$0.0 \%$ and $0.006 \%$.
 
 %% NOTE: This ends abruptly... 
 %%    do we calculate this for the different reactors?
