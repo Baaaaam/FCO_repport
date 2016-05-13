@@ -95,7 +95,7 @@ and implemented in
 Cyclus (with some approximation which will be detailed further in the
 document).
 
-Other scenario details, including how to represent the problem specifications in Cycluis,
+Other scenario details, including how to represent the problem specifications in Cyclus,
 are based on previous work done by R. Carlsen
 (https://github.com/rwcarlsen/eg23-sim).  From this study, the configuration
 and deployment schedule of the separation facilities for LWR used fuel have
@@ -146,11 +146,20 @@ with a lower breeding ratio in order to prevent unbounded buildup of
 plutonium. The properties of the different reactors cores used for the
 simulation have been summarized in Table \ref{tab:reactor}. Two different SFR 
 configurations exist to facilitate management of Pu in later years by reducing
-the breeding ratio.  Because of the 1
-month time step of Cyclus, the number of batch, batch size, cycle lengh have been
-chosen in order to maintain a correct core inventory and complete cycle
-period. Those choices imply small discrepencies between specifications and
-Cyclus input, so both values have been detailled.
+the breeding ratio.  Because of the 1-month timestep of Cyclus, the batch quantity and cycle length
+parameters have been manipulated to match as closely as possible important
+invariants such as fuel residence time, burnup, and discharge rates
+\cite{B.Feng_calculation}. The notion of batches
+is defined in Cyclus by combining the number of assemblies per core and 
+the number of assemblies per batch.  In the simplest form, an integer number of
+batches, n, can be defined by specifying n assemblies per core and 1 assembly
+per batch.  For a non-integer number of batches, f, can be implemented by
+specifying f$\times 10^m$ number of assemblies per core and $10^m$ assemblies
+per batch, where f$\times 10^m$ is an integer.  For this problem, it is also
+possible to select the cycle length, number of batches and batch size to
+approximate the same fuel throughput.  This choice implies small 
+discrepencies between specifications and Cyclus input that have been detailed 
+below.
 
 \begin{table}[h!]
     \centering
@@ -178,13 +187,8 @@ Cyclus input, so both values have been detailled.
     \end{tabularx}
     \caption{Reactor core properties.}
     \label{tab:reactor}
-%    \footnotesize{$^1$ Not specified, but as a recipe reactor is used, it is not required.}
 \end{table}
 
-Because of the 1-month timestep of Cyclus, the batch quantity and cycle length
-parameters have been manipulated to match as closely as possible important
-invariants such as fuel residence time, burnup, and discharge rates
-\cite{B.Feng_calculation}.
 
 For the SFR 1 facility type, the cycle length is specified to be $5.44~$y (for
 discharge burnup of 37.62 GWd/t), $5.40~$y has been used (27/5 $\times$ 12
@@ -425,7 +429,6 @@ specifications.
 %% QUESTION: Does the ``are supposed to be'' mean that the problem specifies
 %% this?
 
-%% NOTE: We need 2-3 sentences on how our Fuel Fab works in Cycamore.
 The Fuel fabrication of the additionnal Cycamore module mix the two input stream
 accordingly to the plutonium-Equivalent theory\cite{Pueq}. A reactivity weight is
 calculated for the require output composition and both of the input stream. An
