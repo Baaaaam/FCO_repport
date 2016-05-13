@@ -162,15 +162,12 @@ Cyclus input, both values have been detailled.
     \centering
     \begin{tabularx}{350pt}{lXXX}
       \hline
-      Core Properties       &  LWR             &  SFR 1           &  SFR 2            \\
+      Core Specifications   &  LWR             &  SFR 1           &  SFR 2            \\
       \hline
       Rated Power, [MWe]    &  1000            &  400             &  400              \\
-      Thermal Efficiency    &  N.A.$^1$        &  0.4             &  0.4              \\
+      Thermal Efficiency    &  0.33            &  0.4             &  0.4              \\
       Capacity Factor       &  0.90            &  0.90            &  0.90             \\
-                                                                                      \\
-      \multicolumn{4}{X}{Specifications}                                              \\ 
-      \hline
-      \hline
+      Burnup, [Gwd/tHM]     &  50              &  47.501          &  42.397           \\
       Number of batches     &  3               &  5.44            &  4.44             \\
       Cycle length, [month] &  18              &  12              &  12               \\
       Core Inventory, [tHM] &  3$\times$29.565 &  37.62           &  34.40            \\
@@ -178,7 +175,9 @@ Cyclus input, both values have been detailled.
       \multicolumn{4}{l}{Cyclus inplementation}                                       \\ 
       \hline
       \hline
-      Number of batches     &  6               &  5               &  3                \\
+      Assembly size [kgHM]  &  14784           &  7524            &  11466            \\
+      Assembly in the core  &  6               &  5               &  3                \\
+      Assembly per batches  &  1               &  1               &  1                \\
       Cycle length, [month] &  9               &  13              &  18               \\
       Core Inventory, [tHM] &  6$\times$14.784 &  5$\times$7.524  &  3$\times$11.466  \\
 %% I have increase the size of the batch by 1 to avoid a bid bug I
@@ -187,7 +186,7 @@ Cyclus input, both values have been detailled.
     \end{tabularx}
     \caption{Reactor core properties.}
     \label{tab:reactor}
-    \footnotesize{$^1$ Not specified, but as a recipe reactor is used, it is not required.}
+%    \footnotesize{$^1$ Not specified, but as a recipe reactor is used, it is not required.}
 \end{table}
 
 %% NOTE: Should we include the breeding ratio for the different SFRs? That's
