@@ -267,6 +267,20 @@ corresponds to the output quantity ``Used Fuel in Cooling Storage'', and
 one dedicated to storage until reprocessing with no minimum residence time
 corresponds to the output quantity ``UNF waiting for reprocessing''.
 
+The implementation properties of the cooling storage can be found in table \ref{cooling_1} 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ll}
+    \hline
+    \multicolumn{2}{l}{Cooling Implementation}  \\
+    \hline
+    Residence Time [month]   &  84  \\
+    \hline
+    \end{tabular}
+    \caption{Cooling facilities core implementation.}
+    \label{tab:cooling_1}
+\end{table}
+
 \subsection{Separation}
 
 \subsubsection{Case 1: Greedy Separations}
@@ -294,15 +308,15 @@ and their exact semantic meaning in the analysis spreadsheet.
     \centering
     \begin{tabular}{lllll}
     \hline
-    Separation Properties     &  LWR        &  SFR 1/2    \\
+    Separation Implementation  &  LWR        &  SFR 1/2    \\
     \hline
-    Throughput [tHM/month]    &  83.3333    &  5000       \\
-    feed buffer [tHM]         &  107.537    &  5000       \\
-    Pu output buffer [tHM]    &  Unlimited  &  5000       \\
-    Pu separation efficiency  &  0.99       &  0.99       \\
-    Recycled U buffer [tHM]   &  Unlimited  &  Unlimited  \\
-    U separation efficiency   &  0.99       &  0.99       \\
-    Waste buffer [tHM]        &  Unlimited  &  Unlimited  \\
+    Throughput [tHM/month]     &  83.3333    &  5000       \\
+    feed buffer [tHM]          &  107.537    &  5000       \\
+    Pu output buffer [tHM]     &  Unlimited  &  5000       \\
+    Pu separation efficiency   &  0.99       &  0.99       \\
+    Recycled U buffer [tHM]    &  Unlimited  &  Unlimited  \\
+    U separation efficiency    &  0.99       &  0.99       \\
+    Waste buffer [tHM]         &  Unlimited  &  Unlimited  \\
     \hline
     \end{tabular}
     \caption{Separation facilities core properties. }
@@ -312,41 +326,68 @@ and their exact semantic meaning in the analysis spreadsheet.
 \subsubsection{Case 2: On-Demand Separations}
 \label{sec:case2}
 
-The only difference with the Case 1 scenario is the way in
-which reprocessing capacity is handled over time.  Modeling on-demand
-separations is approximated by deploying many small separations facilities according to plutonium
-requirements for SFR fuel fabrication.  These Pu requirements were determined
-from the Case 1 results. While the calculated deployment schedule does not
-follow plutonium usage exactly, it is a reasonable aproximation. 
+The only difference with the Case 1 scenario is the way in which reprocessing
+capacity is handled over time.  Modeling on-demand separations is approximated by
+deploying many small separations facilities according to plutonium requirements
+for SFR fuel fabrication.  These Pu requirements were determined from the Case 1
+results. While the calculated deployment schedule does not follow plutonium usage
+exactly, it is a reasonable aproximation.
 
-For this calculation, all fuels are reprocessed by only one type of
-reprocessing facility (i.e. one Cyclus prototype). The fuel input preferences
-have been set to 3 for all irradiated UOX fuel, 2 for higher breeding ratio
-SFR spent fuel, and 3 for the lower breeding ratio SFR spent fuel.  Since a higher
-number indicates a higher preference, these facilities will prefer to consume and process
-irradiated UOX fuel and low breeding ratio SFR fuel before they consume/process 
-high breeding ratio SFR fuel.  The characteristics of each of the
-reprocessing facilities used in Case 2 are summarized in Table
+For this calculation, all fuels are reprocessed by only one type of reprocessing
+facility (i.e. one Cyclus prototype). The fuel input preferences have been set to
+3 for all irradiated UOX fuel, 2 for higher breeding ratio SFR spent fuel, and 3
+for the lower breeding ratio SFR spent fuel.  Since a higher number indicates a
+higher preference, these facilities will prefer to consume and process irradiated
+UOX fuel and low breeding ratio SFR fuel before they consume/process high breeding
+ratio SFR fuel.  The implemented characteristics of each of the reprocessing
+facilities used in Case 2 are summarized in Table
 \ref{tab:fuelfab_2}.
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{ll}
     \hline
-    Separation Properties     &  All Fuel   \\
+    Separation Implementation  &  All Fuel   \\
     \hline
-    Throughput [tHM/month]    &  60         \\
-    Feed buffer [tHM]         &  66         \\
-    Pu output buffer  [tHM]   &  6          \\
-    Pu separation efficiency  &  0.99       \\
-    Recycled U buffer [tHM]   &  Unlimited  \\
-    U separation efficiency   &  0.99       \\
-    Waste buffer [tHM]        &  Unlimited  \\
+    Throughput [tHM/month]     &  60         \\
+    Feed buffer [tHM]          &  66         \\
+    Pu output buffer  [tHM]    &  6          \\
+    Pu separation efficiency   &  0.99       \\
+    Recycled U buffer [tHM]    &  Unlimited  \\
+    U separation efficiency    &  0.99       \\
+    Waste buffer [tHM]         &  Unlimited  \\ 
+                                             \\
+    \multicolumn{2}{c}{Feed commmodities}    \\
+%    \hline
+    \hline
+    Commodity Sources         &  Preferences \\
+    Used UOX A                &  3           \\
+    Used UOX B                &  3           \\
+    Used MOX A                &  2           \\
+    Used MOX B                &  1           \\
     \hline
     \end{tabular}
-    \caption{Separation facilities core properties.}
+    \caption{Separation facilities implementation.}
     \label{tab:fuelfab_2}
 \end{table}
+
+The Cycamore separation facility requests the feed commodities, accordingly to the
+set preferences, to fill its feed buffer. The material in the feed buffer is then
+separated following the implemented separation instruction and efficiency all the
+unused material is send to the waste. The reprocessing rate in limited by:
+
+\begin{itemize}
+
+  \item the feed buffer inventory
+  \item the total throughput which limits the amount of material reprocessed from
+    the feed buffer,
+  \item each stream throughput which limits the amount of each stream produced,
+  \item the output stream bufer size.
+
+\end{itemize}
+If one of this parameter reach its limit the separation is stopped until the
+constrain is release, either by the occurance of the next timestep (for the
+throughput limits), either by a change in the buffers inventories. 
 
 \subsection{Fuel Fabrication}
 
@@ -360,7 +401,7 @@ specifications.
     \centering
     \begin{tabular}{lllll}
     \hline
-    Enrichment Properties      &  UOX        \\
+    Enrichment implementation  &  UOX        \\
     \hline
     Throughput [tHM/month]     &  Unlimited  \\
     SWU capacity [tSWU/month]  &  Unlimited  \\
@@ -368,7 +409,7 @@ specifications.
     Feed buffer [tHM]          &  Unlimited  \\
     \hline
     \end{tabular}
-    \caption{Enrichment facilities properties. }
+    \caption{Enrichment facilities implementation. }
     \label{tab:enrich_1}
 \end{table}
 
@@ -376,15 +417,15 @@ specifications.
 %% this?
 
 %% NOTE: We need 2-3 sentences on how our Fuel Fab works in Cycamore.
-The Fuel fabrication of the additionnal Cycamore module mix the two
-input stream accordingly to the plutonium-Equivalent theory\cite{Pueq}. A
-reactivity weight is calculated for the require output composition and both of
-the input stream. An interpolation is used to compute a mixing ratio of the input
-streams that matches the target weight.
+The Fuel fabrication of the additionnal Cycamore module mix the two input stream
+accordingly to the plutonium-Equivalent theory\cite{Pueq}. A reactivity weight is
+calculated for the require output composition and both of the input stream. An
+interpolation is used to compute a mixing ratio of the input streams that matches
+the target weight.
 
-The SFR fuel fabrication facilities are supposed to be deployed as a rate of 1
-for every 10 SFRs.  As the fuel composition and annual flux slightly change
-between SFR 1 and 2, the specifications between fabrication are also slightly
+The SFR fuel fabrication facilities are supposed to be deployed as a rate of 1 for
+every 10 SFRs.  As the fuel composition and annual flux slightly change between
+SFR 1 and 2, the specifications between fabrication are also slightly
 different. The details of all fuel fabrication facility characteristics are
 summarized in Table \ref{tab:fuelfab_1}.
 
@@ -409,12 +450,12 @@ summarized in Table \ref{tab:fuelfab_1}.
 \subsection{Case 1: Greedy Separations}
 
 All fuel loading metrics (Figure \ref{fig:ResourceUsed}) are the same or very
-close to DYMOND simulation results. There are some observable fluctuations on
-the annual fuel loading and the SWU requirements which are consistent with the
+close to DYMOND simulation results. There are some observable fluctuations on the
+annual fuel loading and the SWU requirements which are consistent with the
 synchronized refueling cycles of the initially deployed reactors.  There are
-various simple ways to stagger refueling cycles for smoother data that were
-not pursued in this analysis.  Similar fluctuations apper as ``echoes'' in 
-other material flows later in time.
+various simple ways to stagger refueling cycles for smoother data that were not
+pursued in this analysis.  Similar fluctuations apper as ``echoes'' in other
+material flows later in time.
 
 \begin{figure}[h!]
     \centering
@@ -425,11 +466,11 @@ other material flows later in time.
 \end{figure}
 
 The generated power and the deployment schedule shown in Figures
-\ref{fig:deploy_sub} and \ref{fig:power_sub} match perfectly with results from
-the DYMOND simulations. The time scale in the output spreadsheet filled starts in
-2015 and ends in 2215, while the DYMOND calculation used as reference for the
-deployment schedule ends in 2210. The sudden drop in 2210 is due to a lack of deployment
-data after 2210.
+\ref{fig:deploy_sub} and \ref{fig:power_sub} match perfectly with results from the
+DYMOND simulations. The time scale in the output spreadsheet filled starts in 2015
+and ends in 2215, while the DYMOND calculation used as reference for the
+deployment schedule ends in 2210. The sudden drop in 2210 is due to a lack of
+deployment data after 2210.
 
 %% NOTE: are we supposed to plot beyond 2210? or 2200?
 
