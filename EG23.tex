@@ -113,7 +113,7 @@ been taken.
     }
 \end{figure}
 
-By default, Cyclus facilities exhibit greedy behavior, they request and
+By default, Cyclus facilities exhibit greedy behavior: they request and
 process as much material as they can given their inventory capacities and
 process throughput limits. As Cyclus does not yet include direct support for on-demand
 processing, some special accommodations were made to maintain the desired low
@@ -190,34 +190,15 @@ below.
 \end{table}
 
 
-For the SFR 1 facility type, the cycle length is specified to be $5.44~$y (for
-discharge burnup of 37.62 GWd/t), $5.40~$y has been used (27/5 $\times$ 12
-months). For the SFR 2, $4.4~$y has been used (22/5. $\times$ 12 months) where
-4.44 was expected. 
+For the SFR 1 facility type, the number of batches is specified to be $5.44$ (for
+discharge burnup of 37.62 GWd/t), $5.40$ has been used (27/5). For the SFR 2, $4.4$ 
+batches (22/5) have been used to approximate the 4.44 batches that were specified.
 
-Because the cycle length (in month), the number of assembly in a core and the number of
-assembly in a batch are defined as integer in Cyclus, have an exact match between
-the specification could need some tuning and can be unefficient. For exemple, in
-the precedent exercice, for the SFR 1, one could have set $544~$assembly in the
-core, $544$ in the batch with a cycle lengh of 12 month to have an exact match
-with the specification. Such implementation would have been very long to run,
-because the DRE (Dynamic Ressource Exchange) would have to deal at each refilling of each reactor 100 assembly
-trades, so few 10000 trades each years.
-
-The DRE is one of the main part of Cyclus, it deals the exchange of material between
-the different archetypes (Facilities, Institutions, Regions...). The material
-exhcange in Cyclus is devided in 3 phases: 
-\begin{itemize}
-  \item phase 1, request: each archetypes send there material request to the DRE
-    corresponding to their individuals needs,
-  \item phase 2, bid: the DRE share the request informations to all the
-    facilities, allowing them to place a bid on some depending on there indivudual productions,
-  \item phase 3, trade: the DRE solve the request/bid problem and each facilities
-    apply the results.
-\end{itemize}
-
-This DRE system allows Cyclus to deal with competition in the supply of materials. 
-
+An exact match to the specified number of batches is possible, but
+inefficient.  For example, SFR 1 could have been implemented with
+$544~$assemblies per core and $100~$assemblies per batch, but this would
+result in 20 times as many material objects being traded by the dynamic
+resource exchange (DRE), and thus longer runtimes and larger output databases.
 
 
 %With Cyclus' 1-month time step, the burnup resolution can be
@@ -233,6 +214,7 @@ This DRE system allows Cyclus to deal with competition in the supply of material
 %used for this analysis does not perform a burnup evolution calculation. Only the
 %mass of discharged fuel is affected with a respective relative error : $0.01 \%$,
 %$0.0 \%$ and $0.006 \%$.
+
 
 All LWR reactors use enriched uranium fuel. The SFR used MOX fuel with
 different plutonium enrichments. The input/output fuel recipes are summarized
