@@ -328,22 +328,19 @@ and their exact semantic meaning in the analysis spreadsheet.
 \subsubsection{Case 2: On-Demand Separations}
 \label{sec:case2}
 
-The only difference with the Case 1 scenario is the way in which reprocessing
+The only difference from the Case 1 scenario is the way in which reprocessing
 capacity is handled over time.  Modeling on-demand separations is approximated by
 deploying many small separations facilities according to plutonium requirements
 for SFR fuel fabrication.  These Pu requirements were determined from the Case 1
 results. While the calculated deployment schedule does not follow plutonium usage
 exactly, it is a reasonable aproximation.
 
-For this calculation, all fuels are reprocessed by only one type of reprocessing
-facility (i.e. one Cyclus prototype). The fuel input preferences have been set to
-3 for all irradiated UOX fuel, 2 for higher breeding ratio SFR spent fuel, and 3
-for the lower breeding ratio SFR spent fuel.  Since a higher number indicates a
-higher preference, these facilities will prefer to consume and process irradiated
-UOX fuel and low breeding ratio SFR fuel before they consume/process high breeding
-ratio SFR fuel.  The implemented characteristics of each of the reprocessing
-facilities used in Case 2 are summarized in Table
-\ref{tab:fuelfab_2}.
+For this calculation, all of the reprocessing facilities are based on only
+facility prototype.  When facilities based on this prototype request used fuel
+from reactors, they prefer irradiated UOX fuel and used fuel from the lower
+breeding ratio SFRs over used fuel from the higher breeding ration SFRs.  The
+implemented characteristics of each of the reprocessing facilities used in
+Case 2 are summarized in Table \ref{tab:fuelfab_2}.
 
 \begin{table}[h!]
     \centering
