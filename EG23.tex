@@ -287,9 +287,9 @@ The implementation properties of the cooling storage can be found in table \ref{
 \subsubsection{Case 1: Greedy Separations}
 
 The LWR fuel separation is handled by three identical separation facilities,
-two deployed in 2030 and one in 2040. In Case 1, the SFR separation facilities have a
-very large separation capacity, in the first case, we have tried to throttle
-the separation rate indirectly using the gradual fuel fabrication capacity
+two deployed in 2030 and one in 2040. In Case 1, the SFR separation facilities have an
+effectively infinite separation capacity, but the separation rate has been throttled
+indirectly using the gradual fuel fabrication capacity
 growth. Full fabrication facilities stop requesting separated plutonium
 leading to eventual halting of spent fuel separations.  
 %% PPHW: but they never halt because the output buffers are infinitely large
@@ -297,8 +297,8 @@ As the separation output buffers are not limited, those separation facilities wi
 reprocess all the used available fuel with a constant reprocessing rate.
 
 As the fuel fabrication facilities have a tuned deployement and capacities (for 10
-batchs of fuel), we are reporting for ``Fuel Resource in Storage'' is based on the
-inventories of the separation facilities plutonium output buffer.
+batchs of fuel), the separation facilities' output buffers are the basis for
+the ``Fuel Resource in Storage'' result.
 The reprocessed uranium is sent after the sepration to a dedicated storage.
 
 Notable are subtle differences in what these two storage facilities data represent
@@ -589,9 +589,9 @@ capacity deployement.
 %%   It would be much easier to compare the results.
 
 Because of both the reprocessing priority and "on-demand" separations
-deployment, we observe more fuel waiting for reprocessing with a quick drop
+deployment, more LWR spent fuel accumulates waiting for reprocessing with a quick drop
 starting around year 2090 as stored up plutonium is used in the first wave of
-SFR deployments replacing aging LWRs. We can also observe some of SFR fuel
+SFR deployments replacing aging LWRs. Some of SFR fuel also accumulates
 waiting for reprocessing, but it eventually decreases, showing a well designed SFR
 deployment schedule that reaches an comfortable equilibrium generating
 plutonium at the same rate it is being recycled.
@@ -608,7 +608,7 @@ other simulators can likely be attributed to this factor.
 Although Cyclus is not currently able to simulate on-demand behavior directly, it is
 possible to deploy the different facilities with limited capacities to
 "follow" material demand to mimicking an on-demand type of behavior, as shown
-in Case 2.  We also observe some small differences in the pattern of fuel
+in Case 2.  There are some small differences in the pattern of fuel
 loading (and almost all the reactor fuel metrics), deriving from the way
 batches are modeled discretely in Cyclus while in DYMOND all 
 material flows are managed in a more continuous way.
