@@ -62,7 +62,7 @@
 
 \section{Intro/specification}
 
-The U.S. Department of Energy (DOE) Fuel Cycle Option (FCO) started a campaign
+One of the activities of the U.S. Department of Energy (DOE) Fuel Cycle Option (FCO) campaign is
 to assess the future of the U.S. nuclear fleet. During the Evaluation and Screening study, 
 several alternative fuel cycles were analyzed in an equilibrium state and organized into Evaluation
 Groups (EG).  In the current phase the DOE has been interested in assessing a transition from the
@@ -89,20 +89,17 @@ selected to accomplish three primary goals:
     \item Transition as quickly as possible given the other goals.
 \end{itemize}
 
-Scenario details are based on previous work done by R. Carlsen
-(https://github.com/rwcarlsen/eg23-sim).  From this study, the configuration
-and deployment schedule of the separation facilities for LWR used fuel have
-been taken. The rest of the study has been adapted from it, to match B. Feng
-DYMOND analysis \cite{B.Feng_calculation}.
-
-%% QUESTION: Above you say that the deployment schedule is taken from RWC
-%% study, but below you say it is defined by Bo.  It is part of the problem
-%% specification, is it not?
-
-The deployment schedule (Figure \ref{fig:deploy}) has not been calculated
-using Cyclus, it has been taken from B. Feng calculation and implemented in
+The rector deployment schedule (Figure \ref{fig:deploy}) is part of the problem
+specification. It has been taken from a DYMOND calculation by B. Feng\cite{B.Feng_calculation} 
+and implemented in
 Cyclus (with some approximation which will be detailed further in the
 document).
+
+Other scenario details, including how to represent the problem specifications in Cyclus,
+are based on previous work done by R. Carlsen
+(https://github.com/rwcarlsen/eg23-sim).  From this study, the configuration
+and deployment schedule of the separation facilities for LWR used fuel have
+been taken.
 
 \begin{figure}[h!]
     \centering
@@ -116,9 +113,9 @@ document).
     }
 \end{figure}
 
-By default, Cyclus facilities exhibit greedy behavior, they request and
+By default, Cyclus facilities exhibit greedy behavior: they request and
 process as much material as they can given their inventory capacities and
-process limits. As Cyclus does not yet include direct support for on-demand
+process throughput limits. As Cyclus does not yet include direct support for on-demand
 processing, some special accommodations were made to maintain the desired low
 inventory of separated Pu. In order to address this in parts, a series of two
 simulations were run:
@@ -136,7 +133,7 @@ simulations were run:
 
 \end{itemize}
 
-Scenario details for cases 1 and 2 are identical except for those noted in
+Scenario details for cases 1 and 2 are identical except for the changes noted in
 Section \ref{sec:case2}.
 
 The following subsections describe the configuration of the primary facility
@@ -144,19 +141,25 @@ types (i.e. Cyclus prototypes) used in this analysis.
 
 \subsection{Reactors}
 
-After the LWR to SFR transition is completed, new SFR reactors are deployed with a
-lower breeding ratio in order to prevent unbounded buildup of plutonium. The
-properties of the different reactors cores used for the simulation have been
-summarized in Table \ref{tab:reactor}. Because of the 1 month time step of Cyclus,
-the number of batch, batch size, cycle lengh have been chosen in order to maintain
-a correct core inventory and complete cycle periode. Those choice implies small
-discrepencies between specifications and Cyclus input, both values have been
-detailled.
-
-%% NOTE: Are these the specified properties from Bo, or the as-used properties
-%% in Cyclus, or some combination?
-%% Remember, a key outcome of this report will be showing potential users how to
-%% translate a problem specification into Cyclus inputs.
+After the LWR to SFR transition is completed, new SFR reactors are deployed
+with a lower breeding ratio in order to prevent unbounded buildup of
+plutonium. The properties of the different reactors cores used for the
+simulation have been summarized in Table \ref{tab:reactor}. Two different SFR 
+configurations exist to facilitate management of Pu in later years by reducing
+the breeding ratio.  Because of the 1-month timestep of Cyclus, the batch quantity and cycle length
+parameters have been manipulated to match as closely as possible important
+invariants such as fuel residence time, burnup, and discharge rates
+\cite{B.Feng_calculation}. The notion of batches
+is defined in Cyclus by combining the number of assemblies per core and 
+the number of assemblies per batch.  In the simplest form, an integer number of
+batches, n, can be defined by specifying n assemblies per core and 1 assembly
+per batch.  For a non-integer number of batches, f, can be implemented by
+specifying f$\times 10^m$ number of assemblies per core and $10^m$ assemblies
+per batch, where f$\times 10^m$ is an integer.  For this problem, it is also
+possible to select the cycle length, number of batches and batch size to
+approximate the same fuel throughput.  This choice implies small 
+discrepencies between specifications and Cyclus input that have been detailed 
+below.
 
 \begin{table}[h!]
     \centering
@@ -180,55 +183,28 @@ detailled.
       Assembly per batches  &  1               &  5                &  5                \\
       Cycle length, [month] &  9               &  12               &  12               \\
       Core Inventory, [tHM] &  6$\times$14.784 &  27$\times$1.393  &  22$\times$1.564  \\
-%% I have increase the size of the batch by 1 to avoid a bid bug I
-%% experience... which we have corrected after... But I did not revert the natch modification 
       \hline
     \end{tabularx}
     \caption{Reactor core properties.}
     \label{tab:reactor}
-%    \footnotesize{$^1$ Not specified, but as a recipe reactor is used, it is not required.}
 \end{table}
 
-%% NOTE: Should we include the breeding ratio for the different SFRs? That's
-%% what makes them different, right?
 
+For the SFR 1 facility type, the number of batches is specified to be $5.44$ (for
+discharge burnup of 37.62 GWd/t), $5.40$ has been used (27/5). For the SFR 2, $4.4$ 
+batches (22/5) have been used to approximate the 4.44 batches that were specified.
 
-%% Apropos my comment above - this is a great example of showing others how to
-%% translate specifications into Cyclus inputs.
+An exact match to the specified number of batches is possible, but
+inefficient.  For example, SFR 1 could have been implemented with
+$544~$assemblies per core and $100~$assemblies per batch, but this would
+result in 20 times as many material objects being traded by the dynamic
+resource exchange (DRE), and thus longer runtimes and larger output databases.
 
-Because of the 1-month timestep of Cyclus, the batch quantity and cycle length
-parameters have been manipulated to match as closely as possible important
-invariants such as fuel residence time, burnup, and discharge rates
-\cite{B.Feng_calculation}.
+%%% PPHW NOTE: Would 136 assemblies per core & 25 assemblies per batch have
+%%% been bad, too?
 
-For the SFR 1 facility type, the cycle length is specified to be $5.44~$y (for
-discharge burnup of 37.62 GWd/t), $5.40~$y has been used (27/5 $\times$ 12
-months). For the SFR 2, $4.4~$y has been used (22/5. $\times$ 12 months) where
-4.44 was expected. 
-
-Because the cycle length (in month), the number of assembly in a core and the number of
-assembly in a batch are defined as integer in Cyclus, have an exact match between
-the specification could need some tuning and can be unefficient. For exemple, in
-the precedent exercice, for the SFR 1, one could have set $544~$assembly in the
-core, $544$ in the batch with a cycle lengh of 12 month to have an exact match
-with the specification. Such implementation would have been very long to run,
-because the DRE (Dynamic Ressource Exchange) would have to deal at each refilling of each reactor 100 assembly
-trades, so few 10000 trades each years.
-
-The DRE is one of the main part of Cyclus, it deals the exchange of material between
-the different archetypes (Facilities, Institutions, Regions...). The material
-exhcange in Cyclus is devided in 3 phases: 
-\begin{itemize}
-  \item phase 1, request: each archetypes send there material request to the DRE
-    corresponding to their individuals needs,
-  \item phase 2, bid: the DRE share the request informations to all the
-    facilities, allowing them to place a bid on some depending on there indivudual productions,
-  \item phase 3, trade: the DRE solve the request/bid problem and each facilities
-    apply the results.
-\end{itemize}
-
-This DRE system allows Cyclus to deal with competition in the supply of materials. 
-
+%%% PPHW NOTE: Why didn't we change the core inventory to result in a matching
+%%% flow rate of fuel?
 
 
 %With Cyclus' 1-month time step, the burnup resolution can be
@@ -245,9 +221,6 @@ This DRE system allows Cyclus to deal with competition in the supply of material
 %mass of discharged fuel is affected with a respective relative error : $0.01 \%$,
 %$0.0 \%$ and $0.006 \%$.
 
-%% NOTE: This ends abruptly... 
-%%    do we calculate this for the different reactors?
-%%    do we know what it is for the LWR since we don't know the efficiency?
 
 All LWR reactors use enriched uranium fuel. The SFR used MOX fuel with
 different plutonium enrichments. The input/output fuel recipes are summarized
@@ -314,18 +287,19 @@ The implementation properties of the cooling storage can be found in table \ref{
 \subsubsection{Case 1: Greedy Separations}
 
 The LWR fuel separation is handled by three identical separation facilities,
-two deployed in 2030 and one in 2040. In Case 1, the SFR separation facilities have a
-very large separation capacity, in the first case, we have tried to throttle
-the separation rate indirectly using the gradual fuel fabrication capacity
+two deployed in 2030 and one in 2040. In Case 1, the SFR separation facilities have an
+effectively infinite separation capacity, but the separation rate has been throttled
+indirectly using the gradual fuel fabrication capacity
 growth. Full fabrication facilities stop requesting separated plutonium
-leading to eventual halting of spent fuel separations.
+leading to eventual halting of spent fuel separations.  
+%% PPHW: but they never halt because the output buffers are infinitely large
 As the separation output buffers are not limited, those separation facilities will
 reprocess all the used available fuel with a constant reprocessing rate.
 
 As the fuel fabrication facilities have a tuned deployement and capacities (for 10
-batchs of fuel), we are reporting for ``Fuel Resource in Storage'' is based on the
-inventories of the separation facilities plutonium output buffer.
-The reprocessed uranium is sent after the sepration to a dedicateed storage.
+batchs of fuel), the separation facilities' output buffers are the basis for
+the ``Fuel Resource in Storage'' result.
+The reprocessed uranium is sent after the sepration to a dedicated storage.
 
 Notable are subtle differences in what these two storage facilities data represent
 and their exact semantic meaning in the analysis spreadsheet.
@@ -354,22 +328,19 @@ and their exact semantic meaning in the analysis spreadsheet.
 \subsubsection{Case 2: On-Demand Separations}
 \label{sec:case2}
 
-The only difference with the Case 1 scenario is the way in which reprocessing
+The only difference from the Case 1 scenario is the way in which reprocessing
 capacity is handled over time.  Modeling on-demand separations is approximated by
 deploying many small separations facilities according to plutonium requirements
 for SFR fuel fabrication.  These Pu requirements were determined from the Case 1
 results. While the calculated deployment schedule does not follow plutonium usage
 exactly, it is a reasonable aproximation.
 
-For this calculation, all fuels are reprocessed by only one type of reprocessing
-facility (i.e. one Cyclus prototype). The fuel input preferences have been set to
-3 for all irradiated UOX fuel, 2 for higher breeding ratio SFR spent fuel, and 3
-for the lower breeding ratio SFR spent fuel.  Since a higher number indicates a
-higher preference, these facilities will prefer to consume and process irradiated
-UOX fuel and low breeding ratio SFR fuel before they consume/process high breeding
-ratio SFR fuel.  The implemented characteristics of each of the reprocessing
-facilities used in Case 2 are summarized in Table
-\ref{tab:fuelfab_2}.
+For this calculation, all of the reprocessing facilities are based on only
+facility prototype.  When facilities based on this prototype request used fuel
+from reactors, they prefer irradiated UOX fuel and used fuel from the lower
+breeding ratio SFRs over used fuel from the higher breeding ration SFRs.  The
+implemented characteristics of each of the reprocessing facilities used in
+Case 2 are summarized in Table \ref{tab:fuelfab_2}.
 
 \begin{table}[h!]
     \centering
@@ -392,7 +363,7 @@ facilities used in Case 2 are summarized in Table
     LWR UOX A                 &  3           \\
     LWR UOX B                 &  3           \\
     SFR MOX A                 &  2           \\
-    SFR MOX B                 &  1           \\
+    SFR MOX B                 &  1           \\ %% This is different from the text (that has now been removed)
     \hline
     \end{tabular}
     \caption{Separation facilities implementation.}
@@ -402,7 +373,7 @@ facilities used in Case 2 are summarized in Table
 The Cycamore separation facility requests the feed commodities, accordingly to the
 set preferences, to fill its feed buffer. The material in the feed buffer is then
 separated following the implemented separation instruction and efficiency all the
-unused material is send to the waste. The reprocessing rate in limited by:
+unused material is send to the waste. The reprocessing rate is limited by:
 
 \begin{itemize}
 
@@ -410,18 +381,19 @@ unused material is send to the waste. The reprocessing rate in limited by:
   \item the total throughput which limits the amount of material reprocessed from
     the feed buffer,
   \item each stream throughput which limits the amount of each stream produced,
+%% PPHW: do we have per-stream throughput limits??
   \item the output stream bufer size.
 
 \end{itemize}
-If one of this parameter reach its limit the separation is stopped until the
-constrain is release, either by the occurance of the next timestep (for the
-throughput limits), either by a change in the buffers inventories. 
+If one of these parameters reaches its limit the separation is stopped until the
+constraint is released, either by the occurrence of the next timestep (for the
+throughput limits), or by a change in the buffer's inventory. 
 
 \subsection{Fuel Fabrication}
 
 The UOX fuel fabrication is handled by one enrichment facility, the properties
 of this enrichment facilities are summarized in Table \ref{tab:enrich_1}. As
-explain the specifcication of the enrichment facility have been taken from the
+explained above, the specification of the enrichment facility has been taken from the
 R. Carlsen calculation and might differ from the exact EG01-23 transition
 specifications. 
 
@@ -441,19 +413,19 @@ specifications.
     \label{tab:enrich_1}
 \end{table}
 
+Fuel fabrication for other fuels is implemented with the Cycamore fuel
+fabrication archetype that mixes two
+input streams according to the plutonium-equivalent theory\cite{Pueq}. A
+reactivity weight is calculated for the required output composition and both of
+the input streams. An interpolation is used to compute a mixing ratio of the input
+streams that matches the target weight.
+
 %% QUESTION: Does the ``are supposed to be'' mean that the problem specifies
 %% this?
 
-%% NOTE: We need 2-3 sentences on how our Fuel Fab works in Cycamore.
-The Fuel fabrication of the additionnal Cycamore module mix the two input stream
-accordingly to the plutonium-Equivalent theory\cite{Pueq}. A reactivity weight is
-calculated for the require output composition and both of the input stream. An
-interpolation is used to compute a mixing ratio of the input streams that matches
-the target weight.
-
-The SFR fuel fabrication facilities are supposed to be deployed as a rate of 1 for
-every 10 SFRs.  As the fuel composition and annual flux slightly change between
-SFR 1 and 2, the specifications between fabrication are also slightly
+The SFR fuel fabrication facilities are supposed to be deployed as a rate of 1
+for every 10 SFRs.  As the fuel composition and annual material flow change slightly
+between SFR 1 and 2, the specifications between fabrication facilities are also slightly
 different. The details of all fuel fabrication facility characteristics are
 summarized in Table \ref{tab:fuelfab_1}.
 
@@ -501,6 +473,9 @@ deployment schedule ends in 2210. The sudden drop in 2210 is due to a lack of
 deployment data after 2210.
 
 %% NOTE: are we supposed to plot beyond 2210? or 2200?
+%% It looks like Bo only plotted to 2210 to avoid this drop at the end... is that hard to change?
+
+%% PPHW: Aren't these identical figures to Fig 1.  Do we need to repeat them?
 
 \begin{figure}[h!]
     \centering
@@ -538,12 +513,16 @@ because it is directly reprocessed after cooling.
     \subfigure[Fuel waiting for Reprocessing\label{fig:FWR_1}]  {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
     \caption{Used fuel in cooling and reprocessing.\label{fig:cool_reprocc} }
 \end{figure}
+
 The amounts of the different fuels in ``Used Fuel in Cooling Storage'' (Figure
-\ref{fig:UFCS_1} follow, as expected, the discharge of the different reactors.
-As almost all SFR spent fuel are directly reprocessed after cooling (see Figure
+\ref{fig:UFCS_1}) follow the discharge of the different reactors as expected.
+As almost all SFR spent fuel is directly reprocessed after cooling (see Figure
 \ref{fig:FWR_1}), spent fuel in storage stops increasing when all the UOX fuel has
-been reprocessed. The accumulation of LWR used fuel in ``UNF Waiting for
-Reprocessing'' is induced by the limited constant reprocessing capacity for those
+been reprocessed. 
+%% PPHW: IS this the reason?  or is it because we start swapping high breeding ratio
+%%       reactors for low breeding ration reactors?
+The accumulation of LWR used fuel in ``UNF Waiting for
+Reprocessing'' is induced by the limited constant reprocessing capacity for that
 fuel. 
 
 \begin{figure}[h!]
@@ -555,16 +534,22 @@ fuel.
 
 It appears that the capacity of the SFR fuel reprocessing is not enough to
 reprocess the full inventory of MOX fuel until 2155. This explains the
-appearance of MOX fuel in storage waiting for reprocessing. With the
+appearance of MOX fuel in storage waiting for reprocessing. 
+%% PPHW: I don't see this?  I see spent UOX fuel from new LWRs accumulating, but not SFR MOX?
+With the
 replacement of higher breeding ratio SFRs with lower breeding ratio reactors
 the MOX spent fuel generation rate decreases sufficiently for reprocessing to
 "catch-up".
-As shown in the Figure \ref{fig:storagecompo_1}, the reprocessing capacities of
+%% PPHW: this doesn't make sense - the throughput of spent fuel from the low BR SFRs is higher 
+%%      than the other SFRs
+The reprocessing capacities of
 the LWR fuel is highier than the demand on plutonium to fabricate the MOX fuel,
-creating an accumulation of plutonium prior to 2100. After 2100, with the
-decommision of the LWR, less LWR used fuel is produces, allowing the reduction of
-the inventory of plutonium. In the other side, the reprocessing capacities of the
-FBR used fuel are well adapted to the demand: the plutonium storage experience a
+creating an accumulation of plutonium prior to 2100, 
+as shown in the Figure \ref{fig:storagecompo_1}. After 2100, with the
+decommisioning of the LWRs and the consequent expansion of SFRs, 
+less LWR used fuel is produced, allowing the reduction of
+the inventory of plutonium. The reprocessing capacities of the
+FBR used fuel are well adapted to the demand, but the plutonium storage experiences a
 small accumulation just before the SFR switch of breeding ratio.
  
 %As shown in the Figures \ref{fig:FC_Z} and \ref{fig:WR_Z}, the quantity of
@@ -593,17 +578,21 @@ reprocessing'' and in the ``Fuel Resource in Storage''.
 \end{figure}
 
 Indeed, as seen in Figure \ref{fig:ARR_2}, the reprocessing follows more closely
-than in th case 1 the plutonium need of the SFR fuel fabrication. Indeed the
-accumulation of plutonium is limited at $\sim500~t$ (Figure \ref{fig:SFC_2}) versus $\sim1500~t$ in the
+than in case 1 the plutonium need of the SFR fuel fabrication. Indeed the
+accumulation of plutonium is limited to $\sim500~t$ (Figure \ref{fig:SFC_2}) versus $\sim1500~t$ in the
 first case. Nevertheless, one can still observe a large plutonium accumulation
-spike 2100 and 2145 which one should be able to avoid with a better reprocessing
+spike 2100 and 2145 that could be avoided with a better reprocessing
 capacity deployement.
 
+%% PPHW: do you think it would be possible to place 8 figs on the same page, in 2 columns:
+%%   current figs 4-6 in the first column and corresponding figs for Case 2 in the 2nd colum
+%%   It would be much easier to compare the results.
+
 Because of both the reprocessing priority and "on-demand" separations
-deployment, we observe more fuel waiting for reprocessing with a quick drop
+deployment, more LWR spent fuel accumulates waiting for reprocessing with a quick drop
 starting around year 2090 as stored up plutonium is used in the first wave of
-SFR deployments replacing aging LWRs. We can also observe some of SFR fuel
-waiting for reprocessing, which decrease, showing a well designed SFR
+SFR deployments replacing aging LWRs. Some of SFR fuel also accumulates
+waiting for reprocessing, but it eventually decreases, showing a well designed SFR
 deployment schedule that reaches an comfortable equilibrium generating
 plutonium at the same rate it is being recycled.
 
@@ -613,16 +602,16 @@ This study has shown the capability of Cyclus to properly simulate the EG01 to
 EG23 fuel cycle transition.  The main observable differences are in the
 reprocessing and the storage of the used fuel, where the meaning of desired
 output data (e.g. "Fuel Resource in Storage", "UNF waiting for reprocessing",
-etc.) were ambiguous.  Much of the inability of Cyclus to reproduce results
-from other simulators exactly can likely be attributed to this factor.
+etc.) were ambiguous.  Much of the discrepancy between Cyclus' results and those of 
+other simulators can likely be attributed to this factor.
 
-Despite Cyclus is not able now to handle exact on-demand behavior, it is
+Although Cyclus is not currently able to simulate on-demand behavior directly, it is
 possible to deploy the different facilities with limited capacities to
 "follow" material demand to mimicking an on-demand type of behavior, as shown
-in Case 2.  We can also observe some small differences in the pattern of fuel
-loading (and almost all the reactor fuel metrics), this comes from the way
-batches are modeled discretely in Cyclus where in DYMOND all entities are
-material flows are managed in a more incremental, continuous way.
+in Case 2.  There are some small differences in the pattern of fuel
+loading (and almost all the reactor fuel metrics), deriving from the way
+batches are modeled discretely in Cyclus while in DYMOND all 
+material flows are managed in a more continuous way.
 
 %----------------------------------------------------------------------------------------
 %        BIBLIOGRAPHY
