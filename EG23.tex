@@ -592,7 +592,7 @@ Because of both the reprocessing priority and "on-demand" separations
 deployment, we observe more fuel waiting for reprocessing with a quick drop
 starting around year 2090 as stored up plutonium is used in the first wave of
 SFR deployments replacing aging LWRs. We can also observe some of SFR fuel
-waiting for reprocessing, which decrease, showing a well designed SFR
+waiting for reprocessing, but it eventually decreases, showing a well designed SFR
 deployment schedule that reaches an comfortable equilibrium generating
 plutonium at the same rate it is being recycled.
 
@@ -602,16 +602,16 @@ This study has shown the capability of Cyclus to properly simulate the EG01 to
 EG23 fuel cycle transition.  The main observable differences are in the
 reprocessing and the storage of the used fuel, where the meaning of desired
 output data (e.g. "Fuel Resource in Storage", "UNF waiting for reprocessing",
-etc.) were ambiguous.  Much of the inability of Cyclus to reproduce results
-from other simulators exactly can likely be attributed to this factor.
+etc.) were ambiguous.  Much of the discrepancy between Cyclus' results and those of 
+other simulators can likely be attributed to this factor.
 
-Despite Cyclus is not able now to handle exact on-demand behavior, it is
+Although Cyclus is not currently able to simulate on-demand behavior directly, it is
 possible to deploy the different facilities with limited capacities to
 "follow" material demand to mimicking an on-demand type of behavior, as shown
-in Case 2.  We can also observe some small differences in the pattern of fuel
-loading (and almost all the reactor fuel metrics), this comes from the way
-batches are modeled discretely in Cyclus where in DYMOND all entities are
-material flows are managed in a more incremental, continuous way.
+in Case 2.  We also observe some small differences in the pattern of fuel
+loading (and almost all the reactor fuel metrics), deriving from the way
+batches are modeled discretely in Cyclus while in DYMOND all 
+material flows are managed in a more continuous way.
 
 %----------------------------------------------------------------------------------------
 %        BIBLIOGRAPHY
