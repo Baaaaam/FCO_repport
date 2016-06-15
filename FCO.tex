@@ -148,7 +148,7 @@ Note that, the calculation based on neural network usage have been extended 300y
 in order to allow the calculation to reach the equilibrium (since the initial
 composition are close at the fix recipe calculation equilibrium).
 
-
+\subsection{No decay}
 
 \begin{figure}[h!]
     \centering
@@ -157,7 +157,7 @@ composition are close at the fix recipe calculation equilibrium).
     \subfigure[Plutonium fraction burned furing the irradiation.\label{fig:puburn}] 
         {\epsfig{figure=img/C_1_2_MOX_pu_burned,width=0.48\textwidth}}
     \caption{Evolution of the plutonium loaded in the PWR and burned during the
-      irradiation. Thos calculation are performed  without decay management.\label{fig:MW_flow} }
+      irradiation. Thos calculation are performed  without decay management.\label{fig:pu_nodecay} }
 \end{figure}
 
 
@@ -171,13 +171,22 @@ expected observe the effect of the batching (3or 4) on the neural network models
 using a k∞ of 1.034, which predict an initial enrichment close to the one
 use on the more standard models: $7.5\%$ versus $7.8\%$. 
 
+Unstead the recipe based calculation, all the calculation involving Neural
+Network fuel fabrication model, require a dedicated depletion calculation to
+determine the composition of the fuel after irradiation. On Figure
+\ref{fig:puburn}, the evolution of plutonium fraction burned during the
+irradiation for the different models. As expected, all recipe based calculation
+(fix mixing ratio and Pu-equivalent) have very close results around $2.4\%$. The only
+fluctuation here is coming from rounding errors. The Neural network baed
+calculation reach a burning plutonoium amount between $2$ and $2.4\%$.
+
 For all fabrication model used, the behavior without decay very closed to
 expected: we observe a small variation of the amount of plutonium: the
 composition of the plutonium is constant with allow the equilibrium to be
 maintain. 
 
 
-
+\subsection{Decay}
 
 When decay is taking into account, all model base on neural network increase the
 enrichment in plutonium by $2.5-3\%$. This increase is due to 2 main effects: the
@@ -213,7 +222,7 @@ cycle might lead us on the wrong path\dots
 In order to highlight this statement 3 addition calculations have been performed
 using the plutonium equivalent theory.  In this calculation the fuel cycle is
 the same as the one described as Case 1.3, but the initial inventory has been
-increased by 10 50 and 100\%.
+increased by 10 50 and $100\%$.
 
 
 
