@@ -441,41 +441,40 @@ material flows later in time.
 \end{figure}
 
 The generated power and the deployment schedule correspond as expected to the
-required one (shown on Figures \ref{fig:deploy} and \ref{fig:power} ) match
+required one (shown on Figures \ref{fig:deploy} and \ref{fig:mrg} ) match
 perfectly with results from the DYMOND simulations. The time scale in the output
 spreadsheet filled starts in 2015 and ends in 2215, while the DYMOND calculation
 used as reference for the deployment schedule ends in 2210. The sudden drop in
 2210 is due to a lack of deployment data after 2210.
 
 
+The amounts of the different fuels in ``Used Fuel in Cooling Storage'' (Figure
+\ref{fig:UFCS_1}) follow the discharge of the different reactors as expected.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.62\textwidth]{img/usedFuelInCooling}
+    \caption{Used Fuel in Cooling Storage}
+    \label{fig:UFCS_1}
+\end{figure}
+
 The other curves also appear as expected. The annual reprocessing rate (Figure
 \ref{fig:ARR_1}) corresponds directly to the deployments. Spent UOX
 reprocessing starts in 2010 with 2000 MTHM/yr with another 1000 MTHM/yr added in
 2030. This reprocessing rate (UOX1 + UOX2) continues until the end of the
 production of used UOX (i.e. when all LWRs are decommissioned).
-
-
-
-MOX spent fuel production by the 2 different SFR types roughly follows the
-loading of fresh fuel.  Because the reprocessing facilities are greedy,
-reprocessing all used fuel available, there is no SFR spent fuel waiting for reprocessing
-because it is directly reprocessed after cooling.
-
-The amounts of the different fuels in ``Used Fuel in Cooling Storage'' (Figure
-\ref{fig:UFCS_1}) follow the discharge of the different reactors as expected.
-
-
-Almost all SFR spent fuel is directly reprocessed after cooling. The
-reprocessing capacity of SFR fuel are large enough to prevent any SFR fuel
-accumulation in ``UNF Waiting for Reprocessing'' (see Figure \ref{fig:FWR_1}).
-
 The accumulation of LWR used fuel in ``UNF Waiting for Reprocessing'' is induced
 by the limited constant reprocessing capacity for that fuel. The amount of UOX
 spent fuel in storage stops increasing when the production rate of used UOX fuel
 becomes smaller than its reprocessing rate, i.e. when the production of used
 fuel drops below $2\times83.3333$ tons.
  
-
+MOX spent fuel production by the 2 different SFR types roughly follows the
+loading of fresh fuel.  Because the reprocessing facilities are greedy,
+reprocessing all used fuel available, there is no SFR spent fuel waiting for
+reprocessing because it is directly reprocessed after cooling. The reprocessing
+capacity of SFR fuel are large enough to prevent any SFR fuel accumulation in
+``UNF Waiting for Reprocessing'' (see Figure \ref{fig:FWR_1}).
 
 Before the start of the first FBR, the reprocessing capacities of the LWR fuel
 is higher than the demand on plutonium to fabricate the MOX fuel, creating an
@@ -489,21 +488,15 @@ a small accumulation just before the SFRs switch to lower breeding ratio.
 
 \subsection{Case 2: On-demand Separations}
 
-The limitation added on the reprocessing capacities( Figure \ref{fig:ARR_2}) allows to limit the
-inventory of separated plutonium. Indeed, as seen in Figure \ref{fig:ARR_2}, the
-reprocessing follows more closely than in case 1 the plutonium need of the SFR
-fuel fabrication: the accumulation of plutonium is limited to $\sim500~t$
-(Figure \ref{fig:FIS_2}) versus $\sim1500~t$ in the first case. Nevertheless,
-one can still observe a large plutonium accumulation spike 2100 and 2145 that
-could be avoided with a better reprocessing capacity deployment.
+The limitation added on the reprocessing capacities (Figure \ref{fig:ARR_2})
+allows to limit the inventory of separated plutonium. Indeed, as seen in Figure
+\ref{fig:ARR_2}, the reprocessing follows more closely than in case 1 the
+plutonium need of the SFR fuel fabrication: the accumulation of plutonium is
+limited to $\sim500~t$ (Figure \ref{fig:FIS_2}) versus $\sim1500~t$ in the first
+case. Nevertheless, one can still observe a large plutonium accumulation spike
+2100 and 2145 that could be avoided with a better reprocessing capacity
+deployment.
 
-\begin{figure}[h!]
-    \centering
-    \subfigure[Case 1.\label{fig:ARR_1}] {\epsfig{figure=img/AnnualReprocessingRate_1,width=0.48\textwidth}}
-    \subfigure[Case 1.\label{fig:ARR_2}] {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
-    \caption{Annual Reprocessing Rate.}
-    \label{fig:ARR_1}
-\end{figure}
 \begin{figure}[h!]
     \centering
     \subfigure[Case 1.\label{fig:FWR_1}] {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
@@ -522,13 +515,15 @@ could be avoided with a better reprocessing capacity deployment.
     \subfigure[Case 2.\label{fig:FIS_2}]  {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
     \caption{Fuel in Storage.\label{fig:ARR_FWR_SFC_2} }
 \end{figure}
+
 Because of both the reprocessing priority and "on-demand" separations
-deployment, more LWR spent fuel accumulates waiting for reprocessing with a quick drop
-starting around year 2090 as stored up plutonium is used in the first wave of
-SFR deployments replacing aging LWRs (see Figure \ref{fig:FWR_2}). Some of SFR fuel also accumulates
-waiting for reprocessing, but it eventually decreases, showing a well designed SFR
-deployment schedule that reaches an comfortable equilibrium generating
-plutonium at the same rate it is being recycled.
+deployment, more LWR spent fuel accumulates waiting for reprocessing with a
+quick drop starting around year 2090 as stored up plutonium is used in the first
+wave of SFR deployments replacing aging LWRs (see Figure \ref{fig:FWR_2}). Some
+of SFR fuel also accumulates waiting for reprocessing, but it eventually
+decreases, showing a well designed SFR deployment schedule that reaches an
+comfortable equilibrium generating plutonium at the same rate it is being
+recycled.
 
 \section{Summary}
 
