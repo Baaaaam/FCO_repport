@@ -87,7 +87,7 @@ increasing fidelity:
 \section{Fix mixing ratio vs Pu-equivalent theory}
 
 The first part of this memo is dedicated to the comparison between fixed ratio
-mix and pu-equivalent theory for the fuel fabrication process.
+mix and Pu-equivalent theory for the fuel fabrication process.
 
 Two variations on fuel-building were calculated for each sub-case (1.1 to 1.3).
 The first calculation used a standard mixing fab (in Cyclus, the
@@ -126,7 +126,7 @@ the increase of the E3'' stream in the mix.
 The second part of this memo is dedicated to the comparison of the plutonium
 fraction in the fresh PWR-MOX fuel predicted using different kind of models. The
 model used can be divided in two categories, the one able to mix any stream to
-another (fix mixing ratio and pu-equivalent based model) and the one allowing
+another (fix mixing ratio and Pu-equivalent based model) and the one allowing
 only to mix a plutonium stream into a uranium stream.  
 
 For the first kind, the EG29 specification are applied as is (except for the
@@ -140,7 +140,7 @@ batching).
 The different model used are:
 \begin{itemize}
   \item fix mixing ratio between J1'' and E3'' stream, (M)
-  \item	pu-equivalent based model to mix J1'' and E3'' stream, (W)
+  \item	Pu-equivalent based model to mix J1'' and E3'' stream, (W)
   \item	Neural Network (NN) trained with irradiation stopped at a k∞ of 1.01 (mean k∞ of all batches), 3 batches, (MLP)
   \item	NN with irradiation stopped at a mean a k∞ of 1.034, 3 batches, (MLP-STD)
   \item	NN with irradiation stopped at a mean a k∞ of 1.034, 4 batches. (MLP-STD-2)
@@ -154,9 +154,10 @@ composition are close at the fix recipe calculation equilibrium).
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=1\textwidth]  {img/C_1_2_MOX_pu_contribution}
-  \caption{Schematic of Pu mass flow for Case 1.x}
-  \label{fig:puflow}
+  \includegraphics[width=0.7\textwidth]  {img/C_1_2_MOX_pu_contribution}
+  \caption{Evolution of the plutonium fraction in the MOX fuel loaded in PWR.
+  Those calculation did not include decay process.}
+  \label{fig:pufrac_ND}
 \end{figure}
 %\begin{figure}[h!]
 %  \centering
@@ -171,7 +172,7 @@ composition are close at the fix recipe calculation equilibrium).
 %\end{figure}
 
 
-On Figure \ref{fig:pufrac}, one can observe the evolution of the plutonium
+On Figure \ref{fig:pufrac_ND}, one can observe the evolution of the plutonium
 enrichment loaded in the PWR fuel depending of the model considered for the
 fabrication.
 
@@ -179,7 +180,18 @@ The Neural network model using a k∞ of 1.01 clearly under estimate the amount 
 plutonium require comparatively to the other models: the require reactivity is
 lower. We can as expected observe the effect of the batching (3or 4) on the
 neural network models using a k∞ of 1.034, which predict an initial enrichment
-close to the one use on the more standard models: $7.5\%$ versus $7.8\%$. 
+close to the one use on the more standard models: $7.5\%$ versus $7.8\%$. Those
+models predict a enrichment slightly lower than the one use with the fix mixing
+fraction and the Pu-equivalent.
+
+The Pu-equivalent try to mix both stream to reach the composition of the fuel
+used in the fixing-fraction method. So it is expected to match it or to be very
+close.
+
+For all fabrication model used, the behavior without decay very closed to
+expected: we observe a small variation of the amount of plutonium: the
+composition of the plutonium is constant with allow the equilibrium to be
+maintain. 
 
 %Unstead the recipe based calculation, all the calculation involving Neural
 %Network fuel fabrication model, require a dedicated depletion calculation to
@@ -190,19 +202,14 @@ close to the one use on the more standard models: $7.5\%$ versus $7.8\%$.
 %only fluctuation here is coming from rounding errors. The Neural network baed
 %calculation reach a burning plutonoium amount between $2$ and $2.4\%$.
 
-For all fabrication model used, the behavior without decay very closed to
-expected: we observe a small variation of the amount of plutonium: the
-composition of the plutonium is constant with allow the equilibrium to be
-maintain. 
-
-
 \subsection{Decay}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=1\textwidth]  {img/puflow}
-  \caption{Schematic of Pu mass flow for Case 1.x}
-  \label{fig:puflow}
+  \includegraphics[width=0.7\textwidth]  {img/C_1_3_MOX_pu_contribution}
+  \caption{Evolution of the plutonium fraction in the MOX fuel loaded in PWR.
+  Those calculation did include decay process.}
+  \label{fig:puflow_D}
 \end{figure}
 %\begin{figure}[h!]
 %  \centering
@@ -217,27 +224,35 @@ maintain.
 %\end{figure}
 
 When decay is taking into account, all model base on neural network increase the
-enrichment in plutonium by $2.5-3\%$. This increase is due to 2 main effects: the
-$^{241}$Pu decay and change in the final isotopic composition of the fuel.
-
-The decay of $^{241}$Pu is causing the degradation of the plutonium quality and to
-the production of $^{241}$Am (acting as a neutronics poisons), both of those effect
-tends to increase the amount of plutonium require to build the fuel.
+enrichment in plutonium by $2.5-3\%$. This increase is due to 2 main effects:
+the $^{241}$Pu decay and change in the final isotopic composition of the fuel.
+The decay of $^{241}$Pu is causing the degradation of the plutonium quality and
+to the production of $^{241}$Am (acting as a neutronics poisons), both of those
+effect tends to increase the amount of plutonium require to build the fuel.
 
 The effect of the presence of the initial inventory which is required to start
 the calculation, is as limited as possible: all calculation have been tuned to
 reduce at the minimum the amount of initial storage (which depends on the model
 used).
-%Moreover, when the decay is activated, the model used to calculate the evolution
-%of the composition predict an higher plutonium content in the MOX fuel after
-%irradiation. As a thermal spectrum is very sensitive to the fuel composition, a
-%higher plutonium content and $^{241}$Am content might change the spectrum enough to
-%slightly change the capture cross section on both 238U and plutonium increasing
-%the breading ratio of the fuel. 
-We can observe that as the $^{241}$Pu fraction decrease in the used MOX
-composition, the amount of plutonium in the fresh fuel reaches an equilibrium
-closer to the initial fix ratio.
 
+We can observe (see Figure \ref{fig:puflow_D} and Figure \ref{fig:pu_compo})
+that as the $^{241}$Pu fraction decrease and the $^{239}$Pu fraction increase in
+the used MOX composition, the amount of plutonium in the fresh fuel reaches an
+equilibrium closer to the initial fix ratio.
+
+\begin{figure}[h!]
+  \centering
+  
+  \subfigure[Evolution of the Pu composition in the fresh fuel using the MLP-STD
+  fabrication model.\label{fig:pucompo_1}] 
+      {\epsfig{figure=img/C_1_3_MLP-STD_MOX_pu_composition,width=0.48\textwidth}}
+  \subfigure[Evolution of the Pu composition in the fresh fuel using the
+    MLP-STD-2 fabrication model.\label{fig:pu_compo_2}] 
+      {\epsfig{figure=img/C_1_3_MLP-STD-2_MOX_pu_composition,width=0.48\textwidth}}
+
+  \caption{ Evolution of the isotopic composition of the plutonium in the fresh MOX fuel.
+    \label{fig:pu_compo} } 
+  \end{figure}
 
 Even if the different model predictions fail to agree on a common equilibrium,
 the point of the study is not determining which calculation is correct or not
@@ -247,7 +262,7 @@ thermal reactor): having too strong constrains on the definition of the fuel
 cycle might lead us on the wrong path\dots
 
 
-In order to highlight this statement 3 addition calculations have been performed
+In order to support this statement 3 addition calculations have been performed
 using the plutonium equivalent theory.  In this calculation the fuel cycle is
 the same as the one described as Case 1.3, but the initial inventory has been
 increased by 10 50 and $100\%$.
