@@ -69,10 +69,10 @@ fabrication. Case 1 of the EG29 calculation involves the modeling of a single
 MOX-PWR at steady-state (see figure \ref{fig:puflow}).
 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth]  {img/puflow}
-    \caption{Schematic of Pu mass flow for Case 1.x}
-    \label{fig:puflow}
+  \centering
+  \includegraphics[width=1\textwidth]  {img/puflow}
+  \caption{Schematic of Pu mass flow for Case 1.x}
+  \label{fig:puflow}
 \end{figure}
 
 Case 1 is subdivided into three sub-cases corresponding to calculations of
@@ -97,14 +97,16 @@ used plutonium equivalent theory to determine the mixing fraction of each stream
 to build the MOX fuel, labeled “W”.
 
 \begin{figure}[h!]
-    \centering
-    \subfigure[J1'' stream plutonium flow\label{fig:J1s}] {\epsfig{figure=img/J1s_MW,width=0.48\textwidth}}
-    \subfigure[E3'' stream plutonium flow\label{fig:e3s}] {\epsfig{figure=img/E3s_MW,width=0.48\textwidth}}
-    \caption{Evolution of the plutonium content in the J1'' and  E3'' stream\label{fig:MW_flow} }
+  \centering
+  \subfigure[J1'' stream plutonium flow\label{fig:J1s}] 
+    {\epsfig{figure=img/C_1_x_J1s_pu_contribution,width=0.48\textwidth}}
+  \subfigure[E3'' stream plutonium flow\label{fig:e3s}] 
+    {\epsfig{figure=img/C_1_x_E3s_pu_contribution,width=0.48\textwidth}}
+  \caption{Evolution of the plutonium content in the J1'' and  E3'' stream\label{fig:MW_flow} }
 \end{figure}
 
 The difference on J1'' and E3'' between all 6 calculations can be observed on
-Figure \ref{fig:MW_flow}. First on should only consider in this study the time
+Figure \ref{fig:MW_flow}. First one should only consider in this study the time
 between 15 and 75y, as the calculation need almost 12y to rich an equilibrium
 and the first reactor is replaced at 80y (explaining the different fluctuations
 observed). 
@@ -144,41 +146,49 @@ The different model used are:
   \item	NN with irradiation stopped at a mean a k∞ of 1.034, 4 batches. (MLP-STD-2)
 \end{itemize}
 
-Note that, the calculation based on neural network usage have been extended 300y
+Note that, some calculation based on neural network usage have been extended 300y
 in order to allow the calculation to reach the equilibrium (since the initial
 composition are close at the fix recipe calculation equilibrium).
 
 \subsection{No decay}
 
 \begin{figure}[h!]
-    \centering
-    \subfigure[Plutonium fraction in the MOX fuel loaded in PWP.\label{fig:pufrac}] 
-        {\epsfig{figure=img/C_1_2_MOX_pu_contribution,width=0.48\textwidth}}
-    \subfigure[Plutonium fraction burned furing the irradiation.\label{fig:puburn}] 
-        {\epsfig{figure=img/C_1_2_MOX_pu_burned,width=0.48\textwidth}}
-    \caption{Evolution of the plutonium loaded in the PWR and burned during the
-      irradiation. Thos calculation are performed  without decay management.\label{fig:pu_nodecay} }
+  \centering
+  \includegraphics[width=1\textwidth]  {img/C_1_2_MOX_pu_contribution}
+  \caption{Schematic of Pu mass flow for Case 1.x}
+  \label{fig:puflow}
 \end{figure}
+%\begin{figure}[h!]
+%  \centering
+%  
+%  \subfigure[Plutonium fraction in the MOX fuel loaded in PWP.\label{fig:pufrac_ND}] 
+%    {\epsfig{figure=img/C_1_2_MOX_pu_contribution,width=0.48\textwidth}}
+%  \subfigure[Plutonium fraction burned furing the irradiation.\label{fig:puburn_ND}] 
+%    {\epsfig{figure=img/C_1_2_MOX_pu_burned,width=0.48\textwidth}}
+%  
+%  \caption{Evolution of the plutonium loaded in the PWR and burned during the
+%    irradiation. Thos calculation are performed  without decay management.\label{fig:pu_nodecay} }
+%\end{figure}
 
 
 On Figure \ref{fig:pufrac}, one can observe the evolution of the plutonium
 enrichment loaded in the PWR fuel depending of the model considered for the
 fabrication.
-Focusing on case 2, (no decay), we can observe that the Neural network model
-using a k∞ of 1.01 clearly under estimate the amount of plutonium require
-comparatively to the other models: the require reactivity is lower. We can as
-expected observe the effect of the batching (3or 4) on the neural network models
-using a k∞ of 1.034, which predict an initial enrichment close to the one
-use on the more standard models: $7.5\%$ versus $7.8\%$. 
 
-Unstead the recipe based calculation, all the calculation involving Neural
-Network fuel fabrication model, require a dedicated depletion calculation to
-determine the composition of the fuel after irradiation. On Figure
-\ref{fig:puburn}, the evolution of plutonium fraction burned during the
-irradiation for the different models. As expected, all recipe based calculation
-(fix mixing ratio and Pu-equivalent) have very close results around $2.4\%$. The only
-fluctuation here is coming from rounding errors. The Neural network baed
-calculation reach a burning plutonoium amount between $2$ and $2.4\%$.
+The Neural network model using a k∞ of 1.01 clearly under estimate the amount of
+plutonium require comparatively to the other models: the require reactivity is
+lower. We can as expected observe the effect of the batching (3or 4) on the
+neural network models using a k∞ of 1.034, which predict an initial enrichment
+close to the one use on the more standard models: $7.5\%$ versus $7.8\%$. 
+
+%Unstead the recipe based calculation, all the calculation involving Neural
+%Network fuel fabrication model, require a dedicated depletion calculation to
+%determine the composition of the fuel after irradiation. On Figure
+%\ref{fig:puburn_ND}, the evolution of plutonium fraction burned during the
+%irradiation for the different models. As expected, all recipe based calculation
+%(fix mixing ratio and Pu-equivalent) have very close results around $2.4\%$. The
+%only fluctuation here is coming from rounding errors. The Neural network baed
+%calculation reach a burning plutonoium amount between $2$ and $2.4\%$.
 
 For all fabrication model used, the behavior without decay very closed to
 expected: we observe a small variation of the amount of plutonium: the
@@ -187,6 +197,24 @@ maintain.
 
 
 \subsection{Decay}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]  {img/puflow}
+  \caption{Schematic of Pu mass flow for Case 1.x}
+  \label{fig:puflow}
+\end{figure}
+%\begin{figure}[h!]
+%  \centering
+%  
+%  \subfigure[Plutonium fraction in the MOX fuel loaded in PWP. \label{fig:pufrac_D}] 
+%      {\epsfig{figure=img/C_1_2_MOX_pu_contribution,width=0.48\textwidth}}
+%  \subfigure[Plutonium fraction burned furing the irradiation.\label{fig:puburn_D}] 
+%      {\epsfig{figure=img/C_1_2_MOX_pu_burned,width=0.48\textwidth}}
+%
+%  \caption{Evolution of the plutonium loaded in the PWR and burned during the
+%    irradiation. Thos calculation are performed  without decay management.\label{fig:pu_decay} }
+%\end{figure}
 
 When decay is taking into account, all model base on neural network increase the
 enrichment in plutonium by $2.5-3\%$. This increase is due to 2 main effects: the
@@ -200,13 +228,13 @@ The effect of the presence of the initial inventory which is required to start
 the calculation, is as limited as possible: all calculation have been tuned to
 reduce at the minimum the amount of initial storage (which depends on the model
 used).
-Moreover, when the decay is activated, the model used to calculate the evolution
-of the composition predict an higher plutonium content in the MOX fuel after
-irradiation. As a thermal spectrum is very sensitive to the fuel composition, a
-higher plutonium content and $^{241}$Am content might change the spectrum enough to
-slightly change the capture cross section on both 238U and plutonium increasing
-the breading ratio of the fuel. 
-We can observe also that as the $^{241}$Pu fraction decrease in the used MOX
+%Moreover, when the decay is activated, the model used to calculate the evolution
+%of the composition predict an higher plutonium content in the MOX fuel after
+%irradiation. As a thermal spectrum is very sensitive to the fuel composition, a
+%higher plutonium content and $^{241}$Am content might change the spectrum enough to
+%slightly change the capture cross section on both 238U and plutonium increasing
+%the breading ratio of the fuel. 
+We can observe that as the $^{241}$Pu fraction decrease in the used MOX
 composition, the amount of plutonium in the fresh fuel reaches an equilibrium
 closer to the initial fix ratio.
 
