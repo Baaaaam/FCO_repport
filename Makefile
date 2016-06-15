@@ -1,10 +1,10 @@
-pdf: EG23.pdf
+pdf: FCO.pdf
 
-EG23.pdf: EG23.tex EG23.bib
+FCO.pdf: FCO.tex bib.bib
 	pdflatex $<
-	bibtex EG23.aux
+#	bibtex FCO.aux
 	pdflatex $<
 	pdflatex $<
 
 clean:
-	rm -vf *.aux *.log *.blg *.bbl EG23.pdf
+	rm -vf *.aux *.log *.blg *.bbl FCO.pdf
