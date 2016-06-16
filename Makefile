@@ -1,6 +1,6 @@
 pdf: FCO.pdf
 
-FCO.pdf: FCO.tex bib.bib
+FCO.pdf: FCO.tex bib.bib img/*.png
 	pdflatex $<
 #	bibtex FCO.aux
 	pdflatex $<
