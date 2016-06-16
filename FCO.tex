@@ -289,6 +289,9 @@ with the strangest. $^{241}$Pu and $^{241}$Am finds a respective equilibrium
 around $11\%$ and $1\%$ for the normal calculation, $10\%$ and $2\%$ in the
 ''x2'' calculation and, $3\%$ and $10\%$ in the ''x5'' case. 
 
+This conversion of the $^{241}$Pu into $^{241}$Am is the consequence of the
+increased average time the separate plutonium spend in storage before being
+used to build fresh MOX fuel.
 
 \begin{figure}[h!]
   \centering
@@ -302,7 +305,63 @@ around $11\%$ and $1\%$ for the normal calculation, $10\%$ and $2\%$ in the
     of initial inventory. \label{fig:LII} } 
   \end{figure}
 
- As observed on Figure \ref{fig:LII}, the effect 
+As observed on Figure \ref{fig:LII}, the decay of the $^{241}$Pu has a direct
+impact on the different contribution of E3'' and J1'' stream. The model trying
+to balance the loss of reactivity of the J1'' stream by increasing the amount of
+E3'' stream in the mix. The variation can be up to $10\%$ in the worse case
+after 100y.
+
+\section{Discussion}
+
+In conclusion, this study has show the impact of different way to model
+the MOX fuel fabrication considering decay or not.
+The Pu-equivalence theory reach an equilibrium (in the mixing ratio of E3'' and
+J1'' stream) very close to the fix mixing ratio, when the decay is not activate.
+This was expected: the Pu-equivalent model try to build a MOX fuel with the same
+initial reactivity as the one used in the fix mixing ratio calculation, so it
+used the same mixing ratio\dots  
+
+Nevertheless we can observe a variation of $20\%$ when taking into account the
+decay process in the contribution of E3'' and J1'' stream. This variation is a
+direct consequence of the decay of $^{241}$Pu producing $^{241}$Am, which
+decrease the reactivity potential of E3'' ( loss of the $^{241}$Pu reactivity
+and neutronic poisoning of the $^{241}$Am). The J1'' reactivity barely changes:
+the $^{241}$Pu is negligible in J1'' composition.
+
+The main difference, between calculation using the CLASS model and the other
+calculation, is the recalculation of the fuel evolution during irradiation. 
+
+The calculation using the CLASS model based on neural network support those this
+observation. Without decay, those model predict a constant plutonium enrichment
+in the MOX fuel $6.6\%$, $7.4\%$ and $7.8\%$ depending on the model used versus
+about $8.4\%$ for the mixing ratio. This disagreement of few percents in the
+plutonium enrichment, is directly a consequence of the modeling differences
+between the models.  But this common flat behavior highlight that the steady
+state is well described by all simulation when the decay are not considered
+Even if the CLASS model did not exactly agree on the plutonium enrichment
+require in the fuel to get the correct reactivity properties, because the
+equilibrium did not change, the output composition recalculated by the CLASS
+model if very close the out recipe used by the other calculation.
+
+When considering the decay, all the CLASS model need about 180y to reach a
+correct equilibrium. This is because the initial composition of the plutonium
+strongly impact its enrichment in the fresh fuel (as shown in the Pu-equivalent
+case). And the fresh fuel composition will strongly impact the plutonium
+composition at the end of irradiation. 
+
+Moreover, the last part of the study, shows the impact of the stacked plutonium
+on its composition and then on the fuel fabrication.Those kind of material
+stacking could the consequences of disruption if the material flow of in a real
+cycle. Having very strong might lead us to ignore such disruption effect.
+In order to mimic a potential material stacking, the same steady state
+calculation have been perform three times increasing the amount of initial
+inventory require to start the calculation by a factor 2, 5 and 10. In all cases,
+$^{241}$Pu stacking induce $^{241}$Am production which impact strongly the
+mixing ration between E3'' and J1'' ( $5\%$ to $10\%$), which might have a
+strong effect on the used fuel composition, specially with thermal reactor, were
+the different cross section are so sensitive to the composition of the fuel.
+
+
 
 %----------------------------------------------------------------------------------------
 %        BIBLIOGRAPHY
