@@ -28,7 +28,7 @@
 \renewcommand\Authands{ and }
 
 %clickable ref
-\usepackage[backref,pagebackref,naturalnames=true,colorlinks]{hyperref}
+\usepackage[backref,pagebackref,naturalnames=true]{hyperref}
 
 
 
@@ -108,7 +108,7 @@ been taken.
     \caption{
         Deployment schedule and corresponding electricity produced by the
         different reactors where R1(blue): existing LWR, R2(green): new
-        builded LWR, R3(red): high SFR, R4(purple): low
+        built LWR, R3(red): high SFR, R4(purple): low
         SFR.\label{fig:deployment}
     }
 \end{figure}
@@ -158,7 +158,7 @@ specifying f$\times 10^m$ number of assemblies per core and $10^m$ assemblies
 per batch, where f$\times 10^m$ is an integer.  For this problem, it is also
 possible to select the cycle length, number of batches and batch size to
 approximate the same fuel throughput.  This choice implies small 
-discrepencies between specifications and Cyclus input that have been detailed 
+discrepancies between specifications and Cyclus input that have been detailed 
 below.
 
 \begin{table}[h!]
@@ -175,14 +175,14 @@ below.
       Cycle length, [month] &  18              &  12               &  12               \\
       Core Inventory, [tHM] &  3$\times$29.565 &  37.62            &  34.40            \\
                                                                                        \\
-      \multicolumn{4}{l}{Cyclus inplementation}                                        \\ 
       \hline
+      \multicolumn{4}{l}{Cyclus Implementation}                                        \\ 
       \hline
-      Assembly size [kgHM]  &  14784           &  1393.33          &  1563.64          \\
-      Assembly in the core  &  6               &  27               &  22               \\
+      Assembly size [kgHM]  &  29565           &  1383.09          & 1549.55           \\
+      Assembly in the core  &  3               &  27               &  22               \\
       Assembly per batches  &  1               &  5                &  5                \\
-      Cycle length, [month] &  9               &  12               &  12               \\
-      Core Inventory, [tHM] &  6$\times$14.784 &  27$\times$1.393  &  22$\times$1.564  \\
+      Cycle length, [month] &  18              &  12               &  12               \\
+      Core Inventory, [tHM] &  3$\times$29.565 &  27$\times$1.383  &  22$\times$1.549  \\
       \hline
     \end{tabularx}
     \caption{Reactor core properties.}
@@ -190,37 +190,20 @@ below.
 \end{table}
 
 
-For the SFR 1 facility type, the number of batches is specified to be $5.44$ (for
-discharge burnup of 37.62 GWd/t), $5.40$ has been used (27/5). For the SFR 2, $4.4$ 
-batches (22/5) have been used to approximate the 4.44 batches that were specified.
+For the SFR 1 facility type, the number of batches is specified to be $5.44$
+(for discharge burnup of 37.62 GWd/t), $5.40$ has been used (27/5). For the SFR
+2, $4.4$ batches (22/5) have been used to approximate the 4.44 batches that were
+specified.  In order to maintain the material flow in and out of the SFR reactor
+a small correction have been made on the reactor core size by a factor
+$5.4/5.44$ for the SFR A and $4.4/4.44$ for the SFR B. This does not affect the
+composition of the discharge fuel as the reactor model used for this analysis
+does not perform a burnup evolution calculation.
 
 An exact match to the specified number of batches is possible, but
 inefficient.  For example, SFR 1 could have been implemented with
 $544~$assemblies per core and $100~$assemblies per batch, but this would
 result in 20 times as many material objects being traded by the dynamic
 resource exchange (DRE), and thus longer runtimes and larger output databases.
-
-%%% PPHW NOTE: Would 136 assemblies per core & 25 assemblies per batch have
-%%% been bad, too?
-
-%%% PPHW NOTE: Why didn't we change the core inventory to result in a matching
-%%% flow rate of fuel?
-
-
-%With Cyclus' 1-month time step, the burnup resolution can be
-%easly calculated as:
-%\begin{equation} \Delta BU = \frac{P_{th} \times \Delta t}{M_{r}},
-%\end{equation}
-%\noindent where $P_{th}$ is the thermal power of the reactor, $M_{r}$ its mass in
-%heavy metal, $\Delta BU$ the burnup achievable precision and $\Delta t$ the time
-%step size. In this simulation the $\Delta BU$ are for the SFR 1 \& 2 respectively:
-%$0.73$ and $0.79~$GWd/t.
-%
-%This does not affect the composition of the discharge fuel as the reactor model
-%used for this analysis does not perform a burnup evolution calculation. Only the
-%mass of discharged fuel is affected with a respective relative error : $0.01 \%$,
-%$0.0 \%$ and $0.006 \%$.
-
 
 All LWR reactors use enriched uranium fuel. The SFR used MOX fuel with
 different plutonium enrichments. The input/output fuel recipes are summarized
@@ -230,17 +213,17 @@ in Table \ref{tab:reactor_fuel} taken from \cite{B.Feng_calculation}.
     \centering
     \begin{tabular}{lllll}
     \hline
-    \multicolumn{2}{c}{Reactor}            &  LWR [$\%w$]  &  SFR fuel 1  [$\%w$] &  SFR fuel 2  [$\%w$]  \\
+    \multicolumn{2}{c}{Reactor}            &  LWR [$\%w$] &  SFR fuel 1 [$\%w$] &  SFR fuel 2 [$\%w$] \\
     \hline
-    \multirow{3}{*} {In recipe}  &  235U   &  95.8         &  0                   &  0                    \\
-                                 &  238U   &  4.2          &  92.36               &  91.466               \\
-                                 &  Pu     &  0            &  7.64                &  8.534                \\
+    \multirow{3}{*} {In recipe}  &  235U   &  95.8        &  0                  &  0                  \\
+                                 &  238U   &  4.2         &  92.36              &  91.466             \\
+                                 &  Pu     &  0           &  7.64               &  8.534              \\
     \hline
-    \multirow{5}{*} {Out recipe} &  235U   &  0.8          &  0                   &  0                    \\
-                                 &  238U/U &  92.68        &  85.99               &  86.025               \\
-                                 &  Pu     &  1.2          &  9.02                &  9.596                \\
-                                 &  MA     &  0.11         &  0.13                &  0.107                \\
-                                 &  FP     &  5.21         &  4.86                &  4.272                \\
+    \multirow{5}{*} {Out recipe} &  235U   &  0.8         &  0                  &  0                  \\
+                                 &  238U/U &  92.68       &  85.99              &  86.025             \\
+                                 &  Pu     &  1.2         &  9.02               &  9.596              \\
+                                 &  MA     &  0.11        &  0.13               &  0.107              \\
+                                 &  FP     &  5.21        &  4.86               &  4.272              \\
     \hline
     \end{tabular}
 
@@ -286,25 +269,20 @@ The implementation properties of the cooling storage can be found in table \ref{
 
 \subsubsection{Case 1: Greedy Separations}
 
-The LWR fuel separation is handled by three identical separation facilities,
-two deployed in 2030 and one in 2040. In Case 1, the SFR separation facilities have an
-effectively infinite separation capacity, but the separation rate has been throttled
-indirectly using the gradual fuel fabrication capacity
-growth. Full fabrication facilities stop requesting separated plutonium
-leading to eventual halting of spent fuel separations.  
-%% PPHW: but they never halt because the output buffers are infinitely large
+The LWR fuel separation is handled by three identical separation facilities, two
+deployed in 2030 and one in 2040. In Case 1, the SFR separation facilities have
+an effectively infinite separation capacity, but the separation rate has been
+throttled indirectly using the gradual fuel fabrication capacity growth. 
 As the separation output buffers are not limited, those separation facilities will
 reprocess all the used available fuel with a constant reprocessing rate.
 
-As the fuel fabrication facilities have a tuned deployement and capacities (for 10
-batchs of fuel), the separation facilities' output buffers are the basis for
-the ``Fuel Resource in Storage'' result.
-The reprocessed uranium is sent after the sepration to a dedicated storage.
+As the fuel fabrication facilities have a tuned deployment and capacities (for
+10 batches of fuel), the separation facilities' output buffers are the basis for
+the ``Fuel Resource in Storage'' result.  The reprocessed uranium is sent after
+the separation to a dedicated storage.
 
 Notable are subtle differences in what these two storage facilities data represent
 and their exact semantic meaning in the analysis spreadsheet.
-%% NOTE: if LWR separations output buffers are unlimited, it will never stop
-%% separating, right?
 
 \begin{table}[h!]
     \centering
@@ -333,14 +311,16 @@ capacity is handled over time.  Modeling on-demand separations is approximated b
 deploying many small separations facilities according to plutonium requirements
 for SFR fuel fabrication.  These Pu requirements were determined from the Case 1
 results. While the calculated deployment schedule does not follow plutonium usage
-exactly, it is a reasonable aproximation.
+exactly, it is a reasonable approximation.
 
 For this calculation, all of the reprocessing facilities are based on only
-facility prototype.  When facilities based on this prototype request used fuel
-from reactors, they prefer irradiated UOX fuel and used fuel from the lower
-breeding ratio SFRs over used fuel from the higher breeding ration SFRs.  The
-implemented characteristics of each of the reprocessing facilities used in
-Case 2 are summarized in Table \ref{tab:fuelfab_2}.
+one facility prototype.  When facilities based on this prototype request used fuel
+from reactors, they prefer irradiated SFR fuel over UOX fuel. While there is no
+preference difference on the used UOX fuel origin (LWR A or B), those
+reprocessing facilities prefer used fuel from the lower breeding ratio SFRs
+over used fuel from the higher breeding ration SFRs. The implemented
+characteristics of each of the reprocessing facilities used in Case 2 are
+summarized in Table \ref{tab:fuelfab_2}.
 
 \begin{table}[h!]
     \centering
@@ -356,17 +336,17 @@ Case 2 are summarized in Table \ref{tab:fuelfab_2}.
     U separation efficiency    &  0.99       \\
     Waste buffer [tHM]         &  Unlimited  \\ 
                                              \\
-    \multicolumn{2}{c}{Feed commmodities}    \\
-%    \hline
+    \multicolumn{2}{c}{Feed commodities}    \\
     \hline
-    Commodity Sources         &  Preferences \\
+    Commodity Sources         &  Preferences\\
+    \hline
     LWR UOX A                 &  3           \\
     LWR UOX B                 &  3           \\
     SFR MOX A                 &  2           \\
-    SFR MOX B                 &  1           \\ %% This is different from the text (that has now been removed)
+    SFR MOX B                 &  1           \\ 
     \hline
     \end{tabular}
-    \caption{Separation facilities implementation.}
+    \caption{Separation facilities implementation. (Higher preferences are indicated by lower numerican values.)}
     \label{tab:fuelfab_2}
 \end{table}
 
@@ -380,9 +360,7 @@ unused material is send to the waste. The reprocessing rate is limited by:
   \item the feed buffer inventory
   \item the total throughput which limits the amount of material reprocessed from
     the feed buffer,
-  \item each stream throughput which limits the amount of each stream produced,
-%% PPHW: do we have per-stream throughput limits??
-  \item the output stream bufer size.
+  \item the output stream buffer size.
 
 \end{itemize}
 If one of these parameters reaches its limit the separation is stopped until the
@@ -391,11 +369,13 @@ throughput limits), or by a change in the buffer's inventory.
 
 \subsection{Fuel Fabrication}
 
+\subsubsection{UOX Fabrication}
+
 The UOX fuel fabrication is handled by one enrichment facility, the properties
 of this enrichment facilities are summarized in Table \ref{tab:enrich_1}. As
 explained above, the specification of the enrichment facility has been taken from the
 R. Carlsen calculation and might differ from the exact EG01-23 transition
-specifications. 
+specifications in ways that do not affect the main results.
 
 \begin{table}[h!]
     \centering
@@ -413,19 +393,18 @@ specifications.
     \label{tab:enrich_1}
 \end{table}
 
+\subsubsection{MOX Fabrication}
+
 Fuel fabrication for other fuels is implemented with the Cycamore fuel
-fabrication archetype that mixes two
-input streams according to the plutonium-equivalent theory\cite{Pueq}. A
-reactivity weight is calculated for the required output composition and both of
-the input streams. An interpolation is used to compute a mixing ratio of the input
-streams that matches the target weight.
+fabrication archetype that mixes two input streams according to the
+plutonium-equivalent theory\cite{Pueq}. A reactivity weight is calculated for
+the required output composition and both of the input streams. An interpolation
+is used to compute a mixing ratio of the input streams that matches the target
+weight.
 
-%% QUESTION: Does the ``are supposed to be'' mean that the problem specifies
-%% this?
-
-The SFR fuel fabrication facilities are supposed to be deployed as a rate of 1
-for every 10 SFRs.  As the fuel composition and annual material flow change slightly
-between SFR 1 and 2, the specifications between fabrication facilities are also slightly
+The SFR fuel fabrication facilities are deployed as a rate of 1 for every 10
+SFRs.  As the fuel composition and annual material flow change slightly between
+SFR 1 and 2, the specifications between fabrication facilities are also slightly
 different. The details of all fuel fabrication facility characteristics are
 summarized in Table \ref{tab:fuelfab_1}.
 
@@ -454,7 +433,7 @@ close to DYMOND simulation results. There are some observable fluctuations on th
 annual fuel loading and the SWU requirements which are consistent with the
 synchronized refueling cycles of the initially deployed reactors.  There are
 various simple ways to stagger refueling cycles for smoother data that were not
-pursued in this analysis.  Similar fluctuations apper as ``echoes'' in other
+pursued in this analysis.  Similar fluctuations appear as ``echos'' in other
 material flows later in time.
 
 \begin{figure}[h!]
@@ -465,153 +444,109 @@ material flows later in time.
     \caption{Resources production and fuel loading.\label{fig:ResourceUsed} }
 \end{figure}
 
-The generated power and the deployment schedule shown in Figures
-\ref{fig:deploy_sub} and \ref{fig:power_sub} match perfectly with results from the
-DYMOND simulations. The time scale in the output spreadsheet filled starts in 2015
-and ends in 2215, while the DYMOND calculation used as reference for the
-deployment schedule ends in 2210. The sudden drop in 2210 is due to a lack of
-deployment data after 2210.
-
-%% NOTE: are we supposed to plot beyond 2210? or 2200?
-%% It looks like Bo only plotted to 2210 to avoid this drop at the end... is that hard to change?
-
-%% PPHW: Aren't these identical figures to Fig 1.  Do we need to repeat them?
-
-\begin{figure}[h!]
-    \centering
-    \subfigure[Deployment Schedule\label{fig:deploy_sub}]  {\epsfig{figure=img/CapacityStarted,width=0.48\textwidth}}
-    \subfigure[Electricity Produced\label{fig:power_sub}]  {\epsfig{figure=img/ElectricityGenerated,width=0.48\textwidth}}
-    \caption{Deployment schedule and corresponding
-    electricity produced by the different reactors
-    where R1(blue): existing LWR, R2(green): new
-    builded LWR, R3(red): high SFR, R4(purple): low
-    SFR.\label{fig:deployment_bis} }
-\end{figure}
-
-The other curves also appear as expected. The annual reprocessing rate (Figure
-\ref{fig:reprocessing_1}) corresponds directly to the deployments. Spent UOX
-reprocessing starts in 2010 with 2000 MTHM/yr with another 1000 MTHM/yr added in
-2030. This reprocessing rate (UOX1 + UOX2) continues until the end of the
-production of used UOX (i.e. when all LWRs are decommissioned).
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.62\textwidth]  {img/AnnualReprocessingRate_1}
-    \caption{Annual Reprocessing Rate.}
-    \label{fig:reprocessing_1}
-\end{figure}
-
-
-MOX spent fuel production by the 2 different SFR types roughly follows the
-loading of fresh fuel.  Because the reprocessing facilities are greedy,
-reprocessing all used fuel available, there is no SFR spent fuel waiting for reprocessing
-because it is directly reprocessed after cooling.
-
-\begin{figure}[h!]
-    \centering
-    \subfigure[Used Fuel in Cooling Storage\label{fig:UFCS_1}]  {\epsfig{figure=img/usedFuelInCooling,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for Reprocessing\label{fig:FWR_1}]  {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
-    \caption{Used fuel in cooling and reprocessing.\label{fig:cool_reprocc} }
-\end{figure}
+The generated power and the deployment schedule correspond as expected to the
+required one (shown on Figures \ref{fig:deploy} and \ref{fig:nrg}) match
+perfectly with results from the DYMOND simulations.
 
 The amounts of the different fuels in ``Used Fuel in Cooling Storage'' (Figure
 \ref{fig:UFCS_1}) follow the discharge of the different reactors as expected.
-As almost all SFR spent fuel is directly reprocessed after cooling (see Figure
-\ref{fig:FWR_1}), spent fuel in storage stops increasing when all the UOX fuel has
-been reprocessed. 
-%% PPHW: IS this the reason?  or is it because we start swapping high breeding ratio
-%%       reactors for low breeding ration reactors?
-The accumulation of LWR used fuel in ``UNF Waiting for
-Reprocessing'' is induced by the limited constant reprocessing capacity for that
-fuel. 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.62\textwidth]{img/FuelInStorage_1}
-    \caption{Fuel Resource in Storage.}
-    \label{fig:storagecompo_1}
+    \includegraphics[width=0.62\textwidth]{img/usedFuelInCooling}
+    \caption{Used Fuel in Cooling Storage}
+    \label{fig:UFCS_1}
 \end{figure}
 
-It appears that the capacity of the SFR fuel reprocessing is not enough to
-reprocess the full inventory of MOX fuel until 2155. This explains the
-appearance of MOX fuel in storage waiting for reprocessing. 
-%% PPHW: I don't see this?  I see spent UOX fuel from new LWRs accumulating, but not SFR MOX?
-With the
-replacement of higher breeding ratio SFRs with lower breeding ratio reactors
-the MOX spent fuel generation rate decreases sufficiently for reprocessing to
-"catch-up".
-%% PPHW: this doesn't make sense - the throughput of spent fuel from the low BR SFRs is higher 
-%%      than the other SFRs
-The reprocessing capacities of
-the LWR fuel is highier than the demand on plutonium to fabricate the MOX fuel,
-creating an accumulation of plutonium prior to 2100, 
-as shown in the Figure \ref{fig:storagecompo_1}. After 2100, with the
-decommisioning of the LWRs and the consequent expansion of SFRs, 
-less LWR used fuel is produced, allowing the reduction of
-the inventory of plutonium. The reprocessing capacities of the
-FBR used fuel are well adapted to the demand, but the plutonium storage experiences a
-small accumulation just before the SFR switch of breeding ratio.
+The other curves also appear as expected. The annual reprocessing rate (Figure
+\ref{fig:ARR_1}) corresponds directly to the deployments. Spent UOX
+reprocessing starts in 2010 with 2000 MTHM/yr with another 1000 MTHM/yr added in
+2030. This reprocessing rate (UOX1 + UOX2) continues until the end of the
+production of used UOX (i.e. when all LWRs are decommissioned).
+The accumulation of LWR used fuel in ``UNF Waiting for Reprocessing'' is induced
+by the limited constant reprocessing capacity for that fuel. The amount of UOX
+spent fuel in storage stops increasing when the production rate of used UOX fuel
+becomes smaller than its reprocessing rate, i.e. when the production rates of used
+fuel drops below $3\times83.3333$ tons/month.
  
-%As shown in the Figures \ref{fig:FC_Z} and \ref{fig:WR_Z}, the quantity of
-%plutonium in storage follows the variation in the amount of MOX1 fuel in
-%storage.
+MOX spent fuel production by the 2 different SFR types roughly follows the
+loading of fresh fuel (see Figure \ref{fig:ARR_1}). Because the reprocessing
+facilities are greedy, reprocessing all used fuel available, there is no SFR
+spent fuel waiting for reprocessing because it is directly reprocessed after
+cooling. The reprocessing capacity of SFR fuel are large enough to prevent any
+SFR fuel accumulation in ``UNF Waiting for Reprocessing'' (see Figure
+\ref{fig:FWR_1}).
 
-%\begin{figure}[h!]
-%    \centering
-%    \subfigure[Fuel Resource in Storage (zoomed)\label{fig:FC_Z}]       {\epsfig{figure=img/FuelInStorage_1_zoom,width=0.48\textwidth}}
-%    \subfigure[Fuel waiting for reprocessing (zoomed)\label{fig:WR_Z}]  {\epsfig{figure=img/UNFWaitingReprocessing_1_zoom,width=0.48\textwidth}}
-%    \caption{Plutonium in storage.\label{fig:FC_WR_zoom} }
-%\end{figure}
+Before the start of the first SFR, the reprocessing capacities of the LWR fuel
+is higher than the demand on plutonium to fabricate the MOX fuel, creating an
+accumulation of plutonium prior to 2100, as shown in the Figure
+\ref{fig:FIS_1}. After 2100, with the decommissioning of the LWRs and the
+consequent expansion of SFRs, less LWRs used fuel is produced, allowing the
+reduction of the inventory of plutonium. The reprocessing capacities of the SFR
+used fuel are well adapted to the demand, but the plutonium storage experiences
+a small accumulation just before the SFRs switch to lower breeding ratio.
+ 
 
 \subsection{Case 2: On-demand Separations}
 
-The only differences in the results between the two cases can be seen in the
-behavior of the reprocessed fuel --- namely in the ``UNF fuel waiting for
-reprocessing'' and in the ``Fuel Resource in Storage''.
+The limitation added on the reprocessing capacities (Figure \ref{fig:ARR_2})
+results in a reduction of the inventory of separated plutonium. Indeed, as seen in Figure
+\ref{fig:ARR_2}, the reprocessing follows the
+plutonium need of the SFR fuel fabrication more closely than in case 1: the accumulation of plutonium is
+limited to $\sim500~t$ (Figure \ref{fig:FIS_2}) versus $\sim1500~t$ in the first
+case. Nevertheless, one can still observe a large plutonium accumulation spike
+between 2100 and 2145 that could be avoided with a better reprocessing capacity
+deployment, although such deployments result in reprocessing facilities that
+operate at full capacity for only short periods of time.
 
 \begin{figure}[h!]
     \centering
-    \subfigure[Annual Reprocessing Rate\label{fig:ARR_2}]   {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
-    \subfigure[Fuel waiting for reprocessing]               {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
-    \subfigure[Fuel Resource in Storage\label{fig:SFC_2}]  {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
-    \caption{Resources production and fuel loading.\label{fig:ARR_FWR_SFC_2} }
+    \subfigure[Case 1.\label{fig:FWR_1}] {\epsfig{figure=img/UNFWaitingReprocessing_1,width=0.48\textwidth}}
+    \subfigure[Case 2.\label{fig:FWR_2}] {\epsfig{figure=img/UNFWaitingReprocessing_2,width=0.48\textwidth}}
+    \caption{Fuel waiting for Reprocessing.\label{fig:ARR_FWR_SFC} }
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \subfigure[Case 1.\label{fig:ARR_1}]   {\epsfig{figure=img/AnnualReprocessingRate_1,width=0.48\textwidth}}
+    \subfigure[Case 2.\label{fig:ARR_2}]   {\epsfig{figure=img/AnnualReprocessingRate_2,width=0.48\textwidth}}
+    \caption{Annual Reprocessing Rate.\label{fig:ARR_FWR_SFC_2} }
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \subfigure[Case 1.\label{fig:FIS_1}]  {\epsfig{figure=img/FuelInStorage_1,width=0.48\textwidth}}
+    \subfigure[Case 2.\label{fig:FIS_2}]  {\epsfig{figure=img/FuelInStorage_2,width=0.48\textwidth}}
+    \caption{Fuel in Storage.\label{fig:ARR_FWR_SFC_2} }
 \end{figure}
 
-Indeed, as seen in Figure \ref{fig:ARR_2}, the reprocessing follows more closely
-than in case 1 the plutonium need of the SFR fuel fabrication. Indeed the
-accumulation of plutonium is limited to $\sim500~t$ (Figure \ref{fig:SFC_2}) versus $\sim1500~t$ in the
-first case. Nevertheless, one can still observe a large plutonium accumulation
-spike 2100 and 2145 that could be avoided with a better reprocessing
-capacity deployement.
-
-%% PPHW: do you think it would be possible to place 8 figs on the same page, in 2 columns:
-%%   current figs 4-6 in the first column and corresponding figs for Case 2 in the 2nd colum
-%%   It would be much easier to compare the results.
-
 Because of both the reprocessing priority and "on-demand" separations
-deployment, more LWR spent fuel accumulates waiting for reprocessing with a quick drop
-starting around year 2090 as stored up plutonium is used in the first wave of
-SFR deployments replacing aging LWRs. Some of SFR fuel also accumulates
-waiting for reprocessing, but it eventually decreases, showing a well designed SFR
-deployment schedule that reaches an comfortable equilibrium generating
-plutonium at the same rate it is being recycled.
+deployment, more LWR spent fuel accumulates waiting for reprocessing with a
+quick drop starting around year 2090 as stored up plutonium is used in the first
+wave of SFR deployments replacing aging LWRs (see Figure \ref{fig:FWR_2}). Some
+of SFR fuel also accumulates waiting for reprocessing, but it eventually
+decreases, showing a well designed SFR deployment schedule that reaches an
+comfortable equilibrium generating plutonium at the same rate it is being
+recycled.
 
 \section{Summary}
 
 This study has shown the capability of Cyclus to properly simulate the EG01 to
-EG23 fuel cycle transition.  The main observable differences are in the
-reprocessing and the storage of the used fuel, where the meaning of desired
-output data (e.g. "Fuel Resource in Storage", "UNF waiting for reprocessing",
-etc.) were ambiguous.  Much of the discrepancy between Cyclus' results and those of 
-other simulators can likely be attributed to this factor.
+EG23 fuel cycle transition.   
 
-Although Cyclus is not currently able to simulate on-demand behavior directly, it is
-possible to deploy the different facilities with limited capacities to
-"follow" material demand to mimicking an on-demand type of behavior, as shown
-in Case 2.  There are some small differences in the pattern of fuel
+Although Cyclus is not currently able to simulate on-demand behavior directly,
+it is possible to deploy the different facilities with limited capacities to
+"follow" material demand to mimicking an on-demand type of behavior, as shown in
+Case 2. There are some small differences in the pattern of fuel
 loading (and almost all the reactor fuel metrics), deriving from the way
 batches are modeled discretely in Cyclus while in DYMOND all 
 material flows are managed in a more continuous way.
+
+The main difficulty encounter during this study was to figures out the meaning
+of the output variable such as ``Fuel Resource in Storage'', ``UNF waiting for
+reprocessing'', as well as the conversion of the input specification into proper
+Cyclus input parameter. Moreover approximations have been to reduce the
+computing effort, those approximation could have been avoided if a precise
+simulation is required.
+
 
 %----------------------------------------------------------------------------------------
 %        BIBLIOGRAPHY
