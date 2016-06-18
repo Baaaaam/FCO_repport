@@ -166,21 +166,18 @@ compositions are close to the fixed recipe calculation equilibrium).
 
 In Figure \ref{fig:pufrac_ND}, one can observe the evolution of the plutonium
 enrichment loaded in the PWR fuel depending on the model considered for the
-fabrication.
-The Neural Network model using a $k_{\infty}$ of 1.01 clearly underestimates the amount of
-plutonium required compared to the other models: the required reactivity is
-lower. We can observe the effect of batching (3 or 4) on the
-neural network models using a $k_{\infty}$ of 1.034, which predict an initial enrichment
-close to the one used in the more standard models: $7.5\%$ versus $7.8\%$. Those
-models predict an enrichment slightly lower than the ones using the fixed mixing
-fraction or Pu-equivalence.
-The Pu-equivalent model tries to mix both streams to reach the composition of the fuel
-used in the fixed mixing-fraction method. So it is expected to match or to be very
-close.
-For all fabrication models used, the behavior without decay is very close to
-expected: we observe a small variation in the amount of plutonium: the
-composition of the plutonium is constant, which allows the equilibrium to be
-maintained. 
+fabrication. The Neural Network model using a $k_{\infty}$ of 1.01 clearly
+underestimates the amount of plutonium required compared to the other models:
+the required reactivity is lower. We can observe the effect of batching (3 or 4)
+on the neural network models using a $k_{\infty}$ of 1.034, which predict an
+initial enrichment close to the one used in the more standard models: $7.5\%$
+versus $7.8\%$. Those models predict an enrichment slightly lower than the ones
+using the fixed mixing fraction or Pu-equivalence. The Pu-equivalent model
+tries to mix both streams to reach the composition of the fuel used in the fixed
+mixing-fraction method. So it is expected to match or to be very close. For all
+fabrication models used, the behavior without decay is very close to expected:
+we observe a small variation in the amount of plutonium: the composition of the
+plutonium is constant, which allows the equilibrium to be maintained. 
 
 
 \subsection{Decay}
@@ -202,7 +199,7 @@ increase the amount of plutonium required to build the fuel.
 
 In order to start the calculation, the fuel fabrication require a certain amount
 of material. If those initial inventory are to big, it can influence the
-calcultion: the inventory in the different storage are stakking and evolving
+calculation: the inventory in the different storage are stacking and evolving
 because of the decay process. In order to limit those effect when the decay
 process is taken into account, all calculation have been tuned to reduce at the
 minimum the amount of initial storage (which depends on the model used).
@@ -294,7 +291,7 @@ initial reactivity as the one used in the fixed mixing ratio calculation, so it
 used the same mixing ratio\dots  
 
 Nevertheless we can observe a variation of $20\%$ in the contribution of E3''
-and J1'' streams  when taking the decay process into account. This variation is
+and J1'' streams when taking the decay process into account. This variation is
 a direct consequence of the decay of $^{241}$Pu producing $^{241}$Am, which
 decreases the reactivity potential of J1'' ( loss of the $^{241}$Pu reactivity
 and neutronic poisoning of the $^{241}$Am). The E3'' reactivity barely changes:
@@ -322,15 +319,15 @@ fuel composition will likewise strongly impact the plutonium composition at the
 end of irradiation. 
 
 Moreover, the last part of the study shows the impact of the stacked plutonium
-on its composition and on fuel fabrication. This kind of material stacking could
-the consequences for disruption if the material flow in a real cycle. Having
-very strong constraints might cause such a disruption effect to be overlooked.
-In order to mimic a potential material stacking, the same steady state
-calculations have been perform three times, increasing the amount of initial
-inventory required to start the calculation by a factor 2, 5 or 10. In all
-cases, $^{241}$Pu stacking induces $^{241}$Am production which strongly impacts
-the mixing ratio between E3'' and J1'' ( $5\%$ to $10\%$). This may have a
-strong effect on the used fuel composition, specially with thermal reactors,if
+on its composition and on fuel fabrication. The phenomena of material stacking
+could occur in a real cycle as a consequences for disruption in the material.
+Therefore Having very strong constraints might cause such a disruption effect to
+be overlooked.  In order to mimic a potential material stacking, the same steady
+state calculations have been perform three times, increasing the amount of
+initial inventory required to start the calculation by a factor 2, 5 or 10. In
+all cases, $^{241}$Pu stacking induces $^{241}$Am production which strongly
+impacts the mixing ratio between E3'' and J1'' ( $5\%$ to $10\%$). This may have
+a strong effect on the used fuel composition, specially with thermal reactors,if
 the different cross sections are so sensitive to the composition of the fuel.
 
 
