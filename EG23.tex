@@ -268,12 +268,12 @@ The implementation properties of the cooling storage can be found in table
     \label{tab:cooling_1}
 \end{table}
 
-The specified cooling time is supposed to be 60 month and a year each for
-reprocessing and fabrication. 84 month of cooling time have been implemented
-because both separation and fabrication requires any buffer time. However, a
+The specified cooling time is supposed to be 60 months and a year each for
+reprocessing and fabrication.i The cooling time has been set to 84 months
+because neither separation nor fabrication model any processing time. However, a
 time step is required to send the flows from the cooling to the separation and
 from the separation to the fabrication and then from the fabrication to the
-reactor. In those Cyclus simulations, the  out of reactor minimum time is 87 months.
+reactor. In those Cyclus simulations, the minimun time out of reactor is 87 months.
 
 \subsection{Separation}
 
@@ -286,7 +286,7 @@ throttled indirectly using the gradual fuel fabrication capacity growth.  As the
 separation output buffers are not limited, those separation facilities will
 reprocess all the used available fuel with a constant reprocessing rate. For the
 FBR separation the constant reprocessing capacity is so high ($5000\times12
-tHM/year$) that it will not limits the reprocessing. The used FBR-MOX fuel will
+tHM/year$) that it will not limit the reprocessing. The used FBR-MOX fuel will
 be reprocessed as it discharged from cooling.
 
 As the fuel fabrication facilities have a tuned deployment and capacities (for
