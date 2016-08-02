@@ -261,7 +261,7 @@ The implementation properties of the cooling storage can be found in table
     \hline
     \multicolumn{2}{l}{Cooling Implementation}  \\
     \hline
-    Residence Time [month]   &  84  \\
+    Residence Time [month]   &  81  \\
     \hline
     \end{tabular}
     \caption{Cooling facilities core implementation.}
@@ -269,11 +269,11 @@ The implementation properties of the cooling storage can be found in table
 \end{table}
 
 The specified cooling time is supposed to be 60 months and a year each for
-reprocessing and fabrication.i The cooling time has been set to 84 months
+reprocessing and fabrication. The cooling time has been set to 81 months
 because neither separation nor fabrication model any processing time. However, a
 time step is required to send the flows from the cooling to the separation and
 from the separation to the fabrication and then from the fabrication to the
-reactor. In those Cyclus simulations, the minimun time out of reactor is 87 months.
+reactor. In those Cyclus simulations, the minimun time out of reactor is 84 months.
 
 \subsection{Separation}
 
@@ -416,7 +416,7 @@ is used to compute a mixing ratio of the input streams that matches the target
 weight.
 
 The SFR fuel fabrication facilities are deployed as a rate of 1 for every 10
-SFRs.  As the fuel composition and annual material flow change slightly between
+SFRs. As the fuel composition and annual material flow change slightly between
 SFR 1 and 2, the specifications between fabrication facilities are also slightly
 different. The details of all fuel fabrication facility characteristics are
 summarized in Table \ref{tab:fuelfab_1}.
@@ -484,33 +484,35 @@ fuel drops below $3000$ MTHM/yr.
  
 MOX spent fuel production by the 2 different SFR types roughly follows the
 loading of fresh fuel (see Figure \ref{fig:ARR_1}). Because the reprocessing
-facilities are greedy, reprocessing all used fuel available, there is no SFR
-spent fuel waiting for reprocessing because it is directly reprocessed after
-cooling. The reprocessing capacity of SFR fuel are large enough to prevent any
-SFR fuel accumulation in ``UNF Waiting for Reprocessing'' (see Figure
-\ref{fig:FWR_1}).
+facilities are greedy, reprocessing all used fuel available, there is almost no
+SFR spent fuel waiting for reprocessing: most of the SFR spent fuel is directly
+reprocessed after cooling. The reprocessing capacity of SFR fuel are large
+enough to limit the SFR fuel accumulation in ``UNF Waiting for Reprocessing''
+(see Figure \ref{fig:FWR_1}).
 
 Before the start of the first SFR, the reprocessing capacities of the LWR fuel
 is higher than the demand on plutonium to fabricate the MOX fuel, creating an
-accumulation of plutonium prior to 2100, as shown in the Figure
-\ref{fig:FIS_1}. After 2100, with the decommissioning of the LWRs and the
-consequent expansion of SFRs, less LWRs used fuel is produced, allowing the
-reduction of the inventory of plutonium. The reprocessing capacities of the SFR
-used fuel are well adapted to the demand, but the plutonium storage experiences
-a small accumulation just before the SFRs switch to lower breeding ratio.
+accumulation of plutonium prior to 2100, as shown in the Figure \ref{fig:FIS_1}.
+After 2100, with the decommissioning of the LWRs and the consequent expansion of
+SFRs, less LWRs used fuel is produced, allowing the reduction of the inventory
+of plutonium. The reprocessing capacities of the SFR used fuel are adapted to
+the demand, stabilizing the inventory of plutonium around $400~$t. The plutonium
+storage slightly rises just before the SFRs switch to lower breeding ratio.
  
 
 \subsection{Case 2: On-demand Separations}
 
 The limitation added on the reprocessing capacities (Figure \ref{fig:ARR_2})
-results in a reduction of the inventory of separated plutonium. Indeed, as seen in Figure
-\ref{fig:ARR_2}, the reprocessing follows the
-plutonium need of the SFR fuel fabrication more closely than in case 1: the accumulation of plutonium is
-limited to $\sim500~t$ (Figure \ref{fig:FIS_2}) versus $\sim1500~t$ in the first
-case. Nevertheless, one can still observe a large plutonium accumulation spike
-between 2100 and 2145 that could be avoided with a better reprocessing capacity
-deployment, although such deployments result in reprocessing facilities that
-operate at full capacity for only short periods of time.
+results in a reduction of the inventory of separated plutonium. Indeed, as seen
+in Figure \ref{fig:ARR_2}, the reprocessing follows the plutonium need of the
+SFR fuel fabrication more closely than in case 1: the accumulation of plutonium
+is limited to $\sim750~t$ (Figure \ref{fig:FIS_2}) versus $\sim1500~t$ in the
+first case. The deployment of the reprocessing capacity before 2100 seems to be
+correct (low amount plutonium plutonium). Nevertheless one can still observe
+the two strong phases of plutonium accumulation, 2110-2135 and 2180-2190 that
+could have been avoided with a better reprocessing capacity deployment, although
+such deployments result in reprocessing facilities that operate at full capacity
+for only short periods of time.
 
 \begin{figure}[h!]
     \centering
@@ -536,9 +538,7 @@ deployment, more LWR spent fuel accumulates waiting for reprocessing with a
 quick drop starting around year 2090 as stored up plutonium is used in the first
 wave of SFR deployments replacing aging LWRs (see Figure \ref{fig:FWR_2}). Some
 of SFR fuel also accumulates waiting for reprocessing, but it eventually
-decreases, showing a well designed SFR deployment schedule that reaches an
-comfortable equilibrium generating plutonium at the same rate it is being
-recycled.
+decreases.
 
 \section{Summary}
 
