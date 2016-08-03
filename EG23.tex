@@ -78,7 +78,7 @@ contribute to ongoing fuel cycle analysis work.
 \section{Scenario Description}
 
 The scenario used in this study models the transition from a once-through light
-water reactor (LWR) fuel cycle (i.e. EG01) to a full recycle case (i.e. EG23)
+water reactor (LWR) fuel cycle (i.e.\ EG01) to a full recycle case (i.e.\ EG23)
 with only sodium fast reactors (SFR).  The LWR and SFR deployments were selected
 to accomplish three primary goals:
 
@@ -135,17 +135,17 @@ Scenario details for cases 1 and 2 are identical except for the changes noted in
 Section \ref{sec:case2}.
 
 The following subsections describe the configuration of the primary facility
-types (i.e. Cyclus prototypes) used in this analysis.
+types (i.e.\ Cyclus prototypes) used in this analysis.
 
 \subsection{Reactors}
 
-The present simulations start in 2015, with 90 GWe of PWR reactor using UOX
-fuel enriched at $4.2\%$. Prior to the PWR to FBR transition some PWR are
-deployed to sustain the plutonium required for the deployment of the FBR, with a
-high breeding ratio. During the PWR to FBR transition, both PWR and high-BR FBR
-are deployed. The last PWR is deployed in 2080 and decommissioned in 2140. In
-2180, 30 years after the LWR to SFR transition, lower breeding ratio SFR
-reactors are deployed in order to prevent unbounded buildup of plutonium. 
+The present simulations start in 2015, with 90 GWe of LWRs using UOX
+fuel enriched at $4.2\%$. Prior to the LWR to SFR transition some LWRs are
+deployed to sustain the plutonium required for the deployment of the SFR, with a
+high breeding ratio. During the LWR to SFR transition, both LWRs and high breading ratio (high-BR) SFRs
+are deployed. The last LWR is deployed in 2080 and decommissioned in 2140. In
+2180, 30 years after the LWR to SFR transition, lower breeding ratio (low-BR) SFRs
+are deployed in order to prevent unbounded buildup of plutonium. 
 
 The properties of the different reactors cores used for the simulation have been
 summarized in Table \ref{tab:reactor}. Two different SFR configurations exist to
@@ -155,10 +155,10 @@ parameters have been manipulated to match as closely as possible important
 invariants such as fuel residence time, burnup, and discharge rates
 \cite{B.Feng_calculation}. The notion of batches is defined in Cyclus by
 combining the number of assemblies per core and the number of assemblies per
-batch.  In the simplest form, an integer number of batches, n, can be defined by
-specifying n assemblies per core and 1 assembly per batch.  For a non-integer
-number of batches, f, can be implemented by specifying f$\times 10^m$ number of
-assemblies per core and $10^m$ assemblies per batch, where f$\times 10^m$ is an
+batch.  In the simplest form, an integer number of batches, $n$, can be defined by
+specifying $n$ assemblies per core and 1 assembly per batch.  For a non-integer
+number of batches, $f$, can be implemented by specifying $f\times 10^m$ number of
+assemblies per core and $10^m$ assemblies per batch, where $f\times 10^m$ is an
 integer.  For this problem, it is also possible to select the cycle length,
 number of batches and batch size to approximate the same fuel throughput.  This
 choice implies small discrepancies between specifications and Cyclus input that
@@ -285,8 +285,8 @@ an effectively infinite separation capacity, but the separation rate has been
 throttled indirectly using the gradual fuel fabrication capacity growth.  As the
 separation output buffers are not limited, those separation facilities will
 reprocess all the used available fuel with a constant reprocessing rate. For the
-FBR separation the constant reprocessing capacity is so high ($5000\times12
-tHM/year$) that it will not limit the reprocessing. The used FBR-MOX fuel will
+SFR separation the constant reprocessing capacity is so high 
+($12\ \text{months} \times5000 tHM/\text{month} = 60000 tHM/\text{year}$) that it will not limit the reprocessing. The used SFR-MOX fuel will
 be reprocessed as it discharged from cooling.
 
 As the fuel fabrication facilities have a tuned deployment and capacities (for
@@ -359,14 +359,14 @@ summarized in Table \ref{tab:fuelfab_2}.
     SFR MOX B                 &  1           \\ 
     \hline
     \end{tabular}
-    \caption{Separation facilities implementation. (Higher preferences are indicated by lower numerican values.)}
+    \caption{Separation facilities implementation. (Higher preferences are indicated by lower numerical values.)}
     \label{tab:fuelfab_2}
 \end{table}
 
 The Cycamore separation facility requests the feed commodities, accordingly to the
 set preferences, to fill its feed buffer. The material in the feed buffer is then
-separated following the implemented separation instruction and efficiency all the
-unused material is send to the waste. The reprocessing rate is limited by:
+separated following the implemented separation  efficiencies, and all the
+unused material is send to waste. The reprocessing rate is limited by:
 
 \begin{itemize}
 
@@ -475,11 +475,11 @@ The other curves also appear as expected. The annual reprocessing rate (Figure
 \ref{fig:ARR_1}) corresponds directly to the deployments. Spent UOX
 reprocessing starts in 2010 with 2000 MTHM/yr with another 1000 MTHM/yr added in
 2030. This reprocessing rate (UOX1 + UOX2) continues until the end of the
-production of used UOX (i.e. when all LWRs are decommissioned).
+production of used UOX (i.e.\ when all LWRs are decommissioned).
 The accumulation of LWR used fuel in ``UNF Waiting for Reprocessing'' is induced
 by the limited constant reprocessing capacity for that fuel. The amount of UOX
 spent fuel in storage stops increasing when the production rate of used UOX fuel
-becomes smaller than its reprocessing rate, i.e. when the production rates of used
+becomes smaller than its reprocessing rate, i.e.\ when the production rates of used
 fuel drops below $3000$ MTHM/yr.
  
 MOX spent fuel production by the 2 different SFR types roughly follows the
@@ -554,10 +554,10 @@ loading (and almost all the reactor fuel metrics), deriving from the way
 batches are modeled discretely in Cyclus while in DYMOND all 
 material flows are managed in a more continuous way.
 
-The main difficulty encounter during this study was to figures out the meaning
+The main difficulty encountered during this study was to interpret the meaning
 of the output variable such as ``Fuel Resource in Storage'', ``UNF waiting for
-reprocessing'', as well as the conversion of the input specification into proper
-Cyclus input parameter. Moreover approximations have been to reduce the
+reprocessing'', in the context of Cyclus, as well as the conversion of the input specification into proper
+Cyclus input parameter. Moreover approximations have been made to reduce the
 computing effort, those approximation could have been avoided if a precise
 simulation is required.
 
