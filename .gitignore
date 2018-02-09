@@ -1,3 +1,5 @@
+EG23.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -157,3 +159,7 @@ pythontex-files-*/
 
 # Latexian
 TSWLatexianTemp*
+*.mp
+*.tmp
+*.tui
+auto
